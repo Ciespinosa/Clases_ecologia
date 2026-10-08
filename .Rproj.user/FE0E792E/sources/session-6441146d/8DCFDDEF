@@ -3,7 +3,7 @@
     "path": "~/GitHub/Clases_ecologia/ejercicios/Ejercicio_1._Abundancia_y_densidad.qmd",
     "project_path": "ejercicios/Ejercicio_1._Abundancia_y_densidad.qmd",
     "type": "quarto_markdown",
-    "hash": "0",
+    "hash": "1993840099",
     "contents": "",
     "dirty": false,
     "created": 1791454476005.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "7,13",
+        "cursorPosition": "14,25",
         "scrollLine": "2"
     },
     "folds": "",
-    "lastKnownWriteTime": 1791454549,
+    "lastKnownWriteTime": 1791456848,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1791454549835,
+    "last_content_update": 1791456848280,
     "read_only": false,
     "read_only_alternatives": []
 }
