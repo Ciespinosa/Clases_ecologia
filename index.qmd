@@ -1,0 +1,90 @@
+---
+title: "Ecología de Poblaciones y Comunidades"
+subtitle: "Universidad Técnica Particular de Loja — Carrera de Biología"
+author: "Carlos Iván Espinosa"
+date: last-modified
+format:
+  html:
+    toc: false
+    theme: cosmo
+    css: styles.css
+---
+
+::: {.hero-banner}
+# Ecología de Poblaciones y Comunidades
+
+**7mo semestre — Carrera de Biología — UTPL**
+
+Un curso para comprender cómo las poblaciones crecen, se relacionan y dan forma a las comunidades biológicas. Trabajaremos con ejemplos del sur de Ecuador: la hoya de Loja, el Parque Nacional Podocarpus, los bosques secos de Catamayo y los páramos de Saraguro.
+:::
+
+## Sobre el curso
+
+En este curso estudiaremos la dinámica de las poblaciones y la estructura de las comunidades biológicas. Combinaremos teoría con análisis de datos en R, usando ejemplos reales de la región. Al finalizar, serás capaz de analizar poblaciones y comunidades con herramientas cuantitativas, y de comunicar resultados con rigor científico.
+
+## Contenidos del curso
+
+Los materiales están organizados en cuatro bloques temáticos. Cada bloque incluye lecturas, ejercicios interactivos y tareas.
+
+::: {.grid}
+
+::: {.g-col-6}
+### 🌱 Bloque 1 — Poblaciones
+Propiedades, demografía, eficacia biológica y tablas de vida.
+
+- [Lectura 1.1 — Propiedades de las poblaciones](lecturas/1.1_Propiedades_de_la_población.qmd)
+- [Ejercicio 1 — Abundancia y densidad](ejercicios/Ejercicio_1._Abundancia_y_densidad.qmd)
+
+:::
+
+::: {.g-col-6}
+### 📈 Bloque 2 — Crecimiento poblacional
+Modelos de crecimiento geométrico, exponencial, logístico y metapoblaciones.
+
+- [Lectura 2.1 — Crecimiento poblacional](lecturas/02-crecimiento.qmd)
+- [Ejercicio 2 — Modelos de crecimiento](ejercicios/02-crecimiento.qmd)
+- [Tarea 2 — Comparación de modelos](tareas/02-crecimiento.qmd)
+:::
+
+::: {.g-col-6}
+### 🦜 Bloque 3 — Relaciones entre especies
+Competencia, depredación, mutualismo, redes tróficas y coevolución.
+
+- [Lectura 3.1 — Relaciones entre especies](lecturas/03-relaciones.qmd)
+- [Ejercicio 3 — Redes tróficas](ejercicios/03-redes.qmd)
+- [Tarea 3 — Análisis de una red trófica](tareas/03-redes.qmd)
+:::
+
+::: {.g-col-6}
+### 🌳 Bloque 4 — Comunidades y diversidad
+Diversidad alfa, beta, gamma, índices, rango-abundancia y similitud.
+
+- [Lectura 4.1 — Diversidad de comunidades](lecturas/04-diversidad.qmd)
+- [Ejercicio 4 — Índices de diversidad](ejercicios/04-diversidad.qmd)
+- [Tarea 4 — Comparación de diversidad beta](tareas/04-diversidad.qmd)
+:::
+
+:::
+
+## Recursos generales
+
+- 📖 [Bibliografía del curso](recursos/bibliografia.qmd)
+- 🛠️ [Guía de R para el curso](recursos/guia-r.qmd)
+- 📅 [Calendario y fechas importantes](recursos/calendario.qmd)
+- 📝 [Rúbricas de evaluación](recursos/rubricas.qmd)
+
+## Cómo usar este sitio
+
+Este sitio reúne todos los materiales del curso. Cada lectura, ejercicio y tarea tiene su propia página y puede abrirse desde los enlaces de arriba. Los ejercicios interactivos se abren en pestañas nuevas.
+
+Si tienes problemas para acceder a algún material, escríbeme por Canvas.
+
+---
+
+::: {.callout-note}
+## Contacto
+**Docente:** Carlos Iván Espinosa
+
+**Correo:** ciespinosa@utpl.edu.ec
+
+:::

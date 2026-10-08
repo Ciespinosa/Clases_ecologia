@@ -1,0 +1,162 @@
+---
+title: "Ejercicio 1 — Abundancia y densidad"
+subtitle: "Comparación de poblaciones en un paisaje fragmentado"
+author: "Ecología de Poblaciones y Comunidades"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    toc-float:
+      smooth-scroll: true
+    number-sections: true
+    theme: united
+    fig-cap-location: bottom
+    embed-resources: true
+  pdf:
+    documentclass: article
+    geometry: margin=2.5cm
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+# Objetivo
+
+Aplicar los conceptos de abundancia absoluta, abundancia relativa, densidad bruta y densidad ecológica al análisis de dos poblaciones en un paisaje fragmentado, y reflexionar críticamente sobre las limitaciones de estimar estos parámetros en estudios reales.
+
+# Cómo funciona esta tarea
+
+Esta tarea tiene dos componentes:
+
+1. **El ejercicio interactivo** (Trabajo 1) contiene 8 preguntas (4 por caso de estudio). Están dentro del flujo del documento, junto a cada caso. **Responde esas 8 preguntas**, no otras.
+2. **Este documento** te da las instrucciones de entrega, los cálculos adicionales que debes hacer y la rúbrica con la que se te evaluará.
+
+# Contexto
+
+Un equipo de investigación de la UTPL quiere evaluar el estado de dos poblaciones de árboles nativos en la hoya de Loja:
+
+- ***Cedrela montana*** (cedro): especie maderable, con problemas de regeneración por tala selectiva. Se distribuye en fragmentos de bosque montano entre 1.800 y 2.400 m s.n.m.
+- ***Cinchona officinalis*** (cascarilla): especie emblemática de la región andina, con valor histórico y medicinal. Se distribuye en bosques montanos bajos entre 1.500 y 2.000 m s.n.m.
+
+El equipo dispone de un área de estudio de **500 × 500 m (25 ha)** en la que se han identificado todos los individuos de ambas especies mediante un censo previo. La pregunta de investigación es: ¿Cuál de las dos especies es más abundante en el área de estudio? Y la pregunta metodológica es: ¿La respuesta cambia según la estrategia de muestreo que uses?
+
+# Recursos
+
+- **App interactiva:** <a href="https://ciespinosa.github.io/Densidad-y-abundancia/" target="_blank">Abrir Ejercicio 1 — Densidad y Abundancia</a>
+- **Documento del ejercicio:** descárgalo desde Canvas. Ahí están las 8 preguntas que debes responder.
+- **Lectura 1.1:** *¿Qué es una población? Propiedades emergentes y su estudio en Loja*
+
+# Instrucciones
+
+## Parte A — Muestreo con dos estrategias
+
+Vas a realizar dos muestreos independientes en la app, usando la pestaña "Caso 1":
+
+**Estrategia 1 — Parcelas pequeñas:**
+
+- 15 parcelas de 50 m de lado.
+- Anota la abundancia de cada especie en cada parcela (pestaña "Tabla").
+
+**Estrategia 2 — Parcelas grandes:**
+
+- 10 parcelas de 100 m de lado.
+- Anota la abundancia de cada especie en cada parcela.
+
+**Importante:** usa la misma semilla (`seed`) para ambas estrategias, de modo que las parcelas seleccionadas sean comparables en su distribución espacial.
+
+**Producto A:** dos tablas con los datos crudos de cada muestreo.
+
+## Parte B — Cálculo de abundancia y densidad
+
+Para cada estrategia y cada especie, calcula:
+
+1. **Abundancia media por parcela.**
+2. **Densidad bruta:** abundancia media / área total del estudio (250.000 m²).
+3. **Densidad ecológica:** abundancia media / área ocupada por la especie (revísala en la pestaña "Resumen" de la app).
+4. **Abundancia total estimada** usando densidad bruta × área total.
+5. **Abundancia total estimada** usando densidad ecológica × área ocupada.
+6. **Abundancia relativa** de cada especie respecto al total de individuos muestreados (por estrategia).
+
+**Producto B:** una tabla resumen por estrategia y especie, con las columnas: especie, abundancia media, densidad bruta, densidad ecológica, abundancia total (bruta), abundancia total (ecológica), abundancia relativa.
+
+## Parte C — Respuestas al ejercicio interactivo
+
+**Responde las 8 preguntas que están dentro del documento del ejercicio interactivo** (4 por caso). No copies las preguntas en tu informe: intégralas en un texto continuo dentro de la sección de Discusión.
+
+Las preguntas están organizadas así:
+
+- **Caso 1** (*Cedrela montana* vs. *Cinchona officinalis*): 4 preguntas que cubren observación, cálculo, interpretación y reflexión sobre las limitaciones del trabajo de campo.
+- **Caso 2** (*Amazilia amazilia* en bosque vs. cultivo): 4 preguntas que cubren observación, cálculo, interpretación y reflexión sobre la abundancia total en estudios reales.
+
+**Producto C:** las 8 preguntas respondidas, integradas en la Discusión.
+
+## Parte D — Preguntas de síntesis
+
+Además de las 8 preguntas del ejercicio, responde estas dos preguntas que conectan ambos casos:
+
+**D1.** ¿Qué diferencias metodológicas hay entre comparar dos especies (Caso 1) y comparar una misma especie en dos condiciones (Caso 2)? ¿Cuál de los dos diseños te parece más informativo para responder la pregunta de investigación? ¿Por qué?
+
+**D2.** Si tuvieras que diseñar un protocolo de monitoreo para *Cedrela montana* o *Amazilia amazilia* en la hoya de Loja, ¿qué decisiones metodológicas tomarías? Menciona al menos el tamaño de parcela, el número de muestras y el tipo de densidad a calcular.
+
+**Producto D:** las 2 preguntas de síntesis respondidas.
+
+# Entregable
+
+Un informe word de máximo 4 páginas (sin anexos), con la siguiente estructura:
+
+1. **Introducción** (media página): importancia de medir abundancia y densidad en ecología de poblaciones, y contexto del escenario.
+2. **Metodología** (media página): qué estrategias usaste, cómo definiste el esfuerzo de muestreo, qué semilla usaste.
+3. **Resultados** (1 página): las tablas de la Parte A y Parte B, más un gráfico comparativo (por ejemplo, boxplot de abundancia por parcela para cada especie y cada estrategia).
+4. **Discusión** (1 páginas): las respuestas a las 8 preguntas del ejercicio (Parte C) y a las 2 preguntas de síntesis (Parte D), integradas en un texto continuo.
+5. **Conclusiones** (media página): una recomendación metodológica concreta y una reflexión sobre la importancia de medir bien estos parámetros.
+6. **Anexos**: capturas de pantalla de la app.
+
+# Rúbrica de evaluación
+
+**Total: 10 puntos → equivale al 5% de la nota final del curso.**
+
+| Criterio | Excelente (2 pts) | Aceptable (1 pt) | Insuficiente (0 pts) | Puntos |
+|---|---|---|---|---|
+| **Comprensión conceptual** | Distingue correctamente abundancia, densidad bruta y densidad ecológica. Usa los términos con propiedad. | Distingue los conceptos con alguna imprecisión menor. | Confunde los conceptos clave. | /2 |
+| **Cálculos y datos** | Todos los cálculos correctos, con unidades bien expresadas y tablas completas. | Algunos errores menores en cálculos o tablas incompletas. | Cálculos ausentes o incorrectos. | /2 |
+| **Respuestas al ejercicio (Parte C)** | Responde las 8 preguntas correctamente, con argumentos ecológicos y referencias al contexto local. | Responde la mayoría, con errores menores o sin profundidad. | Responde pocas o de forma incorrecta. | /2 |
+| **Síntesis y reflexión (Parte D)** | Plantea limitaciones y propuestas metodológicas bien fundamentadas. Conecta con la lectura 1.1. | Menciona limitaciones sin profundizar. | No reflexiona o reflexiona superficialmente. | /2 |
+| **Presentación y anexos** | Informe ordenado, dentro del límite de páginas, con tablas, figuras y anexos completos. | Informe ordenado con omisiones menores. | Informe desordenado, incompleto o sin anexos. | /2 |
+| **TOTAL** | | | | **/10** |
+
+# Recomendaciones
+
+- **Anota todo mientras muestreas.** Los datos cambian cada vez que modificas los parámetros de la app.
+- **Usa la misma semilla** en ambas estrategias para que la comparación sea justa.
+- **Revisa las unidades.** Trabaja con metros cuadrados y convierte a hectáreas si es necesario.
+- **No confundas densidad bruta con ecológica.** La primera usa el área total del estudio; la segunda usa el área realmente ocupada por la especie.
+- **Conecta con la lectura 1.1.** Menciona cómo lo aprendido se relaciona con las propiedades emergentes de las poblaciones.
+- **Cuida la redacción.** Un informe claro vale más que uno extenso.
+
+# Preguntas frecuentes
+
+**¿Qué pasa si la app no carga?**
+
+Intenta con otro navegador (Chrome o Firefox). Si persiste, escríbeme por Canvas.
+
+**¿Puedo usar Excel para los cálculos?**
+
+Sí, es recomendable. Adjunta la hoja de cálculo como anexo.
+
+**¿Cuántas páginas debe tener el informe?**
+
+Máximo 3 páginas sin contar anexos. Sé conciso.
+
+**¿Qué pasa si no incluyo anexos?**
+
+Pierdes los 5 puntos del criterio de anexos y reproducibilidad.
+
+**¿Debo copiar las preguntas del ejercicio en mi informe?**
+
+No. Responde las preguntas en un texto continuo dentro de la sección de Discusión. Solo escribe las preguntas de síntesis (D1 y D2) si lo consideras necesario para organizar tu respuesta.
+
+**¿Cuántas preguntas debo responder en total?**
+
+10: las 8 preguntas del ejercicio interactivo (4 por caso) más las 2 de síntesis (D1 y D2).

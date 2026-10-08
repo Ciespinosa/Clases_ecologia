@@ -1,0 +1,269 @@
+---
+title: "¿Qué es una población?\n Propiedades emergentes y su estudio"
+author: "Carlos Iván Espinosa"
+date: last-modified
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    fig-cap-location: bottom
+    embed-resources: true 
+  pdf:
+    documentclass: article
+    geometry: margin=2.5cm
+    fig-cap-location: bottom
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+
+## 1. Una pregunta local
+
+¿Cuántos osos de anteojos (*Tremarctos ornatus*) quedan en el Parque Nacional Podocarpus? ¿Cuántos cedros (*Cedrela montana*) crecen todavía en la hoya de Loja? Estas no son preguntas triviales. Responderlas exige, antes que nada, definir con precisión qué es una población. 
+
+En esta lectura veremos que una población no es simplemente un conjunto de individuos de la misma especie, sino una entidad con propiedades propias que emergen de la interacción entre esos individuos y su ambiente. Y veremos también que **delimitar una población es una decisión analítica**, no un hecho que la naturaleza nos entregue resuelto.
+
+## 2. ¿Qué es una población?
+
+Una población se define como un conjunto de individuos de la **misma especie** que ocupan un **mismo espacio** en un **mismo tiempo** y que tienen **potencial de reproducirse entre sí**.
+
+A primera vista, la definición parece sencilla. Pero cada uno de sus cuatro componentes esconde problemas que conviene mirar de cerca.
+
+**Misma especie.** Dos individuos pertenecen a la misma especie si pueden reproducirse entre sí y dejar descendencia fértil. Esto excluye, por ejemplo, a *Tremarctos ornatus* y a cualquier otro mamífero del Podocarpus. Pero hay casos más difíciles: ¿son la misma especie dos morfos de un ave que difieren en color pero hibridan en la zona de contacto? La frontera entre especies no siempre es nítida, y eso tiene consecuencias para definir poblaciones.
+
+**Mismo espacio.** ¿Qué significa "mismo espacio"? ¿Un fragmento de bosque? ¿Una cuenca? ¿La hoya de Loja entera? El espacio no es un contenedor neutro: la especie misma lo define. Una población de cedros puede abarcar varios fragmentos si hay flujo de polen entre ellos. Una población de osos puede requerir cientos de kilómetros cuadrados para mantener individuos reproductivos. El "mismo espacio" es relativo a la especie y a su biología.
+
+**Mismo tiempo.** Las poblaciones cambian en el tiempo. Una población de *Cedrela montana* que existía en la hoya de Loja hace 100 años no es la misma que la de hoy: algunos individuos murieron, otros nacieron, hubo inmigración y emigración. ¿En qué momento consideramos que una población "persiste"? ¿Cuánto tiempo de coexistencia se necesita para hablar de la misma población?
+
+**Potencial de reproducirse entre sí.** Dos grupos de individuos de la misma especie pueden estar en el mismo espacio y tiempo, pero si no pueden reproducirse entre ellos (por barreras geográficas, conductuales o genéticas), no forman una sola población. Lo que define a una población no es solo la coexistencia, sino la conexión reproductiva.
+
+### El problema de la delimitación: el caso de *Cedrela montana* en la hoya de Loja
+
+Consideremos este escenario. En la hoya de Loja hay tres fragmentos de bosque donde crece *Cedrela montana*: uno en La Argelia, otro en el Cerro Villonaco y otro en San José-El Cisne. Entre los fragmentos hay áreas deforestadas, potreros y carreteras. La pregunta es: **¿son una sola población o tres poblaciones separadas?**
+
+La respuesta no está escrita en la naturaleza. Depende de varios factores:
+
+- **Flujo génico:** ¿hay polen o semillas que viajan de un fragmento a otro? Si los cedros son polinizados por insectos que no cruzan las áreas deforestadas, el flujo génico es nulo y cada fragmento es una población. Si hay viento o animales que transportan polen a larga distancia, los fragmentos podrían estar conectados.
+- **Tamaño de los fragmentos:** un fragmento con 5 árboles no puede sostener una población viable. Un fragmento con 500 árboles sí. El tamaño mínimo viable depende de la especie y del ambiente.
+- **Historia de la fragmentación:** ¿la fragmentación es reciente o antigua? Si los fragmentos se separaron hace 50 años, todavía podrían estar conectados funcionalmente. Si se separaron hace 500 años, probablemente ya son poblaciones genéticamente diferenciadas.
+- **Pregunta de investigación:** si me interesa la genética de la especie, probablemente trate cada fragmento como una población. Si me interesa la dinámica de la metapoblación, los trate como un sistema de poblaciones conectadas. La delimitación depende de la pregunta.
+
+### Actividad para clase
+
+**Trabajo en grupos.** Dividir la clase en tres grupos. Cada grupo analiza el caso de *Cedrela montana* en la hoya de Loja y responde:
+
+1. ¿Qué información necesitarían para decidir si los tres fragmentos son una o tres poblaciones?
+2. ¿Cómo obtendrían esa información en el campo o con datos ya disponibles?
+3. Si tuvieran que tomar una decisión con información incompleta, ¿qué criterio usarían y por qué?
+
+**Puesta en común.** Cada grupo presenta sus respuestas. La discusión debe dejar claro que **no hay una respuesta única** y que la delimitación de una población es una decisión analítica que depende de la pregunta, los datos disponibles y el contexto.
+
+## 3. Individuo vs. población: la distinción clave
+
+Un individuo nace, crece, se reproduce y muere. Una población, en cambio, **persiste, crece, decrece o se extingue**. Son dos niveles de organización distintos, con propiedades distintas.
+
+| Propiedad | Individuo | Población |
+|---|---|---|
+| Edad | Sí (edad cronológica) | No (pero sí estructura etaria) |
+| Sexo | Sí (macho/hembra) | No (pero sí sex ratio) |
+| Tamaño | Sí (peso, talla) | No (pero sí densidad) |
+| Nacimiento/muerte | Sí (eventos individuales) | Sí (tasas poblacionales) |
+| Persistencia | No (muere) | Sí (puede persistir siglos) |
+
+Si un oso de anteojos muere en el Podocarpus, el individuo desaparece, pero la población no muere. La población tiene una **tasa de mortalidad**, no una muerte. Esta distinción es fundamental: las propiedades poblacionales no se reducen a la suma de las propiedades individuales. Una población puede crecer aunque muchos individuos mueran, si la natalidad compensa. Una población puede decrecer aunque todos los individuos estén sanos, si no se reproducen.
+
+**Pregunta para clase:** si en una población de *Tremarctos ornatus* mueren 2 individuos al año pero nacen 3, ¿la población crece o decrece? ¿Qué pasa si mueren 3 y nacen 2? ¿Y si mueren 3, nacen 2, pero llegan 2 individuos de otra población?
+
+## 4. Atributos emergentes
+
+Son propiedades que solo existen al nivel poblacional. No tienen sentido para un individuo aislado. Veamos las más importantes:
+
+### 4.1 Abundancia
+
+La abundancia es el número total de individuos de una población en un área determinada. Es la propiedad más básica de una población y, a primera vista, la más sencilla de entender: ¿cuántos individuos hay?
+
+Sin embargo, medirla es mucho más difícil de lo que parece. No podemos contar todos los individuos de una población de *Tremarctos ornatus* en el Podocarpus ni todos los árboles de *Cedrela montana* en la hoya de Loja. Por eso, en la práctica, la abundancia se estima a partir de muestras, y esa estimación siempre viene acompañada de incertidumbre.
+
+La abundancia puede expresarse de dos formas:
+
+**Abundancia absoluta**: el número total estimado de individuos. Se obtiene multiplicando la densidad por el área de distribución de la especie.
+
+**Abundancia relativa**: un índice que compara el tamaño de dos o más poblaciones o condiciones. Por ejemplo, la proporción de individuos de una especie respecto al total de individuos muestreados, o el número de individuos capturados por unidad de esfuerzo.
+
+*Ejemplo local*: si en 20 parcelas de 1 ha en la hoya de Loja encontramos 80 individuos de *Cedrela montana*, podemos estimar la densidad media (4 individuos/ha) y, si el área total de bosque apto para la especie es de 500 ha, estimar la abundancia absoluta en 2.000 individuos. Si en cambio comparamos ese dato con el de otra localidad y obtenemos una proporción, estamos usando abundancia relativa.
+
+**Pregunta para clase**: si en dos fragmentos de bosque de la hoya de Loja encuentras 50 y 100 individuos de Cedrela montana, ¿puedes concluir que el segundo es más abundante? ¿Qué información adicional necesitas para estar seguro?
+
+### 4.2 Densidad
+
+Número de individuos por unidad de área o volumen. En el Podocarpus, la densidad de *Tremarctos ornatus* se estima en individuos por kilómetro cuadrado. En la hoya de Loja, la densidad de *Cedrela montana* se mide en árboles por hectárea.
+
+La densidad puede ser **absoluta** (número real) o **relativa** (un índice, como número de individuos capturados por trampa-noche). Para especies raras o crípticas, casi siempre usamos índices relativos, porque contar todos los individuos es imposible o inviable.
+
+La densidad no es constante en el espacio ni en el tiempo. Una población puede tener densidad alta en un borde de bosque y baja en el interior. Puede tener densidad alta en la estación lluviosa y baja en la seca. La densidad es un **promedio** que esconde variación.
+
+**Pregunta para clase:** ¿cómo estimarías la densidad de osos en 1.000 hectáreas de bosque sin contarlos a todos? ¿Qué métodos conoces? ¿Qué supuestos tienen esos métodos?
+
+
+::: {.callout-note}
+
+**Ejercicio 1: Abundancia y densidad**
+
+Muy bien vamos a intentar poner manos a la obra y definir algunos conceptos básicos de abundancia y densidad.  
+
+<a href="https://ciespinosa.github.io/Densidad-y-abundancia/" target="_blank">
+  👉 Abrir Ejercicio 1
+</a>
+
+
+:::
+
+### 4.3 Distribución espacial
+
+Los individuos no se distribuyen al azar en el espacio. Hay tres patrones básicos (@fig-dis-esp):
+
+- **Agregada:** los individuos se concentran en parches. *Cedrela montana* tiende a este patrón por dispersión limitada de semillas.
+- **Aleatoria:** la posición de cada individuo es independiente de los demás. Poco común en la naturaleza.
+- **Uniforme:** los individuos están más separados de lo esperado por azar. Aves territoriales del bosque seco tienden a este patrón.
+
+El patrón de distribución refleja procesos ecológicos: competencia, territorialidad, dispersión, heterogeneidad del ambiente. Una distribución agregada puede indicar recursos parcheados o dispersión limitada. Una distribución uniforme puede indicar competencia o territorialidad.
+
+
+
+```{r}
+#| label: fig-dis-esp
+#| fig-cap: "Esquema de los tres tipos de distribución espacial."
+ 
+library(ggplot2)
+library(patchwork)
+
+set.seed(123)
+
+agregada <- data.frame(
+  x = c(rnorm(80, 0.3, 0.1), rnorm(20, 0.7, 0.05)),
+  y = c(rnorm(80, 0.3, 0.1), rnorm(20, 0.7, 0.05))
+)
+
+aleatoria <- data.frame(x = runif(100), y = runif(100))
+
+uniforme <- expand.grid(x = seq(0.1, 0.9, length.out = 10),
+                        y = seq(0.1, 0.9, length.out = 10))
+
+p1 <- ggplot(agregada, aes(x, y)) + geom_point(size = 1.5) +
+  labs(title = "Agregada") + theme_minimal() + coord_fixed()
+
+p2 <- ggplot(aleatoria, aes(x, y)) + geom_point(size = 1.5) +
+  labs(title = "Aleatoria") + theme_minimal() + coord_fixed()
+
+p3 <- ggplot(uniforme, aes(x, y)) + geom_point(size = 1.5) +
+  labs(title = "Uniforme") + theme_minimal() + coord_fixed()
+
+p1 + p2 + p3
+```
+
+
+**Pregunta para clase:** ¿qué tipo de distribución esperarías en una especie de árbol cuyas semillas caen al pie del parental? ¿Y en una especie de ave que defiende territorio?
+
+### 4.4 Estructura etaria
+
+La proporción de individuos en cada clase de edad. Se representa con **pirámides poblacionales**. Una pirámide con base ancha indica crecimiento; una con base estrecha indica declive. Una pirámide con forma de campana indica estabilidad.
+
+En poblaciones de *Tremarctos ornatus* del Podocarpus, una escasez de juveniles sugeriría problemas de reclutamiento: los adultos sobreviven, pero no hay reemplazo generacional. En *Cedrela montana*, la ausencia de plántulas en fragmentos boscosos indicaría regeneración fallida.
+
+La estructura etaria no es solo un reflejo del pasado, sino una **predicción del futuro**. Una población con muchos juveniles tendrá muchos reproductores en pocos años. Una población con muchos ancianos tendrá un declive inevitable en las próximas décadas, aunque hoy parezca saludable (@fig-pira).
+
+```{r}
+#| label: fig-pira
+#| fig-cap: "Pirámides poblacionales: crecimiento, estable, en declive."
+
+
+edades <- c("0-10", "11-20", "21-30", "31-40", "41-50", "51+")
+
+crecimiento <- data.frame(
+  edad = factor(edades, levels = edades),
+  valor = c(40, 30, 20, 12, 6, 3),
+  tipo = "Crecimiento"
+)
+
+estable <- data.frame(
+  edad = factor(edades, levels = edades),
+  valor = c(20, 20, 20, 20, 20, 20),
+  tipo = "Estable"
+)
+
+declive <- data.frame(
+  edad = factor(edades, levels = edades),
+  valor = c(5, 8, 12, 18, 25, 35),
+  tipo = "Declive"
+)
+
+datos <- rbind(crecimiento, estable, declive)
+
+ggplot(datos, aes(x = edad, y = valor)) +
+  geom_col(fill = "steelblue") +
+  coord_flip() +
+  facet_wrap(~tipo, ncol = 3) +
+  labs(x = "Clase de edad", y = "Proporción") +
+  theme_minimal()
+```
+
+
+**Pregunta para clase:** si una población de cedros tiene muchos adultos y ningún juvenil, ¿qué pasará con esa población en 50 años? ¿Qué factores podrían estar causando la falta de regeneración?
+
+### 4.5 Sex ratio
+
+La proporción de machos y hembras en la población. En osos, una proporción de 3 machos por hembra limita el crecimiento poblacional aunque haya recursos abundantes. La **sex ratio efectiva** (la de individuos que realmente se reproducen) es aún más importante que la sex ratio total.
+
+En especies monógamas, la sex ratio debe ser cercana a 1:1 para que todos los individuos se reproduzcan. En especies poligínicas, un macho puede reproducirse con varias hembras, y una sex ratio sesgada hacia machos no necesariamente limita el crecimiento. En especies con cuidado parental, la proporción de hembras es más crítica porque son ellas las que invierten más en la reproducción.
+
+**Pregunta para clase:** ¿qué pasa con la reproducción efectiva si en una población de osos hay 3 machos por hembra? ¿Y si hay 3 hembras por macho?
+
+## 5. Propiedades primarias vs. secundarias
+
+Las propiedades poblacionales se clasifican en dos grupos según su origen.
+
+**Propiedades primarias:** nacimiento, muerte, inmigración, emigración. Son los **procesos** que generan el cambio. Si en la hoya de Loja aumenta la tala de *Cedrela montana*, aumenta la mortalidad (propiedad primaria).
+
+**Propiedades secundarias:** densidad, estructura etaria, distribución espacial, sex ratio. Son los **estados** que resultan de los procesos. La misma tala cambia la estructura etaria (menos adultos) y reduce la densidad (menos árboles por hectárea).
+
+| Primarias (procesos) | Secundarias (estados) |
+|---|---|
+| Nacimiento | Densidad |
+| Muerte | Estructura etaria |
+| Inmigración | Distribución espacial |
+| Emigración | Sex ratio |
+
+La distinción es importante porque las propiedades primarias son las que **podemos manejar** directamente. Si queremos conservar una población de cedros, no podemos actuar directamente sobre la densidad (secundaria). Tenemos que actuar sobre la mortalidad (primaria), por ejemplo reduciendo la tala. Las propiedades secundarias son indicadores; las primarias son causas.
+
+**Pregunta para clase:** si quisieras aumentar la población de *Tremarctos ornatus* en el Podocarpus, ¿sobre qué propiedad primaria actuarías primero? ¿Por qué?
+
+## 6. Síntesis y puente
+
+Una población no es un simple conjunto de individuos. Es una entidad con propiedades emergentes que no existen al nivel individual: densidad, distribución, estructura etaria, sex ratio. Estas propiedades resultan de procesos primarios (nacimiento, muerte, migración) y determinan la dinámica poblacional.
+
+Delimitar una población es una decisión analítica, no un hecho dado por la naturaleza. Depende de la pregunta, de los datos disponibles y del contexto. En la práctica, los ecólogos trabajan con poblaciones definidas operativamente, sabiendo que esa definición es una simplificación.
+
+En la próxima lectura veremos cómo esos procesos primarios se cuantifican mediante **tablas de vida**, y cómo la mortalidad y la fecundidad se combinan para producir tasas de crecimiento poblacional.
+
+**Pregunta final:** ¿qué población de Loja te gustaría estudiar y qué propiedad medirías primero?
+
+## 7. Para profundizar
+
+- Gotelli, N. J. (2008). *A Primer of Ecology*. 4th ed. Sinauer. Capítulo 1.
+- Begon, M., Harper, J. L., & Townsend, C. R. (2006). *Ecology: From Individuals to Ecosystems*. Blackwell. Capítulo 5.
+
+## 8. Preguntas de comprensión
+
+1. Define población con tus propias palabras. ¿Qué tres criterios debe cumplir?
+2. ¿Cuál es la diferencia entre propiedades primarias y secundarias? Da un ejemplo local.
+3. Si una población de *Cedrela montana* tiene muchos adultos y ningún juvenil, ¿qué propiedad está revelando un problema?
+4. ¿Por qué la densidad es una propiedad emergente y no una propiedad individual?
+5. ¿Qué patrón de distribución esperarías en una especie territorial? ¿Y en una con dispersión limitada?
+6. Si un fragmento de bosque tiene 5 cedros y otro tiene 500, ¿cuál tiene más probabilidades de persistir? ¿Por qué?
+7. ¿Qué información necesitarías para decidir si dos fragmentos de bosque contienen una o dos poblaciones de *Cedrela montana*?
+8. ¿Cuál es la diferencia entre abundancia absoluta y abundancia relativa? Da un ejemplo con una especie de Loja.
+9. ¿Por qué la abundancia es más difícil de medir que la densidad en poblaciones de especies raras o móviles?
+
