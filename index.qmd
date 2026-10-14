@@ -32,11 +32,12 @@ Los materiales están organizados en cuatro bloques temáticos. Cada bloque incl
 ### 🌱 Bloque 1 — Poblaciones
 Propiedades, demografía, eficacia biológica y tablas de vida.
 
-- [Lectura 1.1 — Propiedades de las poblaciones](lecturas/1_Propiedades/1.1_Propiedades_de_la_población.html)
-- [Ejercicio 1 — Abundancia y densidad](ejercicios/1_Abundancia/Ejercicio_1._Abundancia_y_densidad.html)
+- [Lectura 1.1 — Propiedades de las poblaciones](lecturas/1_Propiedades/Propiedades_población.html)
+- [Ejercicio 1 — Abundancia y densidad](ejercicios/1_Abundancia/Abundancia_densidad.html)
 
-- [Lectura 1.2 - Eficacia biológica](lecturas/2_Eficacia/1.2_Eficacia_biológica.html)
--[Tarea 1: Femeneidad](tareas/1_Femeneidad/tarea 1_Femeneidad.html)
+- [Lectura 1.2 - Eficacia biológica](lecturas/2_Eficacia/Eficacia_biológica.html)
+
+- [Tarea 1: Femeneidad](tareas/1_Femeneidad/Femeneidad.html)
 
 :::
 
