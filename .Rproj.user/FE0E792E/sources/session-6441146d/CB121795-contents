@@ -1,0 +1,99 @@
+---
+title: "Guía de lectura — Eficacia biológica en un arbusto del valle de Catamayo"
+subtitle: "Sobre: Vélez-Mora et al. (2020). Biotropica 53:17–27"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "DD/MM/YYYY"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    fig-cap-location: bottom
+    embed-resources: true
+  pdf:
+    documentclass: article
+    geometry: margin=2.5cm
+    fig-cap-location: bottom
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Instrucciones
+
+Esta guía acompaña la lectura del artículo de Vélez-Mora y colaboradores (2020), publicado en [*Biotropica*](https://onlinelibrary.wiley.com/doi/epdf/10.1111/btp.12839). Debes leerlo completo y responder las preguntas que aparecen a continuación.
+
+**Formato de entrega:** documento PDF de máximo 2 páginas.
+
+**Trabajo:** individual.
+
+**Peso:** corresponde a la Tarea 2 del curso.
+
+**Recursos:**
+
+- Artículo completo en Canvas
+- Lectura 1.2 — *Eficacia biológica* (para consultar conceptos)
+
+---
+
+# Parte 1 — Entender el estudio
+
+**1.** En una frase, ¿qué pregunta buscaban responder los autores? ¿Dónde y con qué especie lo hicieron?
+
+**2.** El artículo usa el **índice de feminidad (Gi)** para medir la expresión sexual de las plantas. Explica con tus palabras qué mide ese índice y por qué varía entre individuos.
+
+**3.** El artículo afirma que las plantas con Gi = 1 producen **solo flores masculinas**. ¿Es correcta esta afirmación? Justifica tu respuesta.
+
+---
+
+# Parte 2 — Conectar con el fitness
+
+**4.** Las flores femeninas son más costosas de producir que las masculinas (producen óvulos y semillas). Con base en esto, explica qué **trade-off** está en juego cuando una planta invierte más en flores femeninas. Relaciónalo con el concepto de **esfuerzo reproductivo**.
+
+**5.** El estudio encontró que las plantas más grandes tienden a ser más femeninas. ¿Cómo se relaciona esto con el **fitness** de esas plantas? ¿Significa que tienen mayor fitness absoluto? ¿O mayor fitness relativo? Explica.
+
+**6.** Imagina dos plantas de *Croton aff. wagneri* en el sitio de menor elevación:
+
+- **Planta A:** produce 500 flores femeninas, sobrevive 3 años.
+- **Planta B:** produce 200 flores femeninas, sobrevive 5 años.
+
+¿Cuál de las dos tendría mayor **valor reproductivo**? Justifica tu respuesta considerando tanto la capacidad reproductiva como la probabilidad de supervivencia futura.
+
+---
+
+# Parte 3 — Reflexión crítica
+
+**7.** Los autores sugieren que la **facilitación** entre plantas podría explicar por qué la feminidad es mayor en el sitio de menor elevación. ¿Qué es la facilitación y por qué podría tener un efecto sobre el fitness de una planta?
+
+**8.** Si tuvieras que proponer un **estudio de seguimiento** para evaluar si la feminidad afecta realmente el fitness de *Croton*, ¿qué medirías y durante cuánto tiempo? Justifica tu propuesta.
+
+---
+
+# Rúbrica de evaluación
+
+**Total: 10 puntos**
+
+| Criterio | Excelente (2 pts) | Aceptable (1 pt) | Insuficiente (0 pts) | Puntos |
+|---|---|---|---|---|
+| **Comprensión del artículo** | Explica correctamente la pregunta, el índice Gi y detecta la pregunta trampa. | Explica la mayoría con errores menores. | No comprende el artículo o cae en la trampa. | /2 |
+| **Manejo de conceptos de fitness** | Distingue correctamente fitness absoluto, relativo, componentes y valor reproductivo. | Usa los conceptos con alguna imprecisión. | Confunde los conceptos clave. | /2 |
+| **Conexión artículo-lectura (Partes 2 y 3)** | Establece conexiones profundas y correctas entre el artículo y los conceptos de la lectura 1.2. | Conexiones superficiales o parciales. | No logra conectar el artículo con los conceptos. | /2 |
+| **Reflexión crítica (Parte 3)** | Plantea limitaciones, implicaciones y propuestas metodológicas bien fundamentadas. | Menciona limitaciones sin profundizar. | Reflexión superficial o ausente. | /2 |
+| **Presentación y formato** | Informe ordenado, dentro del límite de páginas, sin copiar y pegar. | Informe ordenado con omisiones menores. | Informe desordenado o con evidencia de copia. | /2 |
+| **TOTAL** | | | | **/10** |
+
+::: {.callout-warning}
+## Sobre el uso de fuentes
+Puedes consultar el artículo original y la lectura 1.2, pero debes escribir tus respuestas con tus propias palabras. Si se detecta copia literal, la tarea se calificará con 0.
+:::
+
+---
+
+# Recomendaciones
+
+- **Lee el artículo completo** antes de responder. No basta con el abstract.Para acceder al artículo haz clic [aquí](https://onlinelibrary.wiley.com/doi/epdf/10.1111/btp.12839)
+- **Conecta explícitamente con la lectura 1.2.** Los conceptos de fitness, trade-offs y valor reproductivo deben aparecer en tus respuestas.
+- **Revisa la pregunta 3 con cuidado.** No todas las afirmaciones son correctas.
+- **Sé conciso.** Máximo 2 páginas.

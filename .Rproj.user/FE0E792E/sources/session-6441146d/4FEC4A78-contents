@@ -1,0 +1,154 @@
+---
+title: "Eficacia biológica: por qué tener más descendientes no siempre es mejor"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "MM/YYYY"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    fig-cap-location: bottom
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## 1. Una pregunta desde Loja
+
+En un fragmento de bosque de la hoya de Loja, un árbol de *Cedrela montana* produce 5.000 semillas en un año, mientras que otro produce solo 500. A primera vista, el primero parece tener más éxito: deja más descendientes. Pero, ¿es realmente así?
+
+En el Podocarpus, una hembra de *Tremarctos ornatus* tiene dos crías en toda su vida, mientras que otra tiene una. ¿Podemos concluir que la primera es "mejor"? Y si la primera muere al año siguiente por agotamiento, mientras que la segunda sobrevive y tiene otra cría dos años después, ¿quién deja más descendientes al final?
+
+Estas preguntas no son triviales. Detrás de ellas está uno de los conceptos centrales de la ecología evolutiva: la **eficacia biológica**. Y como veremos, dejar más descendientes **no siempre** es mejor. En esta lectura exploraremos por qué.
+
+## 2. ¿Qué es la eficacia biológica?
+
+La **eficacia biológica** (o *fitness*) es la contribución relativa de un individuo a la siguiente generación. En términos simples: cuántos descendientes deja un individuo que llegan a reproducirse.
+
+Pero hay varias formas de medirla, y cada una responde a una pregunta distinta.
+
+### 2.1 Fitness absoluto
+
+El **fitness absoluto** es el número total de descendientes que un individuo produce en su vida. Es una medida directa, pero poco útil para comparar.
+
+**Ejemplo:** una hembra de *Tremarctos ornatus* en el Podocarpus puede tener 2 crías en toda su vida. Un árbol de *Cedrela montana* puede producir miles de semillas por año. Comparar estos números no tiene sentido: son especies con estrategias reproductivas completamente distintas.
+
+### 2.2 Fitness relativo
+
+El **fitness relativo** es la contribución de un individuo comparada con la de otros individuos de la misma población. Se calcula como una proporción o razón.
+
+**Ejemplo:** si en una población de *Cedrela montana* el árbol A deja 200 descendientes viables y el árbol B deja 100, el fitness relativo de A es 2 y el de B es 1. A tiene el doble de éxito reproductivo que B.
+
+El fitness relativo es la medida que usa la selección natural: no importa cuántos descendientes dejas en absoluto, sino cuántos dejas **en comparación con los demás**.
+
+::: {.callout-note}
+## Una advertencia importante
+El fitness no se mide en un individuo aislado, sino en el contexto de la población. Un individuo puede tener muchos descendientes en un año, pero si esos descendientes no sobreviven ni se reproducen, su fitness efectivo es bajo.
+:::
+
+## 3. Los componentes del fitness
+
+El fitness no es una sola cosa: se descompone en varios componentes que actúan en distintas etapas de la vida.
+
+### 3.1 Supervivencia
+
+La probabilidad de que un individuo sobreviva hasta cierta edad. Sin supervivencia no hay reproducción.
+
+**Ejemplo local:** en *Tremarctos ornatus*, la supervivencia de las crías durante su primer año es baja. Si una hembra tiene dos crías pero solo una llega a la edad adulta, su fitness efectivo es la mitad de lo que parecía.
+
+La supervivencia se mide con **tablas de vida** y **curvas de supervivencia** (que veremos en la próxima clase).
+
+### 3.2 Fecundidad
+
+El número de descendientes que un individuo produce por evento reproductivo, por año, o en toda su vida.
+
+**Ejemplo local:** un árbol de *Cedrela montana* puede producir miles de semillas, pero solo unas pocas germinan y llegan a la adultez. La fecundidad alta no garantiza fitness alto si la supervivencia de las semillas es baja.
+
+La fecundidad se mide como:
+- **Fecundidad absoluta:** número total de descendientes.
+- **Fecundidad relativa:** número de descendientes comparado con otros individuos.
+
+### 3.3 Esfuerzo reproductivo
+
+La energía y recursos que un individuo invierte en la reproducción, en lugar de invertirlos en su propio crecimiento o supervivencia.
+
+**Ejemplo local:** un ave del bosque seco de Catamayo que dedica toda su energía a alimentar a sus polluelos puede tener menos reservas para sobrevivir al siguiente invierno. Un árbol que produce muchas semillas puede debilitarse y ser más vulnerable a plagas.
+
+El esfuerzo reproductivo es uno de los conceptos más importantes de la ecología evolutiva, porque está en el centro de los **trade-offs**.
+
+## 4. Trade-offs: cuando ganar en algo significa perder en otra cosa
+
+Un **trade-off** es un compromiso entre dos rasgos o funciones que compiten por los mismos recursos limitados. En la reproducción, los trade-offs son la regla, no la excepción.
+
+### 4.1 Reproducción vs. supervivencia
+
+Invertir energía en reproducirse reduce los recursos disponibles para sobrevivir. Los individuos que se reproducen mucho en un año pueden tener menos probabilidades de sobrevivir al siguiente.
+
+**Ejemplo local:** un árbol de *Cedrela montana* que produce una cosecha masiva de semillas puede quedar debilitado y ser más susceptible a la sequía o a plagas en el año siguiente.
+
+### 4.2 Número vs. tamaño de descendientes
+
+Producir muchos descendientes pequeños o pocos descendientes grandes. Los dos extremos tienen ventajas y desventajas.
+
+**Ejemplo local:**
+- *Cedrela montana* produce **muchas semillas pequeñas**: alta dispersión, pero baja supervivencia por semilla.
+- *Tremarctos ornatus* produce **pocas crías grandes**: bajo número, pero alta inversión parental y alta supervivencia.
+
+Ninguna estrategia es "mejor": ambas funcionan en distintos contextos ecológicos.
+
+### 4.3 Reproducción temprana vs. tardía
+
+Reproducirse joven permite dejar descendientes antes, pero reduce el tiempo de crecimiento. Reproducirse tarde permite acumular más recursos, pero se corre el riesgo de morir antes de reproducirse.
+
+**Ejemplo local:** un árbol que se reproduce a los 10 años tiene más probabilidades de dejar descendencia que uno que espera 30 años, pero su descendencia puede ser menos vigorosa.
+
+## 5. Valor reproductivo: no solo importa cuántos hijos tengo, sino cuántos puedo tener todavía
+
+El **valor reproductivo** es la contribución esperada de un individuo a las generaciones futuras. Pero **no es solo su capacidad reproductiva actual**: es el producto de dos cosas:
+
+$$\text{Valor reproductivo} = \text{Capacidad reproductiva} \times \text{Probabilidad de supervivencia futura}$$
+
+Es decir: no basta con poder reproducirse mucho hoy; también hay que sobrevivir para hacerlo mañana.
+
+**Ejemplo local:** una hembra joven de *Tremarctos ornatus* que aún no ha tenido crías tiene un valor reproductivo alto: le quedan muchos años para reproducirse **y** una alta probabilidad de sobrevivir hasta entonces. Una hembra vieja que ya ha tenido varias crías tiene un valor reproductivo bajo: aunque todavía pueda reproducirse, le quedan pocos años y su probabilidad de supervivencia futura es menor.
+
+::: {.callout-note}
+## Por qué esto importa para la conservación
+No todos los individuos de una población contribuyen igual a la siguiente generación. Los individuos jóvenes con alta probabilidad de supervivencia futura tienen un valor reproductivo mayor que los viejos, aunque ambos puedan reproducirse. Esto tiene implicaciones directas para las decisiones de manejo: proteger a los juveniles de una población puede ser más efectivo que proteger a los adultos.
+:::
+
+## 6. Síntesis y puente
+
+Volvamos a la pregunta inicial: **¿dejar más descendientes siempre es mejor?**
+
+La respuesta es **no, no siempre**. La eficacia biológica no se mide solo por el número de descendientes que un individuo produce, sino por:
+
+- Cuántos de esos descendientes **sobreviven** hasta reproducirse
+- Cuánto le **cuesta** al individuo producir esos descendientes (trade-offs)
+- Cuántas **oportunidades futuras** tiene el individuo de seguir reproduciéndose (valor reproductivo)
+
+Un árbol que produce 5.000 semillas pero muere al año siguiente puede tener un fitness menor que un árbol que produce 500 semillas y sobrevive 20 años. Una hembra de oso que tiene una cría y sobrevive puede dejar más descendientes al final que una que tiene dos crías y muere.
+
+La eficacia biológica es, entonces, una medida **integrada** del éxito reproductivo a lo largo de toda la vida. No es una foto, es una película.
+
+En la próxima clase veremos cómo estos componentes se cuantifican con **tablas de vida**, y cómo la mortalidad y la fecundidad se combinan para producir tasas de crecimiento poblacional.
+
+**Pregunta final:** pensando en una especie de Loja que conozcas, ¿qué trade-off te parece más importante? ¿Cómo crees que afecta su valor reproductivo?
+
+## 7. Para profundizar
+
+- Gotelli, N. J. (2008). *A Primer of Ecology*. 4th ed. Sinauer. Capítulo 3.
+- Begon, M., Harper, J. L., & Townsend, C. R. (2006). *Ecology: From Individuals to Ecosystems*. Blackwell. Capítulo 5.
+- Stearns, S. C. (1992). *The Evolution of Life Histories*. Oxford University Press.
+
+## 8. Preguntas de comprensión
+
+1. ¿Cuál es la diferencia entre fitness absoluto y fitness relativo?
+2. ¿Por qué el fitness no se mide en un individuo aislado, sino en el contexto de la población?
+3. Menciona un ejemplo local de trade-off entre reproducción y supervivencia.
+4. ¿Qué es el esfuerzo reproductivo? Da un ejemplo con una especie del sur de Ecuador.
+5. ¿Por qué el valor reproductivo depende tanto de la capacidad reproductiva como de la probabilidad de supervivencia futura?
+6. Si un árbol produce miles de semillas pero solo dos llegan a la adultez, ¿cómo evaluarías su fitness efectivo?
+7. ¿Por qué un individuo joven con pocas crías puede tener un valor reproductivo mayor que un individuo viejo con muchas crías?

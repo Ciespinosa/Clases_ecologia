@@ -1,0 +1,269 @@
+---
+title: "SÍLABO Y DISEÑO INSTRUCCIONAL"
+author: "Carlos Iván Espinosa"
+format: html
+editor: visual
+---
+
+# Ecología de Poblaciones y Comunidades
+
+**Institución:** Universidad Técnica Particular de Loja — Carrera de Biología
+
+**Nivel:** 7mo semestre
+
+**Modalidad:** Presencial
+
+**Duración:** 16 semanas
+
+------------------------------------------------------------------------
+
+## 1. DESCRIPCIÓN DEL CURSO
+
+Curso de ecología centrado en el estudio de las poblaciones y comunidades biológicas. Integra teoría, modelación matemática y análisis de datos con R, con énfasis en contextos locales de la provincia de Loja y del sur de Ecuador (hoya de Loja, Parque Nacional Podocarpus, bosques secos de Catamayo, páramos de Saraguro). Los estudiantes desarrollarán competencias para analizar patrones poblacionales y de diversidad, aplicando herramientas estadísticas y de programación.
+
+------------------------------------------------------------------------
+
+## 2. PRERREQUISITOS
+
+- Ecología General
+- Bioestadística
+- Genética
+
+------------------------------------------------------------------------
+
+## 3. COMPETENCIAS DEL CURSO
+
+Al finalizar el curso, el estudiante será capaz de:
+
+1.  **Analizar** las propiedades emergentes de las poblaciones y su dinámica espacio-temporal.
+2.  **Modelar** el crecimiento poblacional en sus distintas formas (geométrico, exponencial, logístico, metapoblacional).
+3.  **Interpretar** las interacciones interespecíficas y su efecto sobre la estructura de las comunidades.
+4.  **Cuantificar** la diversidad alfa, beta y gamma mediante índices y análisis multivariados.
+5.  **Aplicar** R para el análisis de datos ecológicos y la comunicación de resultados.
+6.  **Integrar** conceptos de poblaciones y comunidades en contextos de conservación local.
+
+------------------------------------------------------------------------
+
+## 4. TEMARIO
+
+### UNIDAD 1 — LA POBLACIÓN COMO UNIDAD ECOLÓGICA (Semanas 1–3)
+
+**1.1 Propiedades de las poblaciones** - Definición de población, individuos vs. población - Atributos emergentes: densidad, distribución espacial, estructura etaria, sex ratio - Propiedades primarias vs. secundarias - *Contexto local:* *Trecmatus ornatus* en Podocarpus; *Cedrela montana* en la hoya de Loja
+
+**1.2 Eficacia biológica (fitness)** - Fitness absoluto y relativo - Componentes: supervivencia, fecundidad, esfuerzo reproductivo - Trade-offs, valor reproductivo
+
+**1.3 Demografía: mortalidad y fecundidad** - Tablas de vida (cohorte vs. tiempo específico) - Curvas de supervivencia (I, II, III) - Tasas: lₓ, mₓ, R₀, T, r - **Práctica 1:** tabla de vida con especie local
+
+------------------------------------------------------------------------
+
+### UNIDAD 2 — CRECIMIENTO POBLACIONAL (Semanas 4–7)
+
+**2.1 Introducción a los modelos de crecimiento** - ¿Por qué modelar? Supuestos y limitaciones - Denso-independiente vs. denso-dependiente
+
+**2.2 Crecimiento geométrico** - Modelo discreto, λ - Especies estacionales (insectos, anuales del bosque seco de Catamayo)
+
+**2.3 Crecimiento exponencial continuo** - Modelo continuo, r, tiempo de duplicación - Invasoras y poblaciones sin limitación
+
+**2.4 Crecimiento logístico (denso-dependiente)** - Capacidad de carga (K), curva sigmoidea, punto de inflexión - Retroalimentación denso-dependiente - **Práctica 2:** ajuste logístico con datos reales
+
+**2.5 Metapoblaciones** - Fuente-sumidero, modelo de Levins - Extinción-colonización - Aplicación: fragmentación en la hoya de Loja
+
+------------------------------------------------------------------------
+
+### UNIDAD 3 — RELACIONES ENTRE ESPECIES (Semanas 9–10)
+
+**3.1 Relaciones entre especies** - Tipos de interacciones (+,–,0) - Competencia (inter e intraespecífica, principio de Gause) - Depredación (respuesta funcional, Lotka-Volterra) - Mutualismo, comensalismo, herbivoría, parasitismo - *Contexto local:* competencia *Alnus*–*Cedrela*; depredación en aves del Podocarpus
+
+**3.2 Redes tróficas** - Niveles tróficos, cadenas vs. redes - Conectancia, modularidad, especies clave - Cascadas tróficas - *Contexto local:* red trófica del bosque seco de Catamayo
+
+**3.3 Relaciones y estructura poblacional** - Efecto de interacciones sobre el crecimiento - Coevolución
+
+------------------------------------------------------------------------
+
+### UNIDAD 4 — LA COMUNIDAD Y SU DIVERSIDAD (Semanas 11–15)
+
+**4.1 La comunidad y sus propiedades** - Definición, ensamblaje, riqueza, equitatividad - **Estructura física de la comunidad:** estratificación, gremios, formas de vida
+
+**4.2 Diversidad de las comunidades — conceptos básicos** - **Tipos de diversidad:** alfa, beta, gamma - **Importancia de medir la biodiversidad:** conservación, bioindicadores - *Contexto Ecuador:* hotspot Tumbes-Chocó-Magdalena, Andes tropicales
+
+**4.3 Diversidad alfa** - **Índices:** riqueza, Shannon, Simpson, Margalef, Pielou - **Diagramas rango-abundancia:** construcción e interpretación - Modelos de distribución de abundancias - **Práctica 3:** diversidad alfa en quebradas de Catamayo
+
+**4.4 Diversidad beta** - Concepto de recambio vs. anidamiento - Partición de diversidad (Whittaker) - **Medidas de similitud:** Jaccard, Sorensen, Bray-Curtis - **Práctica 4:** comparación Catamayo vs. Podocarpus vs. Saraguro
+
+**4.5 Síntesis: integración poblaciones–comunidades** - De la población a la comunidad - Aplicaciones en conservación en Loja
+
+------------------------------------------------------------------------
+
+## 5. CALENDARIO SEMANA A SEMANA
+
+| Sem | Tema | Recurso / Práctica | Evaluación |
+|----|----|----|----|
+| 1 | 1.1 Propiedades de poblaciones | [Conociendo R](https://ciespinosa.github.io/ConociendoR/) | — |
+| 2 | 1.2 Fitness + 1.3 Demografía | Exploratorio (manejo de datos) | — |
+| 3 | 1.3 Tablas de vida | [DemografiaDensodependiente](https://ciespinosa.github.io/DemografiaDensodependiente/) | **Tarea 1** |
+| 4 | 2.1 Modelos + 2.2 Geométrico | [CrecimientoDensoIndependiente](https://ciespinosa.github.io/CrecimientoDensoIndependiente/) | — |
+| 5 | 2.3 Exponencial continuo | [CrecimientoDensoIndependiente](https://ciespinosa.github.io/CrecimientoDensoIndependiente/) | **Tarea 2** |
+| 6 | 2.4 Logístico | *Por crear* | — |
+| 7 | 2.5 Metapoblaciones | Simulación en clase | — |
+| 8 | **PARCIAL 1** (Unidades 1–2) | — | **Examen** |
+| 9 | 3.1 Relaciones entre especies | *Por crear (competencia/depredación)* | — |
+| 10 | 3.2 Redes tróficas + 3.3 Estructura | Exploratorio con datos de redes | **Tarea 3** |
+| 11 | 4.1 Comunidad y estructura física | Exploratorio | — |
+| 12 | 4.2 Conceptos básicos de diversidad | [Riqueza (Shiny)](https://ecologiacivan.shinyapps.io/Riqueza/) | — |
+| 13 | 4.3 Diversidad alfa | [AbundanciaPobl (Shiny)](https://ecologiacivan.shinyapps.io/AbundanciaPobl/) | **Tarea 4** |
+| 14 | 4.4 Diversidad beta | *Por crear (Jaccard/Sorensen/Bray-Curtis)* | — |
+| 15 | 4.5 Síntesis + **Salida de campo** + presentación proyectos | — | **Proyecto final** |
+| 16 | **PARCIAL 2** (Unidades 3–4) | — | **Examen** |
+
+------------------------------------------------------------------------
+
+## 6. ESQUEMA DE EVALUACIÓN
+
+| Componente            | Detalle                        | Peso     |
+|-----------------------|--------------------------------|----------|
+| Parcial 1             | Semana 8, Unidades 1–2         | 20%      |
+| Parcial 2             | Semana 16, Unidades 3–4        | 20%      |
+| Prácticas R           | 8 prácticas (1 cada 2 semanas) | 30%      |
+| Tareas                | 4 tareas (2 por bimestre)      | 20%      |
+| Proyecto final grupal | Grupos de 3 estudiantes        | 10%      |
+| **Total**             |                                | **100%** |
+
+------------------------------------------------------------------------
+
+## 7. PRÁCTICAS Y RECURSOS
+
+### Recursos disponibles en el repositorio del docente
+
+- **Intro R:** https://ciespinosa.github.io/ConociendoR/
+- **Demografía:** https://ciespinosa.github.io/DemografiaDensodependiente/
+- **Crecimiento denso-independiente:** https://ciespinosa.github.io/CrecimientoDensoIndependiente/
+- **Riqueza (Shiny):** https://ecologiacivan.shinyapps.io/Riqueza/
+- **Abundancia poblacional (Shiny):** https://ecologiacivan.shinyapps.io/AbundanciaPobl/
+
+### Recursos por crear (segundo bimestre)
+
+- Crecimiento logístico (interactivo)
+- Competencia y depredación (interactivo)
+- Diversidad beta (Jaccard, Sorensen, Bray-Curtis)
+
+### Herramientas
+
+- **R + RStudio** (obligatorio)
+- **Paquetes sugeridos:** `vegan`, `popbio`, `ggplot2`, `dplyr`, `igraph` (redes)
+- **Datos:** GBIF, iNaturalist, repositorios locales (herbarios UNL, UTPL)
+
+------------------------------------------------------------------------
+
+## 8. TAREAS
+
+### Bimestre 1
+
+- **Tarea 1 (sem 3):** Tabla de vida de una especie local. Informe 2–3 páginas + script R.
+- **Tarea 2 (sem 5):** Comparación de modelos de crecimiento (geométrico vs. exponencial) con datos propios o de literatura. Informe 2–3 páginas + script R.
+
+### Bimestre 2
+
+- **Tarea 3 (sem 10):** Análisis de una red trófica local (conectancia, especies clave). Informe 2–3 páginas + script R.
+- **Tarea 4 (sem 13):** Comparación de diversidad beta entre dos localidades de Loja (datos propios, GBIF o iNaturalist). Informe 2–3 páginas + script R.
+
+------------------------------------------------------------------------
+
+## 9. LECTURAS CIENTÍFICAS
+
+**Modalidad:** 2 papers por bimestre, proporcionados por el docente.
+
+### Bimestre 1 (poblaciones)
+
+- **Paper 1 — Fitness y demografía (sem 2–3):** estudio empírico de historia de vida en especie tropical/andina, con tablas de vida o matriz de Leslie. *Búsqueda: Biotropica, Journal of Tropical Ecology, Ecology.*
+- **Paper 2 — Crecimiento poblacional (sem 5–6):** modelación de crecimiento logístico o exponencial en poblaciones reales (invasoras, fauna en recuperación, plagas). *Búsqueda: Ecological Modelling, Biological Invasions, PLOS ONE.*
+
+### Bimestre 2 (comunidades)
+
+- **Paper 3 — Interacciones y redes tróficas (sem 9–10):** red trófica cuantificada con métricas (conectancia, modularidad), o estudio de competencia/depredación. *Búsqueda: Oikos, Journal of Animal Ecology, Food Webs.*
+- **Paper 4 — Diversidad alfa (sem 12–13):** comparación de índices en gradientes (altitud, perturbación) en bosques neotropicales. *Búsqueda: Biodiversity and Conservation, Revista de Biología Tropical.*
+- **Paper 5 — Diversidad beta (sem 14):** recambio vs. anidamiento; partición de diversidad entre localidades. *Búsqueda: Journal of Biogeography, Diversity and Distributions, Ecography.*
+- **Paper 6 — Síntesis / conservación (sem 15):** aplicación de poblaciones + comunidades a conservación en Ecuador o Andes tropicales. *Búsqueda: Conservation Biology, Biological Conservation, Neotropical Biodiversity.*
+
+**Idioma:** ambos (español e inglés). Los papers en inglés con guía de lectura en español.
+
+------------------------------------------------------------------------
+
+## 10. PROYECTO FINAL
+
+**Modalidad:** Grupal (3 estudiantes) **Peso:** 10% **Vinculación:** Salida de campo de una semana al final del curso (semana 15)
+
+### Estructura
+
+1.  **Pregunta ecológica** respondible con datos de la salida (diversidad alfa, beta, estructura, relaciones).
+2.  **Métodos:** diseño de muestreo, toma de datos.
+3.  **Análisis en R:** índices, modelos, visualización.
+4.  **Productos:**
+    - Informe escrito (formato paper)
+    - Presentación oral (sem 15)
+    - Dataset y script en R
+
+### Rúbrica
+
+| Criterio                              | Peso |
+|---------------------------------------|------|
+| Pregunta ecológica y marco teórico    | 20%  |
+| Diseño metodológico                   | 20%  |
+| Análisis y resultados (R)             | 30%  |
+| Comunicación (informe + presentación) | 20%  |
+| Trabajo en equipo                     | 10%  |
+
+------------------------------------------------------------------------
+
+## 11. SALIDA DE CAMPO
+
+- **Duración:** 1 semana (final del curso, sem 15)
+- **Destino:** \[por definir — Podocarpus, Catamayo, Saraguro u otro\]
+- **Objetivo:** recolectar datos para el proyecto final
+- **Productos esperados:** dataset propio, informe, presentación
+
+------------------------------------------------------------------------
+
+## 13. BIBLIOGRAFÍA SUGERIDA
+
+- Gotelli, N. J. (2008). *A Primer of Ecology*. 4th ed. Sinauer.
+- Begon, M., Harper, J. L., & Townsend, C. R. (2006). *Ecology: From Individuals to Ecosystems*. Blackwell.
+- Magurran, A. E. (2004). *Measuring Biological Diversity*. Blackwell.
+- Krebs, C. J. (1999). *Ecological Methodology*. 2nd ed. Benjamin Cummings.
+- Legendre, P., & Legendre, L. (2012). *Numerical Ecology*. 3rd ed. Elsevier.
+- Whittaker, R. H. (1972). Evolution and measurement of species diversity. *Taxon*, 21(2/3), 213–251.
+
+------------------------------------------------------------------------
+
+## 14. MAPEO: TEMAS SOLICITADOS → UBICACIÓN EN EL TEMARIO
+
+| Tema original                             | Ubicación |
+|-------------------------------------------|-----------|
+| Propiedades de las poblaciones            | 1.1       |
+| Crecimiento poblacional                   | Unidad 2  |
+| Eficacia biológica                        | 1.2       |
+| Demografía                                | 1.3       |
+| Mortalidad y fecundidad                   | 1.3       |
+| Relaciones entre especies                 | 3.1       |
+| Modelos de crecimiento poblacional        | 2.1–2.5   |
+| Crecimiento denso-independiente           | 2.1       |
+| Crecimiento geométrico                    | 2.2       |
+| Crecimiento exponencial continuo          | 2.3       |
+| La comunidad y sus propiedades            | 4.1       |
+| Diversidad de las comunidades             | 4.2–4.4   |
+| Conceptos básicos (diversidad)            | 4.2       |
+| Diagramas rango abundancia                | 4.3       |
+| Tipos de diversidad                       | 4.2       |
+| Índices de Diversidad alfa                | 4.3       |
+| Importancia de medir la biodiversidad     | 4.2       |
+| Estructura física de la comunidad         | 4.1       |
+| Medidas de similitud de la comunidad      | 4.4       |
+| **Subtemas complementarios agregados**    |           |
+| Crecimiento logístico (denso-dependiente) | 2.4       |
+| Metapoblaciones                           | 2.5       |
+| Redes tróficas                            | 3.2       |
+| Diversidad beta (formal)                  | 4.4       |
+| Síntesis poblaciones–comunidades          | 4.5       |
+
+------------------------------------------------------------------------
+
+*Documento generado a partir de la conversación de diseño instruccional. Última actualización: \[fecha\].*

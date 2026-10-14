@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.36">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlos Iván Espinosa">
+
+<title>SÍLABO Y DISEÑO INSTRUCCIONAL</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Silabo_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Silabo_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Silabo_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Silabo_files/libs/quarto-html/popper.min.js"></script>
+<script src="Silabo_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Silabo_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Silabo_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Silabo_files/libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Silabo_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Silabo_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Silabo_files/libs/bootstrap/bootstrap-efbb37e9afcc02144ebbc7afd12a776f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SÍLABO Y DISEÑO INSTRUCCIONAL</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carlos Iván Espinosa </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ecología-de-poblaciones-y-comunidades" class="level1">
+<h1>Ecología de Poblaciones y Comunidades</h1>
+<p><strong>Institución:</strong> Universidad Técnica Particular de Loja — Carrera de Biología</p>
+<p><strong>Nivel:</strong> 7mo semestre</p>
+<p><strong>Modalidad:</strong> Presencial</p>
+<p><strong>Duración:</strong> 16 semanas</p>
+<hr>
+<section id="descripción-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="descripción-del-curso">1. DESCRIPCIÓN DEL CURSO</h2>
+<p>Curso de ecología centrado en el estudio de las poblaciones y comunidades biológicas. Integra teoría, modelación matemática y análisis de datos con R, con énfasis en contextos locales de la provincia de Loja y del sur de Ecuador (hoya de Loja, Parque Nacional Podocarpus, bosques secos de Catamayo, páramos de Saraguro). Los estudiantes desarrollarán competencias para analizar patrones poblacionales y de diversidad, aplicando herramientas estadísticas y de programación.</p>
+<hr>
+</section>
+<section id="prerrequisitos" class="level2">
+<h2 class="anchored" data-anchor-id="prerrequisitos">2. PRERREQUISITOS</h2>
+<ul>
+<li>Ecología General</li>
+<li>Bioestadística</li>
+<li>Genética</li>
+</ul>
+<hr>
+</section>
+<section id="competencias-del-curso" class="level2">
+<h2 class="anchored" data-anchor-id="competencias-del-curso">3. COMPETENCIAS DEL CURSO</h2>
+<p>Al finalizar el curso, el estudiante será capaz de:</p>
+<ol type="1">
+<li><strong>Analizar</strong> las propiedades emergentes de las poblaciones y su dinámica espacio-temporal.</li>
+<li><strong>Modelar</strong> el crecimiento poblacional en sus distintas formas (geométrico, exponencial, logístico, metapoblacional).</li>
+<li><strong>Interpretar</strong> las interacciones interespecíficas y su efecto sobre la estructura de las comunidades.</li>
+<li><strong>Cuantificar</strong> la diversidad alfa, beta y gamma mediante índices y análisis multivariados.</li>
+<li><strong>Aplicar</strong> R para el análisis de datos ecológicos y la comunicación de resultados.</li>
+<li><strong>Integrar</strong> conceptos de poblaciones y comunidades en contextos de conservación local.</li>
+</ol>
+<hr>
+</section>
+<section id="temario" class="level2">
+<h2 class="anchored" data-anchor-id="temario">4. TEMARIO</h2>
+<section id="unidad-1-la-población-como-unidad-ecológica-semanas-13" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-1-la-población-como-unidad-ecológica-semanas-13">UNIDAD 1 — LA POBLACIÓN COMO UNIDAD ECOLÓGICA (Semanas 1–3)</h3>
+<p><strong>1.1 Propiedades de las poblaciones</strong> - Definición de población, individuos vs.&nbsp;población - Atributos emergentes: densidad, distribución espacial, estructura etaria, sex ratio - Propiedades primarias vs.&nbsp;secundarias - <em>Contexto local:</em> <em>Trecmatus ornatus</em> en Podocarpus; <em>Cedrela montana</em> en la hoya de Loja</p>
+<p><strong>1.2 Eficacia biológica (fitness)</strong> - Fitness absoluto y relativo - Componentes: supervivencia, fecundidad, esfuerzo reproductivo - Trade-offs, valor reproductivo</p>
+<p><strong>1.3 Demografía: mortalidad y fecundidad</strong> - Tablas de vida (cohorte vs.&nbsp;tiempo específico) - Curvas de supervivencia (I, II, III) - Tasas: lₓ, mₓ, R₀, T, r - <strong>Práctica 1:</strong> tabla de vida con especie local</p>
+<hr>
+</section>
+<section id="unidad-2-crecimiento-poblacional-semanas-47" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-2-crecimiento-poblacional-semanas-47">UNIDAD 2 — CRECIMIENTO POBLACIONAL (Semanas 4–7)</h3>
+<p><strong>2.1 Introducción a los modelos de crecimiento</strong> - ¿Por qué modelar? Supuestos y limitaciones - Denso-independiente vs.&nbsp;denso-dependiente</p>
+<p><strong>2.2 Crecimiento geométrico</strong> - Modelo discreto, λ - Especies estacionales (insectos, anuales del bosque seco de Catamayo)</p>
+<p><strong>2.3 Crecimiento exponencial continuo</strong> - Modelo continuo, r, tiempo de duplicación - Invasoras y poblaciones sin limitación</p>
+<p><strong>2.4 Crecimiento logístico (denso-dependiente)</strong> - Capacidad de carga (K), curva sigmoidea, punto de inflexión - Retroalimentación denso-dependiente - <strong>Práctica 2:</strong> ajuste logístico con datos reales</p>
+<p><strong>2.5 Metapoblaciones</strong> - Fuente-sumidero, modelo de Levins - Extinción-colonización - Aplicación: fragmentación en la hoya de Loja</p>
+<hr>
+</section>
+<section id="unidad-3-relaciones-entre-especies-semanas-910" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-3-relaciones-entre-especies-semanas-910">UNIDAD 3 — RELACIONES ENTRE ESPECIES (Semanas 9–10)</h3>
+<p><strong>3.1 Relaciones entre especies</strong> - Tipos de interacciones (+,–,0) - Competencia (inter e intraespecífica, principio de Gause) - Depredación (respuesta funcional, Lotka-Volterra) - Mutualismo, comensalismo, herbivoría, parasitismo - <em>Contexto local:</em> competencia <em>Alnus</em>–<em>Cedrela</em>; depredación en aves del Podocarpus</p>
+<p><strong>3.2 Redes tróficas</strong> - Niveles tróficos, cadenas vs.&nbsp;redes - Conectancia, modularidad, especies clave - Cascadas tróficas - <em>Contexto local:</em> red trófica del bosque seco de Catamayo</p>
+<p><strong>3.3 Relaciones y estructura poblacional</strong> - Efecto de interacciones sobre el crecimiento - Coevolución</p>
+<hr>
+</section>
+<section id="unidad-4-la-comunidad-y-su-diversidad-semanas-1115" class="level3">
+<h3 class="anchored" data-anchor-id="unidad-4-la-comunidad-y-su-diversidad-semanas-1115">UNIDAD 4 — LA COMUNIDAD Y SU DIVERSIDAD (Semanas 11–15)</h3>
+<p><strong>4.1 La comunidad y sus propiedades</strong> - Definición, ensamblaje, riqueza, equitatividad - <strong>Estructura física de la comunidad:</strong> estratificación, gremios, formas de vida</p>
+<p><strong>4.2 Diversidad de las comunidades — conceptos básicos</strong> - <strong>Tipos de diversidad:</strong> alfa, beta, gamma - <strong>Importancia de medir la biodiversidad:</strong> conservación, bioindicadores - <em>Contexto Ecuador:</em> hotspot Tumbes-Chocó-Magdalena, Andes tropicales</p>
+<p><strong>4.3 Diversidad alfa</strong> - <strong>Índices:</strong> riqueza, Shannon, Simpson, Margalef, Pielou - <strong>Diagramas rango-abundancia:</strong> construcción e interpretación - Modelos de distribución de abundancias - <strong>Práctica 3:</strong> diversidad alfa en quebradas de Catamayo</p>
+<p><strong>4.4 Diversidad beta</strong> - Concepto de recambio vs.&nbsp;anidamiento - Partición de diversidad (Whittaker) - <strong>Medidas de similitud:</strong> Jaccard, Sorensen, Bray-Curtis - <strong>Práctica 4:</strong> comparación Catamayo vs.&nbsp;Podocarpus vs.&nbsp;Saraguro</p>
+<p><strong>4.5 Síntesis: integración poblaciones–comunidades</strong> - De la población a la comunidad - Aplicaciones en conservación en Loja</p>
+<hr>
+</section>
+</section>
+<section id="calendario-semana-a-semana" class="level2">
+<h2 class="anchored" data-anchor-id="calendario-semana-a-semana">5. CALENDARIO SEMANA A SEMANA</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Sem</th>
+<th>Tema</th>
+<th>Recurso / Práctica</th>
+<th>Evaluación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1.1 Propiedades de poblaciones</td>
+<td><a href="https://ciespinosa.github.io/ConociendoR/">Conociendo R</a></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1.2 Fitness + 1.3 Demografía</td>
+<td>Exploratorio (manejo de datos)</td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>1.3 Tablas de vida</td>
+<td><a href="https://ciespinosa.github.io/DemografiaDensodependiente/">DemografiaDensodependiente</a></td>
+<td><strong>Tarea 1</strong></td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>2.1 Modelos + 2.2 Geométrico</td>
+<td><a href="https://ciespinosa.github.io/CrecimientoDensoIndependiente/">CrecimientoDensoIndependiente</a></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>2.3 Exponencial continuo</td>
+<td><a href="https://ciespinosa.github.io/CrecimientoDensoIndependiente/">CrecimientoDensoIndependiente</a></td>
+<td><strong>Tarea 2</strong></td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>2.4 Logístico</td>
+<td><em>Por crear</em></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>2.5 Metapoblaciones</td>
+<td>Simulación en clase</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td><strong>PARCIAL 1</strong> (Unidades 1–2)</td>
+<td>—</td>
+<td><strong>Examen</strong></td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>3.1 Relaciones entre especies</td>
+<td><em>Por crear (competencia/depredación)</em></td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>3.2 Redes tróficas + 3.3 Estructura</td>
+<td>Exploratorio con datos de redes</td>
+<td><strong>Tarea 3</strong></td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>4.1 Comunidad y estructura física</td>
+<td>Exploratorio</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>4.2 Conceptos básicos de diversidad</td>
+<td><a href="https://ecologiacivan.shinyapps.io/Riqueza/">Riqueza (Shiny)</a></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>4.3 Diversidad alfa</td>
+<td><a href="https://ecologiacivan.shinyapps.io/AbundanciaPobl/">AbundanciaPobl (Shiny)</a></td>
+<td><strong>Tarea 4</strong></td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>4.4 Diversidad beta</td>
+<td><em>Por crear (Jaccard/Sorensen/Bray-Curtis)</em></td>
+<td>—</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>4.5 Síntesis + <strong>Salida de campo</strong> + presentación proyectos</td>
+<td>—</td>
+<td><strong>Proyecto final</strong></td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td><strong>PARCIAL 2</strong> (Unidades 3–4)</td>
+<td>—</td>
+<td><strong>Examen</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="esquema-de-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="esquema-de-evaluación">6. ESQUEMA DE EVALUACIÓN</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Detalle</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Parcial 1</td>
+<td>Semana 8, Unidades 1–2</td>
+<td>20%</td>
+</tr>
+<tr class="even">
+<td>Parcial 2</td>
+<td>Semana 16, Unidades 3–4</td>
+<td>20%</td>
+</tr>
+<tr class="odd">
+<td>Prácticas R</td>
+<td>8 prácticas (1 cada 2 semanas)</td>
+<td>30%</td>
+</tr>
+<tr class="even">
+<td>Tareas</td>
+<td>4 tareas (2 por bimestre)</td>
+<td>20%</td>
+</tr>
+<tr class="odd">
+<td>Proyecto final grupal</td>
+<td>Grupos de 3 estudiantes</td>
+<td>10%</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>100%</strong></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="prácticas-y-recursos" class="level2">
+<h2 class="anchored" data-anchor-id="prácticas-y-recursos">7. PRÁCTICAS Y RECURSOS</h2>
+<section id="recursos-disponibles-en-el-repositorio-del-docente" class="level3">
+<h3 class="anchored" data-anchor-id="recursos-disponibles-en-el-repositorio-del-docente">Recursos disponibles en el repositorio del docente</h3>
+<ul>
+<li><strong>Intro R:</strong> https://ciespinosa.github.io/ConociendoR/</li>
+<li><strong>Demografía:</strong> https://ciespinosa.github.io/DemografiaDensodependiente/</li>
+<li><strong>Crecimiento denso-independiente:</strong> https://ciespinosa.github.io/CrecimientoDensoIndependiente/</li>
+<li><strong>Riqueza (Shiny):</strong> https://ecologiacivan.shinyapps.io/Riqueza/</li>
+<li><strong>Abundancia poblacional (Shiny):</strong> https://ecologiacivan.shinyapps.io/AbundanciaPobl/</li>
+</ul>
+</section>
+<section id="recursos-por-crear-segundo-bimestre" class="level3">
+<h3 class="anchored" data-anchor-id="recursos-por-crear-segundo-bimestre">Recursos por crear (segundo bimestre)</h3>
+<ul>
+<li>Crecimiento logístico (interactivo)</li>
+<li>Competencia y depredación (interactivo)</li>
+<li>Diversidad beta (Jaccard, Sorensen, Bray-Curtis)</li>
+</ul>
+</section>
+<section id="herramientas" class="level3">
+<h3 class="anchored" data-anchor-id="herramientas">Herramientas</h3>
+<ul>
+<li><strong>R + RStudio</strong> (obligatorio)</li>
+<li><strong>Paquetes sugeridos:</strong> <code>vegan</code>, <code>popbio</code>, <code>ggplot2</code>, <code>dplyr</code>, <code>igraph</code> (redes)</li>
+<li><strong>Datos:</strong> GBIF, iNaturalist, repositorios locales (herbarios UNL, UTPL)</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="tareas" class="level2">
+<h2 class="anchored" data-anchor-id="tareas">8. TAREAS</h2>
+<section id="bimestre-1" class="level3">
+<h3 class="anchored" data-anchor-id="bimestre-1">Bimestre 1</h3>
+<ul>
+<li><strong>Tarea 1 (sem 3):</strong> Tabla de vida de una especie local. Informe 2–3 páginas + script R.</li>
+<li><strong>Tarea 2 (sem 5):</strong> Comparación de modelos de crecimiento (geométrico vs.&nbsp;exponencial) con datos propios o de literatura. Informe 2–3 páginas + script R.</li>
+</ul>
+</section>
+<section id="bimestre-2" class="level3">
+<h3 class="anchored" data-anchor-id="bimestre-2">Bimestre 2</h3>
+<ul>
+<li><strong>Tarea 3 (sem 10):</strong> Análisis de una red trófica local (conectancia, especies clave). Informe 2–3 páginas + script R.</li>
+<li><strong>Tarea 4 (sem 13):</strong> Comparación de diversidad beta entre dos localidades de Loja (datos propios, GBIF o iNaturalist). Informe 2–3 páginas + script R.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="lecturas-científicas" class="level2">
+<h2 class="anchored" data-anchor-id="lecturas-científicas">9. LECTURAS CIENTÍFICAS</h2>
+<p><strong>Modalidad:</strong> 2 papers por bimestre, proporcionados por el docente.</p>
+<section id="bimestre-1-poblaciones" class="level3">
+<h3 class="anchored" data-anchor-id="bimestre-1-poblaciones">Bimestre 1 (poblaciones)</h3>
+<ul>
+<li><strong>Paper 1 — Fitness y demografía (sem 2–3):</strong> estudio empírico de historia de vida en especie tropical/andina, con tablas de vida o matriz de Leslie. <em>Búsqueda: Biotropica, Journal of Tropical Ecology, Ecology.</em></li>
+<li><strong>Paper 2 — Crecimiento poblacional (sem 5–6):</strong> modelación de crecimiento logístico o exponencial en poblaciones reales (invasoras, fauna en recuperación, plagas). <em>Búsqueda: Ecological Modelling, Biological Invasions, PLOS ONE.</em></li>
+</ul>
+</section>
+<section id="bimestre-2-comunidades" class="level3">
+<h3 class="anchored" data-anchor-id="bimestre-2-comunidades">Bimestre 2 (comunidades)</h3>
+<ul>
+<li><strong>Paper 3 — Interacciones y redes tróficas (sem 9–10):</strong> red trófica cuantificada con métricas (conectancia, modularidad), o estudio de competencia/depredación. <em>Búsqueda: Oikos, Journal of Animal Ecology, Food Webs.</em></li>
+<li><strong>Paper 4 — Diversidad alfa (sem 12–13):</strong> comparación de índices en gradientes (altitud, perturbación) en bosques neotropicales. <em>Búsqueda: Biodiversity and Conservation, Revista de Biología Tropical.</em></li>
+<li><strong>Paper 5 — Diversidad beta (sem 14):</strong> recambio vs.&nbsp;anidamiento; partición de diversidad entre localidades. <em>Búsqueda: Journal of Biogeography, Diversity and Distributions, Ecography.</em></li>
+<li><strong>Paper 6 — Síntesis / conservación (sem 15):</strong> aplicación de poblaciones + comunidades a conservación en Ecuador o Andes tropicales. <em>Búsqueda: Conservation Biology, Biological Conservation, Neotropical Biodiversity.</em></li>
+</ul>
+<p><strong>Idioma:</strong> ambos (español e inglés). Los papers en inglés con guía de lectura en español.</p>
+<hr>
+</section>
+</section>
+<section id="proyecto-final" class="level2">
+<h2 class="anchored" data-anchor-id="proyecto-final">10. PROYECTO FINAL</h2>
+<p><strong>Modalidad:</strong> Grupal (3 estudiantes) <strong>Peso:</strong> 10% <strong>Vinculación:</strong> Salida de campo de una semana al final del curso (semana 15)</p>
+<section id="estructura" class="level3">
+<h3 class="anchored" data-anchor-id="estructura">Estructura</h3>
+<ol type="1">
+<li><strong>Pregunta ecológica</strong> respondible con datos de la salida (diversidad alfa, beta, estructura, relaciones).</li>
+<li><strong>Métodos:</strong> diseño de muestreo, toma de datos.</li>
+<li><strong>Análisis en R:</strong> índices, modelos, visualización.</li>
+<li><strong>Productos:</strong>
+<ul>
+<li>Informe escrito (formato paper)</li>
+<li>Presentación oral (sem 15)</li>
+<li>Dataset y script en R</li>
+</ul></li>
+</ol>
+</section>
+<section id="rúbrica" class="level3">
+<h3 class="anchored" data-anchor-id="rúbrica">Rúbrica</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Peso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Pregunta ecológica y marco teórico</td>
+<td>20%</td>
+</tr>
+<tr class="even">
+<td>Diseño metodológico</td>
+<td>20%</td>
+</tr>
+<tr class="odd">
+<td>Análisis y resultados (R)</td>
+<td>30%</td>
+</tr>
+<tr class="even">
+<td>Comunicación (informe + presentación)</td>
+<td>20%</td>
+</tr>
+<tr class="odd">
+<td>Trabajo en equipo</td>
+<td>10%</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="salida-de-campo" class="level2">
+<h2 class="anchored" data-anchor-id="salida-de-campo">11. SALIDA DE CAMPO</h2>
+<ul>
+<li><strong>Duración:</strong> 1 semana (final del curso, sem 15)</li>
+<li><strong>Destino:</strong> [por definir — Podocarpus, Catamayo, Saraguro u otro]</li>
+<li><strong>Objetivo:</strong> recolectar datos para el proyecto final</li>
+<li><strong>Productos esperados:</strong> dataset propio, informe, presentación</li>
+</ul>
+<hr>
+</section>
+<section id="bibliografía-sugerida" class="level2">
+<h2 class="anchored" data-anchor-id="bibliografía-sugerida">13. BIBLIOGRAFÍA SUGERIDA</h2>
+<ul>
+<li>Gotelli, N. J. (2008). <em>A Primer of Ecology</em>. 4th ed.&nbsp;Sinauer.</li>
+<li>Begon, M., Harper, J. L., &amp; Townsend, C. R. (2006). <em>Ecology: From Individuals to Ecosystems</em>. Blackwell.</li>
+<li>Magurran, A. E. (2004). <em>Measuring Biological Diversity</em>. Blackwell.</li>
+<li>Krebs, C. J. (1999). <em>Ecological Methodology</em>. 2nd ed.&nbsp;Benjamin Cummings.</li>
+<li>Legendre, P., &amp; Legendre, L. (2012). <em>Numerical Ecology</em>. 3rd ed.&nbsp;Elsevier.</li>
+<li>Whittaker, R. H. (1972). Evolution and measurement of species diversity. <em>Taxon</em>, 21(2/3), 213–251.</li>
+</ul>
+<hr>
+</section>
+<section id="mapeo-temas-solicitados-ubicación-en-el-temario" class="level2">
+<h2 class="anchored" data-anchor-id="mapeo-temas-solicitados-ubicación-en-el-temario">14. MAPEO: TEMAS SOLICITADOS → UBICACIÓN EN EL TEMARIO</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tema original</th>
+<th>Ubicación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Propiedades de las poblaciones</td>
+<td>1.1</td>
+</tr>
+<tr class="even">
+<td>Crecimiento poblacional</td>
+<td>Unidad 2</td>
+</tr>
+<tr class="odd">
+<td>Eficacia biológica</td>
+<td>1.2</td>
+</tr>
+<tr class="even">
+<td>Demografía</td>
+<td>1.3</td>
+</tr>
+<tr class="odd">
+<td>Mortalidad y fecundidad</td>
+<td>1.3</td>
+</tr>
+<tr class="even">
+<td>Relaciones entre especies</td>
+<td>3.1</td>
+</tr>
+<tr class="odd">
+<td>Modelos de crecimiento poblacional</td>
+<td>2.1–2.5</td>
+</tr>
+<tr class="even">
+<td>Crecimiento denso-independiente</td>
+<td>2.1</td>
+</tr>
+<tr class="odd">
+<td>Crecimiento geométrico</td>
+<td>2.2</td>
+</tr>
+<tr class="even">
+<td>Crecimiento exponencial continuo</td>
+<td>2.3</td>
+</tr>
+<tr class="odd">
+<td>La comunidad y sus propiedades</td>
+<td>4.1</td>
+</tr>
+<tr class="even">
+<td>Diversidad de las comunidades</td>
+<td>4.2–4.4</td>
+</tr>
+<tr class="odd">
+<td>Conceptos básicos (diversidad)</td>
+<td>4.2</td>
+</tr>
+<tr class="even">
+<td>Diagramas rango abundancia</td>
+<td>4.3</td>
+</tr>
+<tr class="odd">
+<td>Tipos de diversidad</td>
+<td>4.2</td>
+</tr>
+<tr class="even">
+<td>Índices de Diversidad alfa</td>
+<td>4.3</td>
+</tr>
+<tr class="odd">
+<td>Importancia de medir la biodiversidad</td>
+<td>4.2</td>
+</tr>
+<tr class="even">
+<td>Estructura física de la comunidad</td>
+<td>4.1</td>
+</tr>
+<tr class="odd">
+<td>Medidas de similitud de la comunidad</td>
+<td>4.4</td>
+</tr>
+<tr class="even">
+<td><strong>Subtemas complementarios agregados</strong></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Crecimiento logístico (denso-dependiente)</td>
+<td>2.4</td>
+</tr>
+<tr class="even">
+<td>Metapoblaciones</td>
+<td>2.5</td>
+</tr>
+<tr class="odd">
+<td>Redes tróficas</td>
+<td>3.2</td>
+</tr>
+<tr class="even">
+<td>Diversidad beta (formal)</td>
+<td>4.4</td>
+</tr>
+<tr class="odd">
+<td>Síntesis poblaciones–comunidades</td>
+<td>4.5</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p><em>Documento generado a partir de la conversación de diseño instruccional. Última actualización: [fecha].</em></p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
