@@ -1,0 +1,4 @@
+[1,"==> quarto preview Ejer_demografia.qmd --to html --no-watch-inputs --no-browse\n\n"]
+[1,"pandoc \n  to: html\n  output-file: Ejer_demografia.html\n  standalone: true\n  embed-resources: true\n  section-divs: true\n  html-math-method: mathjax\n  wrap: none\n  default-image-extension: png\n  toc: true\n  toc-depth: 2\n  \nmetadata\n  document-css: false\n  link-citations: true\n  lang: en\n  title: Ejercicio 3 — Tabla de vida de Croton aff. wagneri\n  subtitle: Gradientes altitudinales y cambio climático en el valle de Catamayo, Loja\n  author: Carlos Iván Espinosa\n  date: last-modified\n  date-format: DD/MM/YYYY\n  theme: cosmo\n  fig-cap-location: bottom\n  \n"]
+[1,"Output created: Ejer_demografia.html\n\nWatching files for changes\n"]
+[1,"Browse at http://localhost:7624/\nListening on http://127.0.0.1:7624/\n"]

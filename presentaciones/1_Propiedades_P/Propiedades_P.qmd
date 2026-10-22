@@ -13,7 +13,7 @@ format:
     incremental: false
     transition: slide
     background-transition: fade
-    css: presentacion.css
+    css: ../presentacion.css
 ---
 
 ## Ecología de Poblaciones y Comunidades

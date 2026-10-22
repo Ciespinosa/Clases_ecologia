@@ -1,0 +1,560 @@
+---
+title: "Eficacia biológica"
+subtitle: "Clase 1.2 — Teoría y discusión"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "DD/MM/YYYY"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    incremental: false
+    transition: slide
+    background-transition: fade
+    css: ../../presentacion.css
+---
+
+## Ecología de Poblaciones y Comunidades
+
+**Clase 1.2 — Eficacia biológica**
+
+Carlos Iván Espinosa
+Universidad Técnica Particular de Loja
+
+---
+
+## Objetivos de la clase
+
+Al finalizar esta sesión, podrás:
+
+- **Definir** eficacia biológica (fitness) y distinguir sus formas de medición
+- **Identificar** los componentes del fitness: supervivencia, fecundidad y esfuerzo reproductivo
+- **Explicar** qué son los trade-offs y cómo limitan la reproducción
+- **Calcular** e interpretar el valor reproductivo de un individuo
+- **Aplicar** estos conceptos a un estudio local sobre *Croton aff. wagneri*
+
+---
+
+# Parte 1: ¿Qué es la eficacia biológica?
+
+## Una pregunta para empezar
+
+> En un fragmento de bosque de la hoya de Loja, un árbol de *Cedrela montana* produce 5.000 semillas en un año, mientras que otro produce solo 500.
+>
+> **¿El primero tiene más éxito que el segundo?**
+
+::: {.notes}
+Discutir 3 min. Recoger respuestas. No dar la respuesta todavía.
+:::
+
+---
+
+## La respuesta no es tan simple
+
+A primera vista, el primero parece tener más éxito: deja más descendientes.
+
+Pero:
+
+- ¿Cuántas de esas 5.000 semillas llegan a la adultez?
+- ¿Cuánto le costó al árbol producir esas semillas?
+- ¿Sobrevivirá el árbol para reproducirse otra vez?
+
+::: {.fragment}
+Dejar más descendientes **no siempre** es mejor.
+:::
+
+---
+
+## Definición
+
+> La **eficacia biológica** (o *fitness*) es la contribución relativa de un individuo a la siguiente generación.
+
+En términos simples: **cuántos descendientes deja un individuo que llegan a reproducirse**.
+
+::: {.fragment}
+No es cuántos hijos tiene, sino cuántos hijos **fértiles** deja.
+:::
+
+---
+
+## Dos formas de medir el fitness
+
+### Fitness absoluto
+
+Número total de descendientes que un individuo produce en su vida.
+
+**Ejemplo:** una hembra de *Tremarctos ornatus* tiene 2 crías. Un árbol de *Cedrela montana* produce miles de semillas.
+
+::: {.fragment}
+Es una medida directa, pero **poco útil para comparar** entre especies.
+:::
+
+---
+
+### Fitness relativo
+
+Contribución de un individuo **comparada** con otros de la misma población.
+
+**Ejemplo:** si el árbol A deja 200 descendientes viables y el árbol B deja 100:
+
+$$\text{Fitness relativo de A} = 2$$
+$$\text{Fitness relativo de B} = 1$$
+
+::: {.fragment}
+A tiene el doble de éxito reproductivo que B.
+:::
+
+---
+
+## ¿Por qué el fitness relativo importa?
+
+La selección natural no actúa sobre números absolutos, sino sobre **diferencias relativas**.
+
+Un individuo con fitness relativo mayor que el promedio de la población tiene más probabilidades de que sus genes pasen a la siguiente generación.
+
+::: {.fragment}
+**El fitness se mide siempre en el contexto de la población**, no en un individuo aislado.
+:::
+
+---
+
+## Pregunta para discutir
+
+> Si un árbol tiene muchos descendientes en un año, pero esos descendientes no sobreviven ni se reproducen, ¿tiene un fitness alto o bajo?
+
+::: {.notes}
+Guiar hacia: el fitness efectivo depende de la supervivencia de los descendientes. La fecundidad sola no basta.
+:::
+
+---
+
+# Parte 2: Los componentes del fitness
+
+## Tres componentes
+
+El fitness no es una sola cosa. Se descompone en tres componentes que actúan en distintas etapas de la vida:
+
+1. **Supervivencia**
+2. **Fecundidad**
+3. **Esfuerzo reproductivo**
+
+Los vemos uno por uno.
+
+---
+
+## Componente 1: Supervivencia
+
+**Definición:** la probabilidad de que un individuo sobreviva hasta cierta edad.
+
+**Ejemplo local:** en *Tremarctos ornatus*, la supervivencia de las crías durante su primer año es baja. Si una hembra tiene dos crías pero solo una llega a la adultez, su fitness efectivo es la mitad de lo que parecía.
+
+```{r, echo=FALSE, fig.align='center', out.width='80%', fig.height=4}
+library(ggplot2)
+
+edades <- c("0-1", "1-2", "2-5", "5-10", "10-15", "15+")
+supervivencia <- c(0.4, 0.7, 0.85, 0.9, 0.85, 0.7)
+
+datos <- data.frame(
+  edad = factor(edades, levels = edades),
+  prob = supervivencia
+)
+
+ggplot(datos, aes(x = edad, y = prob)) +
+  geom_col(fill = "#2e7d32") +
+  geom_text(aes(label = prob), vjust = -0.5, size = 4) +
+  labs(x = "Clase de edad", y = "Probabilidad de supervivencia") +
+  ylim(0, 1) +
+  theme_minimal(base_size = 14) +
+  theme(panel.grid.minor = element_blank())
+```
+
+---
+
+## Componente 2: Fecundidad
+
+**Definición:** el número de descendientes que un individuo produce.
+
+**Ejemplo local:** un árbol de *Cedrela montana* puede producir miles de semillas, pero solo unas pocas germinan y llegan a la adultez.
+
+**La fecundidad puede medirse como:**
+
+- **Absoluta:** número total de descendientes
+- **Relativa:** comparada con otros individuos
+
+::: {.fragment}
+Alta fecundidad **no garantiza** fitness alto si la supervivencia de los descendientes es baja.
+:::
+
+---
+
+## Componente 3: Esfuerzo reproductivo
+
+**Definición:** la energía y recursos que un individuo invierte en la reproducción, en lugar de invertirlos en su crecimiento o supervivencia.
+
+**Ejemplo local:** un ave del bosque seco de Catamayo que dedica toda su energía a alimentar a sus polluelos puede tener menos reservas para sobrevivir al siguiente invierno.
+
+::: {.fragment}
+El esfuerzo reproductivo es el concepto central de los **trade-offs**.
+:::
+
+---
+
+## Los tres componentes en una imagen
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4.5}
+library(DiagrammeR)
+
+grViz("
+digraph fitness {
+
+  graph [layout = dot, rankdir = LR, bgcolor = 'transparent']
+
+  node [shape = box, style = 'filled,rounded',
+        fontname = 'Helvetica', fontsize = 14,
+        color = '#2e7d32', penwidth = 2]
+
+  F [label = 'FITNESS', fillcolor = '#1b5e20',
+     fontcolor = 'white', fontsize = 16]
+
+  S [label = 'Supervivencia', fillcolor = '#c8e6c9']
+  FE [label = 'Fecundidad', fillcolor = '#c8e6c9']
+  ER [label = 'Esfuerzo\\nreproductivo', fillcolor = '#c8e6c9']
+
+  F -> S [color = '#2e7d32', penwidth = 2]
+  F -> FE [color = '#2e7d32', penwidth = 2]
+  F -> ER [color = '#2e7d32', penwidth = 2]
+}
+")
+```
+
+---
+
+## Pregunta para discutir
+
+> Piensa en una especie de Loja que conozcas. ¿Cuál de los tres componentes del fitness crees que es más crítico para esa especie? ¿Por qué?
+
+::: {.notes}
+Discutir 5 min. Ejemplos: osos (supervivencia), cedros (fecundidad), aves (esfuerzo reproductivo).
+:::
+
+---
+
+# Parte 3: Trade-offs
+
+## ¿Qué es un trade-off?
+
+> Un **trade-off** es un compromiso entre dos rasgos o funciones que compiten por los mismos recursos limitados.
+
+En la reproducción, los trade-offs son la regla, no la excepción.
+
+::: {.fragment}
+Ganar en una cosa suele significar perder en otra.
+:::
+
+---
+
+## Trade-off 1: Reproducción vs. supervivencia
+
+Invertir energía en reproducirse reduce los recursos disponibles para sobrevivir.
+
+```{r, echo=FALSE, fig.align='center', out.width='85%', fig.height=4}
+library(ggplot2)
+
+esfuerzo <- seq(0, 1, by = 0.05)
+supervivencia <- 1 - 0.6 * esfuerzo^1.5
+reproduccion <- esfuerzo
+
+datos <- data.frame(
+  esfuerzo = rep(esfuerzo, 2),
+  valor = c(supervivencia, reproduccion),
+  tipo = rep(c("Supervivencia", "Reproducción"), each = length(esfuerzo))
+)
+
+ggplot(datos, aes(x = esfuerzo, y = valor, color = tipo)) +
+  geom_line(size = 1.5) +
+  scale_color_manual(values = c("Supervivencia" = "#1976d2",
+                                 "Reproducción" = "#e53935")) +
+  labs(x = "Esfuerzo reproductivo", y = "Valor relativo",
+       color = "") +
+  ylim(0, 1) +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom",
+        panel.grid.minor = element_blank())
+```
+
+**Ejemplo local:** un árbol de *Cedrela montana* que produce una cosecha masiva de semillas puede quedar debilitado y ser más susceptible a sequías o plagas al año siguiente.
+
+---
+
+## Trade-off 2: Número vs. tamaño de descendientes
+
+Producir muchos descendientes pequeños o pocos descendientes grandes.
+
+| Estrategia | Ejemplo local | Ventaja | Desventaja |
+|---|---|---|---|
+| Muchos y pequeños | *Cedrela montana* | Alta dispersión | Baja supervivencia por semilla |
+| Pocos y grandes | *Tremarctos ornatus* | Alta inversión parental | Bajo número |
+
+::: {.fragment}
+Ninguna estrategia es "mejor": ambas funcionan en distintos contextos ecológicos.
+:::
+
+---
+
+## Trade-off 3: Reproducción temprana vs. tardía
+
+```{r, echo=FALSE, fig.align='center', out.width='85%', fig.height=4}
+library(ggplot2)
+
+edad <- seq(1, 20, by = 1)
+temprana <- 1 - exp(-0.4 * edad)
+tardia <- 1 - exp(-0.15 * edad)
+
+datos <- data.frame(
+  edad = rep(edad, 2),
+  exito = c(temprana, tardia),
+  estrategia = rep(c("Temprana", "Tardía"), each = length(edad))
+)
+
+ggplot(datos, aes(x = edad, y = exito, color = estrategia)) +
+  geom_line(size = 1.5) +
+  scale_color_manual(values = c("Temprana" = "#43a047",
+                                 "Tardía" = "#fb8c00")) +
+  labs(x = "Edad (años)", y = "Éxito reproductivo acumulado",
+       color = "Estrategia") +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom",
+        panel.grid.minor = element_blank())
+```
+
+**Ejemplo local:** un árbol que se reproduce a los 10 años tiene más probabilidades de dejar descendencia que uno que espera 30 años.
+
+---
+
+## Pregunta para discutir
+
+> ¿Qué trade-off te parece más importante en una especie de Loja que conozcas? ¿Por qué?
+
+::: {.notes}
+Discutir 5 min. Recoger ejemplos concretos. Conectar con el paper de *Croton*.
+:::
+
+---
+
+# Parte 4: Valor reproductivo
+
+## Definición
+
+> El **valor reproductivo** es la contribución esperada de un individuo a las generaciones futuras.
+
+**No es solo su capacidad reproductiva actual.** Es el producto de dos cosas:
+
+$$\text{Valor reproductivo} = \text{Capacidad reproductiva} \times \text{Probabilidad de supervivencia futura}$$
+
+::: {.fragment}
+No basta con poder reproducirse mucho hoy; también hay que sobrevivir para hacerlo mañana.
+:::
+
+---
+
+## Ejemplo local
+
+Considera dos hembras de *Tremarctos ornatus* en el Podocarpus:
+
+::: {.columns}
+
+::: {.column width="50%"}
+**Hembra A — joven**
+
+- Aún no ha tenido crías
+- Le quedan muchos años para reproducirse
+- Alta probabilidad de sobrevivir hasta entonces
+
+→ **Valor reproductivo alto**
+:::
+
+::: {.column width="50%"}
+**Hembra B — vieja**
+
+- Ya ha tenido varias crías
+- Le quedan pocos años
+- Menor probabilidad de supervivencia futura
+
+→ **Valor reproductivo bajo**
+:::
+
+:::
+
+---
+
+## Implicaciones para la conservación
+
+No todos los individuos contribuyen igual a la siguiente generación.
+
+- Los individuos **jóvenes** con alta probabilidad de supervivencia futura tienen mayor valor reproductivo.
+- Los individuos **viejos** tienen menor valor reproductivo, aunque puedan reproducirse.
+
+::: {.fragment}
+Proteger a los juveniles de una población puede ser más efectivo que proteger a los adultos.
+:::
+
+---
+
+## Pregunta para discutir
+
+> Imagina dos plantas de *Croton aff. wagneri* en Catamayo:
+>
+> - **Planta A:** produce 500 flores femeninas, sobrevive 3 años.
+> - **Planta B:** produce 200 flores femeninas, sobrevive 5 años.
+>
+> ¿Cuál tendría mayor **valor reproductivo**? Justifica.
+
+::: {.notes}
+Discutir 5 min. No hay una única respuesta correcta: depende de cuántas semillas viables produzca cada una por año.
+:::
+
+---
+
+# Parte 5: El caso *Croton aff. wagneri*
+
+## El estudio
+
+**Vélez-Mora et al. (2020).** *Environmental drivers of femaleness of an inter-Andean monoecious shrub.* Biotropica 53:17–27.
+
+- **Especie:** *Croton aff. wagneri* (Euphorbiaceae), arbusto monoico
+- **Sitio:** Hacienda Alamala, Catamayo, Loja
+- **Elevaciones:** 1.400 y 1.700 m s.n.m.
+- **Años:** 2013 y 2016
+
+::: {.fragment}
+Un estudio local sobre cómo el ambiente afecta la expresión sexual de una planta.
+:::
+
+---
+
+## ¿Qué es una planta monoica?
+
+**Monoica:** una planta que tiene **flores femeninas y masculinas separadas** en el mismo individuo.
+
+**Dioica:** una planta que tiene **solo flores femeninas** o **solo masculinas** por individuo.
+
+::: {.fragment}
+*Croton* es monoico: cada planta puede producir flores de ambos sexos.
+:::
+
+---
+
+## El índice de feminidad (Gi)
+
+El estudio mide la **proporción de flores femeninas** de cada planta:
+
+$$G_i = \frac{o_i}{o_i + p_i\left(\sum o_i / \sum p_i\right)}$$
+
+- **Gi = 1:** planta que produce **solo flores femeninas**
+- **Gi = 0:** planta que produce **solo flores masculinas**
+- **Gi = 0,5:** planta balanceada
+
+::: {.fragment}
+El índice varía entre individuos y entre sitios.
+:::
+
+---
+
+## ¿Qué encontraron?
+
+**Tres hallazgos principales:**
+
+1. Las plantas del sitio de **menor elevación** son más femeninas
+2. Las plantas **más grandes** son más femeninas
+3. Los **vecinos conespecíficos** (facilitación) aumentan la feminidad, pero solo en el sitio de menor elevación
+
+```{r, echo=FALSE, fig.align='center', out.width='85%', fig.height=4}
+library(ggplot2)
+
+set.seed(42)
+datos <- data.frame(
+  tamano = rnorm(200, 12, 1.5),
+  sitio = rep(c("Sitio 1.400 m", "Sitio 1.700 m"), each = 100)
+)
+datos$femaleness <- 0.3 + 0.015 * datos$tamano +
+  ifelse(datos$sitio == "Sitio 1.400 m", 0.15, 0) +
+  rnorm(200, 0, 0.1)
+
+ggplot(datos, aes(x = tamano, y = femaleness, color = sitio)) +
+  geom_point(size = 2, alpha = 0.6) +
+  geom_smooth(method = "lm", se = TRUE, size = 1.2) +
+  scale_color_manual(values = c("Sitio 1.400 m" = "#e53935",
+                                 "Sitio 1.700 m" = "#1976d2")) +
+  labs(x = "Tamaño de planta (volumen, log)",
+       y = "Feminidad (Gi)",
+       color = "") +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "bottom",
+        panel.grid.minor = element_blank())
+```
+
+---
+
+## Conexión con fitness
+
+**¿Por qué esta planta es un buen caso para estudiar fitness?**
+
+- La **feminidad** (producir más flores femeninas) se relaciona directamente con la **fecundidad**
+- Las flores femeninas son **más costosas** de producir que las masculinas (trade-off)
+- La variación entre sitios sugiere **plasticidad fenotípica** en la asignación reproductiva
+
+::: {.fragment}
+La planta ajusta su esfuerzo reproductivo según el ambiente.
+:::
+
+---
+
+## Pregunta para discutir
+
+> Si las plantas más femeninas producen más semillas, pero también mueren antes por el costo de producir flores femeninas, ¿cómo evaluarías su **fitness** a lo largo de toda la vida?
+
+::: {.notes}
+Discutir 5 min. Guiar hacia: el fitness no es solo fecundidad, es fecundidad × supervivencia. Conectar con valor reproductivo.
+:::
+
+---
+
+# Cierre
+
+## Síntesis
+
+- La eficacia biológica es la **contribución relativa** de un individuo a la siguiente generación
+- Se descompone en **supervivencia, fecundidad y esfuerzo reproductivo**
+- Los **trade-offs** limitan la reproducción: ganar en algo suele costar en otra cosa
+- El **valor reproductivo** combina capacidad reproductiva y probabilidad de supervivencia futura
+- Dejar más descendientes **no siempre es mejor**
+
+---
+
+## Pregunta final
+
+> Pensando en una especie de Loja que conozcas, ¿qué trade-off te parece más importante? ¿Cómo crees que afecta su valor reproductivo?
+
+::: {.notes}
+Recoger respuestas. Conectar con la guía de lectura del paper de *Croton*.
+:::
+
+---
+
+## Puente a la próxima clase
+
+- **Hoy:** eficacia biológica, trade-offs y valor reproductivo
+- **Próxima clase:** cómo se cuantifican estos componentes → **demografía y tablas de vida**
+- **Recordatorio:** la Guía de lectura del paper de *Croton* está abierta en Canvas
+
+Gracias.
+
+---
+
+# Materiales del curso
+
+- 📖 [Lectura 1.2 — Eficacia biológica](https://TU-USUARIO.github.io/curso-ecologia/lecturas/02-fitness.html)
+- 📝 [Guía de lectura — Paper de *Croton*](https://TU-USUARIO.github.io/curso-ecologia/tareas/02-croton.html)
+- 📄 Artículo completo en Canvas

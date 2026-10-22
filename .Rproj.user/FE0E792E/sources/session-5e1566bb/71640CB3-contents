@@ -1,0 +1,344 @@
+---
+title: "Ejercicio 3 — Tabla de vida de Croton aff. wagneri"
+subtitle: "Gradientes altitudinales y cambio climático en el valle de Catamayo, Loja"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "DD/MM/YYYY"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    embed-resources: true
+    fig-cap-location: bottom
+  pdf:
+    documentclass: article
+    geometry: margin=2.5cm
+    fig-cap-location: bottom
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## 1. Objetivo
+
+**Objetivo ecológico:** evaluar si las poblaciones de *Croton aff. wagneri* en dos elevaciones del valle de Catamayo difieren en su dinámica demográfica, y discutir qué implicaciones tiene esto para la conservación del matorral seco interandino frente al cambio climático.
+
+**Objetivo metodológico:** construir una tabla de vida a partir de datos reales de cuatro años de monitoreo, calcular las tasas demográficas $R_0$, $T$ y $r$, y evaluar críticamente las decisiones metodológicas que implica este proceso.
+
+## 2. Contexto ecológico
+
+### 2.1 El gradiente altitudinal como modelo de cambio climático
+
+Los gradientes altitudinales son uno de los modelos naturales más poderosos para estudiar los efectos del cambio climático. A medida que subimos una montaña, la temperatura disminuye y la humedad cambia, de forma similar a como lo haría un escenario de calentamiento global proyectado a lo largo del tiempo. Por eso, comparar poblaciones a distintas elevaciones permite anticipar cómo podrían responder las especies a un clima más cálido y seco.
+
+En el sur de Ecuador, los valles interandinos son particularmente sensibles: ya son ambientes secos y calurosos, y se espera que el cambio climático los vuelva aún más áridos. Entender cómo las poblaciones de plantas dominantes responden a estas condiciones es clave para predecir su persistencia.
+
+### 2.2 El sistema de estudio
+
+En la Hacienda Alamala (Catamayo, Loja), un equipo de investigación de la UTPL monitoreó durante cuatro años (2013–2016) una población de *Croton aff. wagneri*, un arbusto monoico que domina el matorral seco interandino. El estudio se realizó en dos sitios a distinta elevación:
+
+- **Sitio alto:** 1.700 m s.n.m., con menor temperatura y mayor humedad.
+- **Sitio bajo:** 1.400 m s.n.m., más cálido y seco.
+
+*Croton* es una especie clave del ecosistema: su copa genera microambientes que facilitan el establecimiento de otras plantas, por lo que su dinámica poblacional afecta a toda la comunidad.
+
+### 2.3 La pregunta ecológica
+
+> **¿Las poblaciones de *Croton* en el sitio alto y en el sitio bajo difieren en su dinámica demográfica? Si el sitio bajo representa un escenario futuro más cálido y seco, ¿qué nos dice esto sobre la persistencia de *Croton* frente al cambio climático?**
+
+Para responder esta pregunta, construiremos una tabla de vida para cada sitio y compararemos sus tasas demográficas.
+
+## 3. Recursos
+
+- Los datos en formato text pueden encontrarlos [aquí](https://doi.org/10.5061/dryad.6581hh9)
+
+En esta pagina encontrará
+**Datos de adultos:** `Croton adults demography.txt` (302 plantas seguidas de 2013 a 2016)
+**Datos de plántulas:** `distancia a planta con vecinos.txt` (325 plántulas con distancia al adulto más cercano)
+
+
+- **Artículo:** Espinosa et al. (2018). *Intraspecific interactions affect the spatial pattern of a dominant shrub in a semiarid shrubland: A prospective approach.* Population Ecology [aquí](https://doi.org/10.1002/1438-390X.1018)
+
+- **Lectura 1.3:** *Demografía: construyendo una tabla de vida paso a paso*
+
+## 4. Entregable
+
+Un **informe PDF de máximo 3 páginas** + un **script de R comentado**.
+
+**Estructura del informe:**
+
+1. **Introducción** (media página): ¿por qué es importante estudiar gradientes altitudinales en el contexto del cambio climático? ¿Qué se sabe de *Croton* y del matorral seco interandino? ¿Cuál es la pregunta ecológica?
+2. **Metodología** (media página): ¿qué datos usaron? ¿Cómo definieron las clases de tamaño? ¿Qué decisiones tomaron y por qué?
+3. **Resultados** (1 página): tablas de vida para cada sitio, gráfico de curvas de supervivencia, valores de $R_0$, $T$ y $r$.
+4. **Discusión** (1 página): interpretación ecológica de los resultados. ¿Qué diferencias hay entre sitios? ¿Qué implicaciones tiene para la conservación de *Croton* frente al cambio climático? ¿Qué limitaciones tiene el estudio?
+5. **Anexo:** script de R comentado.
+
+**Trabajo:** grupal (3–4 estudiantes).
+**Peso:** 10 puntos (ver rúbrica al final).
+
+---
+
+# Parte A — Contexto ecológico y exploración de datos
+
+## Paso 1. Entender el sistema de estudio
+
+**A1.** Con base en el contexto y en el paper, respondan: ¿por qué el sitio bajo representa un escenario futuro más cálido y seco? ¿Qué variables ambientales cambian con la elevación?
+
+**A2.** ¿Por qué *Croton* es una especie clave del ecosistema? ¿Qué pasaría con la comunidad si sus poblaciones declinaran?
+
+**A3.** ¿Qué hipótesis ecológica pueden plantear sobre las diferencias entre sitios? Por ejemplo: ¿esperarían mayor o menor crecimiento poblacional en el sitio bajo? ¿Por qué?
+
+## Paso 2. Explorar los datos
+
+Carga los dos archivos en R y responde:
+
+**A4.** ¿Cuántas plantas adultas hay en cada sitio?
+
+**A5.** ¿Cuántas plantas sobreviven de 2013 a 2014, de 2014 a 2015 y de 2015 a 2016, en cada sitio?
+
+**A6.** ¿Cuál es el rango de volúmenes (en cm³) en cada sitio? ¿Hay diferencias entre sitios?
+
+**A7.** En el archivo de plántulas, ¿cuántas plántulas hay por sitio? ¿Cuál es la distancia promedio al adulto más cercano? ¿Qué nos dice esto sobre el reclutamiento?
+
+::: {.callout-tip}
+## Pista para R
+```r
+adultos <- read.table("Croton adults demography.txt", header = TRUE, sep = "\t")
+plántulas <- read.table("distancia a planta con vecinos.txt", header = TRUE, sep = "\t")
+```
+:::
+
+---
+
+# Parte B — Definir clases de tamaño
+
+## Paso 3. Elegir el criterio de clasificación
+
+Como *Croton* es un arbusto longevo, no conocemos la edad de cada planta. Usaremos el **tamaño** (volumen) como proxy de la edad, que es la práctica estándar en plantas.
+
+**Decisión grupal:** ¿cómo definir las clases de tamaño?
+
+Tienen **dos opciones**:
+
+- **Opción A (recomendada):** cuantiles. Divide las plantas en 4 grupos con igual número de individuos. Es objetivo y fácil de justificar.
+- **Opción B (abierta):** cortes arbitrarios o biológicos. Por ejemplo, clases definidas por el tamaño que alcanza la planta en distintas etapas de su vida (plántula, juvenil, adulto pequeño, adulto grande). Si eligen esta opción, deben **justificar por qué** esos cortes son biológicamente significativos.
+
+::: {.callout-warning}
+## Advertencia importante
+Los cuantiles **no son necesariamente lo mejor**. Son una opción práctica, pero pueden agrupar plantas de tamaños muy distintos en la misma clase. Si eligen cuantiles, menciónalo en el informe como una limitación.
+:::
+
+**A8.** ¿Qué criterio eligieron y por qué? Escriban la justificación en el informe.
+
+**A9.** Definan los cortes de las 4 clases (en cm³). Además, agreguen una **quinta clase: plántula** (individuos <10 cm, que no están en los datos de adultos).
+
+::: {.callout-tip}
+## Pista para R
+```r
+cuantiles <- quantile(adultos$vol_2013, probs = c(0, 0.25, 0.5, 0.75, 1), na.rm = TRUE)
+cuantiles
+```
+:::
+
+---
+
+# Parte C — Calcular la supervivencia por clase
+
+## Paso 4. Asignar cada planta a una clase
+
+Usando los cortes definidos en el Paso 3, asignen cada planta adulta a una clase según su volumen en 2013. Las plántulas (clase 0) no están en los datos de adultos: su supervivencia se estima a partir del archivo de plántulas y del artículo.
+
+**A10.** ¿Cuántas plantas hay en cada clase, en cada sitio?
+
+::: {.callout-tip}
+## Pista para R
+```r
+adultos$clase <- cut(adultos$vol_2013,
+                     breaks = c(0, cortes, Inf),
+                     labels = c("Pequeña", "Mediana", "Grande", "Muy grande"))
+table(adultos$altitud, adultos$clase)
+```
+:::
+
+## Paso 5. Calcular $l_x$ por clase
+
+Para cada clase, calculen la proporción de plantas que sobreviven de 2013 a 2016. Usen las columnas `surv_13_14`, `surv_14_15` y `surv_15_16`.
+
+**A11.** Completen la siguiente tabla para cada sitio:
+
+| Clase | $n_x$ (2013) | Supervivientes 2016 | $l_x$ |
+|---|---|---|---|
+| Plántula | ? | ? | 1,00 |
+| Pequeña | ? | ? | ? |
+| Mediana | ? | ? | ? |
+| Grande | ? | ? | ? |
+| Muy grande | ? | ? | ? |
+
+::: {.callout-warning}
+## Sobre las plántulas
+Las plántulas no están en los datos de adultos. Para estimar su supervivencia, usen la información del paper:
+
+- Supervivencia en los primeros 2 meses: ~0,6–0,8.
+- Supervivencia a los 6–8 meses: ~0,4.
+
+Pueden usar el valor promedio (~0,5) como estimación de $l_x$ para la clase "plántula".
+:::
+
+---
+
+# Parte D — Calcular la fecundidad por clase
+
+## Paso 6. Buscar los parámetros en el paper
+
+Para convertir el número de inflorescencias en número de semillas viables, necesitan tres parámetros que están en el paper de Espinosa et al. (2018):
+
+**A12.** Busquen en el paper y anoten:
+
+- **Frutos por inflorescencia** en cada sitio: ______ (alto) y ______ (bajo).
+- **Semillas por fruto** en cada sitio: ______ (alto) y ______ (bajo).
+- **Tasa de germinación** de las semillas viables: ______.
+
+::: {.callout-tip}
+## Dónde buscar
+Los valores están en la sección de Resultados del paper, en el apartado "Species attributes and vital rate variation". También aparecen en la Tabla A-8 del material suplementario.
+:::
+
+## Paso 7. Calcular $m_x$ por clase
+
+Para cada clase, calculen el número promedio de inflorescencias por planta. Luego, conviértanlo a semillas viables:
+
+$$\text{semillas viables} = \text{inflorescencias} \times \text{frutos/inflorescencia} \times \text{semillas/fruto} \times \text{germinación}$$
+
+**A13.** Completen la tabla de fecundidad para cada sitio:
+
+| Clase | Inflorescencias promedio | Frutos/inflorescencia | Semillas/fruto | Germinación | $m_x$ |
+|---|---|---|---|---|---|
+| Plántula | 0 | — | — | — | 0 |
+| Pequeña | ? | ? | ? | ? | ? |
+| Mediana | ? | ? | ? | ? | ? |
+| Grande | ? | ? | ? | ? | ? |
+| Muy grande | ? | ? | ? | ? | ? |
+
+::: {.callout-tip}
+## Pista para R
+```r
+tapply(adultos$no.inf_15, list(adultos$altitud, adultos$clase), mean, na.rm = TRUE)
+```
+:::
+
+---
+
+# Parte E — Construir la tabla de vida y calcular las tasas
+
+## Paso 8. Tabla de vida completa
+
+Con los valores de $l_x$ y $m_x$, construyan la tabla de vida completa para cada sitio:
+
+| Clase | $x$ | $l_x$ | $m_x$ | $l_x \cdot m_x$ | $x \cdot l_x \cdot m_x$ |
+|---|---|---|---|---|---|
+| Plántula | 0 | 1,00 | 0 | 0,00 | 0,00 |
+| Pequeña | 1 | ? | ? | ? | ? |
+| Mediana | 2 | ? | ? | ? | ? |
+| Grande | 3 | ? | ? | ? | ? |
+| Muy grande | 4 | ? | ? | ? | ? |
+| **Total** | | | | **$R_0 = $** | **$\sum = $** |
+
+::: {.callout-note}
+## Asignación de $x$
+Como usamos clases de tamaño en lugar de edades, la columna $x$ es un **índice ordinal** de la clase (0, 1, 2, 3, 4). Esto es una simplificación: en la realidad, el tiempo que una planta pasa en cada clase es variable. Discutan esta limitación en el informe.
+:::
+
+## Paso 9. Calcular $R_0$, $T$ y $r$
+
+**A14.** Calculen las tres tasas para cada sitio:
+
+$$R_0 = \sum l_x \cdot m_x$$
+$$T = \frac{\sum x \cdot l_x \cdot m_x}{R_0}$$
+$$r \approx \frac{\ln(R_0)}{T}$$
+
+**A15.** Completen la siguiente tabla comparativa:
+
+| Sitio | $R_0$ | $T$ | $r$ | Interpretación ecológica |
+|---|---|---|---|---|
+| Alto (1.700 m) | ? | ? | ? | ? |
+| Bajo (1.400 m) | ? | ? | ? | ? |
+
+**A16.** ¿La población crece o decrece en cada sitio? Justifiquen con los valores de $R_0$ y $r$.
+
+**A17.** ¿Qué sitio tiene mayor tasa de crecimiento? ¿Coincide con su hipótesis inicial (A3)? Si no coincide, ¿por qué creen que ocurre?
+
+---
+
+# Parte F — Curva de supervivencia
+
+## Paso 10. Graficar $l_x$ contra $x$
+
+Usando los valores de $l_x$ de la tabla, grafiquen la curva de supervivencia para cada sitio.
+
+**A18.** ¿A qué tipo de curva de supervivencia (I, II o III) se parece la de *Croton*? Justifiquen.
+
+**A19.** ¿Hay diferencias entre sitios? ¿Cuál sitio tiene mayor supervivencia en las primeras clases? ¿Qué implicaciones tiene esto para el reclutamiento?
+
+::: {.callout-tip}
+## Pista para R
+```r
+library(ggplot2)
+ggplot(datos_lx, aes(x = x, y = lx, color = sitio)) +
+  geom_line(size = 1.5) +
+  geom_point(size = 3) +
+  labs(x = "Clase de tamaño", y = "Supervivencia (l_x)",
+       color = "Sitio") +
+  theme_minimal()
+```
+:::
+
+---
+
+# Parte G — Discusión ecológica
+
+## Paso 11. Interpretar los resultados en clave ecológica
+
+**A20.** Con base en sus resultados, ¿qué diferencias ecológicas hay entre las poblaciones del sitio alto y del sitio bajo? Mencionen al menos dos (por ejemplo, en supervivencia, fecundidad o tasa de crecimiento).
+
+**A21.** Si el sitio bajo representa un escenario futuro más cálido y seco, ¿qué nos dicen sus valores de $R_0$ y $r$ sobre la persistencia de *Croton* frente al cambio climático?
+
+**A22.** *Croton* es una especie facilitadora: su copa genera microambientes que favorecen a otras plantas. Si sus poblaciones declinaran en el sitio bajo, ¿qué consecuencias tendría para la comunidad del matorral seco?
+
+**A23.** ¿Qué otras especies o grupos funcionales del matorral seco podrían responder de manera similar o distinta al gradiente? ¿Por qué?
+
+## Paso 12. Evaluar las limitaciones del estudio
+
+**A24.** ¿Qué limitaciones metodológicas tiene este ejercicio? Mencionen al menos tres (por ejemplo, uso de clases de tamaño en lugar de edades, ausencia de datos de juveniles, fecundidad estimada, etc.).
+
+**A25.** ¿Cómo afectan estas limitaciones a la interpretación ecológica de los resultados?
+
+**A26.** Si tuvieran que recomendar un plan de monitoreo para *Croton* con presupuesto limitado, ¿qué mejorarían del diseño de este estudio?
+
+---
+
+# Rúbrica de evaluación
+
+**Total: 10 puntos.**
+
+| Criterio | Excelente (2 pts) | Aceptable (1 pt) | Insuficiente (0 pts) | Puntos |
+|---|---|---|---|---|
+| **Introducción ecológica (Parte A)** | Explica el gradiente altitudinal como modelo de cambio climático, describe el rol ecológico de *Croton* y plantea una hipótesis clara. | Explica el contexto con omisiones menores. | No contextualiza o contextualiza superficialmente. | /2 |
+| **Metodología y decisiones (Partes B, C, D)** | Justifica las clases de tamaño, calcula $l_x$ y $m_x$ correctamente e incluye la clase plántula. | Calcula con errores menores o justifica débilmente. | No justifica o comete errores graves. | /2 |
+| **Cálculo de tasas (Parte E)** | Calcula $R_0$, $T$ y $r$ correctamente para ambos sitios. | Calcula con errores menores. | No calcula o comete errores graves. | /1.5 |
+| **Curva de supervivencia (Parte F)** | Grafica correctamente, identifica el tipo de curva y compara sitios. | Grafica pero no interpreta correctamente. | No grafica o no interpreta. | /1 |
+| **Discusión ecológica (Parte G)** | Interpreta los resultados en clave ecológica, conecta con cambio climático y conservación, y discute limitaciones. | Interpreta parcialmente o discute limitaciones sin profundizar. | No interpreta o interpreta mal. | /2.5 |
+| **Script de R** | Script comentado, reproducible y bien organizado. | Script funcional pero poco comentado. | Script no funcional o ausente. | /1 |
+| **TOTAL** | | | | **/10** |
+
+---
+
+# Recomendaciones
+
+- **Exploren los datos antes de calcular.** Una gráfica exploratoria (histograma de volúmenes, boxplot por sitio) ayuda a decidir los cortes de clase.
+- **Revisen el paper con cuidado.** Los parámetros de fecundidad están en la sección de Resultados.
+- **Sean explícitos en las decisiones.** No hay una única respuesta correcta para los cortes de clase; lo importante es justificar.
+- **Conecten los resultados con la pregunta ecológica.** No basta con calcular $R_0$ y $r$; hay que interpretar qué significan para la persistencia de *Croton*.
+- **Comenten el script.** Un script sin comentarios es difícil de reproducir y de evaluar.
+- **No copien y peguen del paper.** Escriban con sus propias palabras.
