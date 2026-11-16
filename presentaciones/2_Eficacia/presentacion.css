@@ -147,25 +147,3 @@
 /* ============================================
    COLUMNAS
    ============================================ */
-
-.reveal .columns {
-  margin-top: 1.2em;
-}
-
-.reveal .column {
-  padding: 0 1em;
-}
-
-.two-cols {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1.5em;
-}
-
-.two-cols > div {
-  flex: 1;
-  background: #e8f5e9;
-  padding: 1.2rem;
-  border-radius: 8px;
-  border-left: 4px solid #2e7d32;
-}

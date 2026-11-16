@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz xmlns="http://www.imsglobal.org/xsd/ims_qtiasiv1p2"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.imsglobal.org/xsd/ims_qtiasiv1p2 ims_qtiasiv1p2p1.xsd">
+
+  <assessment ident="parcial1" title="Parcial 1 — Unidad 1: Poblaciones">
+    <section ident="section1" title="Sección A — Opción múltiple">
+
+      <!-- Pregunta A1 -->
+      <item ident="A1" title="A1. Propiedades emergentes">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">¿Por qué la densidad es una propiedad emergente de las poblaciones?</mattext>
+          </material>
+          <response_lid ident="response1" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A1_a">
+                <material><mattext texttype="text/plain">Porque se mide en individuos por área.</mattext></material>
+              </response_label>
+              <response_label ident="A1_b">
+                <material><mattext texttype="text/plain">Porque solo existe cuando hay un conjunto de individuos en un espacio, no en un individuo aislado.</mattext></material>
+              </response_label>
+              <response_label ident="A1_c">
+                <material><mattext texttype="text/plain">Porque depende de la edad de los individuos.</mattext></material>
+              </response_label>
+              <response_label ident="A1_d">
+                <material><mattext texttype="text/plain">Porque es una propiedad primaria de la población.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response1">A1_b</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A2 -->
+      <item ident="A2" title="A2. Delimitación de poblaciones">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">En la hoya de Loja hay tres fragmentos de bosque con Cedrela montana. ¿Qué información es más importante para decidir si son una o tres poblaciones?</mattext>
+          </material>
+          <response_lid ident="response2" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A2_a">
+                <material><mattext texttype="text/plain">La distancia geográfica entre los fragmentos.</mattext></material>
+              </response_label>
+              <response_label ident="A2_b">
+                <material><mattext texttype="text/plain">El número de árboles en cada fragmento.</mattext></material>
+              </response_label>
+              <response_label ident="A2_c">
+                <material><mattext texttype="text/plain">La existencia de flujo génico entre los fragmentos.</mattext></material>
+              </response_label>
+              <response_label ident="A2_d">
+                <material><mattext texttype="text/plain">El tamaño de los fragmentos.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response2">A2_c</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A3 -->
+      <item ident="A3" title="A3. Fitness absoluto vs. relativo">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">El árbol A deja 200 descendientes viables y el árbol B deja 100. ¿Cuál afirmación es correcta?</mattext>
+          </material>
+          <response_lid ident="response3" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A3_a">
+                <material><mattext texttype="text/plain">El árbol A tiene mayor fitness absoluto y mayor fitness relativo.</mattext></material>
+              </response_label>
+              <response_label ident="A3_b">
+                <material><mattext texttype="text/plain">El árbol A tiene mayor fitness absoluto, pero no necesariamente mayor fitness relativo a lo largo de toda su vida.</mattext></material>
+              </response_label>
+              <response_label ident="A3_c">
+                <material><mattext texttype="text/plain">El árbol B tiene mayor fitness absoluto.</mattext></material>
+              </response_label>
+              <response_label ident="A3_d">
+                <material><mattext texttype="text/plain">Ambos tienen el mismo fitness relativo.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response3">A3_b</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A4 -->
+      <item ident="A4" title="A4. Trade-offs">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">Un árbol produce una cosecha masiva de semillas y al año siguiente queda debilitado. ¿Qué trade-off ilustra este caso?</mattext>
+          </material>
+          <response_lid ident="response4" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A4_a">
+                <material><mattext texttype="text/plain">Número vs. tamaño de descendientes.</mattext></material>
+              </response_label>
+              <response_label ident="A4_b">
+                <material><mattext texttype="text/plain">Reproducción temprana vs. tardía.</mattext></material>
+              </response_label>
+              <response_label ident="A4_c">
+                <material><mattext texttype="text/plain">Reproducción vs. supervivencia.</mattext></material>
+              </response_label>
+              <response_label ident="A4_d">
+                <material><mattext texttype="text/plain">Crecimiento vs. competencia.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response4">A4_c</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A5 -->
+      <item ident="A5" title="A5. Valor reproductivo">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">¿Cuál de los dos componentes del valor reproductivo se refiere a la probabilidad de sobrevivir hasta la próxima reproducción?</mattext>
+          </material>
+          <response_lid ident="response5" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A5_a">
+                <material><mattext texttype="text/plain">La capacidad reproductiva.</mattext></material>
+              </response_label>
+              <response_label ident="A5_b">
+                <material><mattext texttype="text/plain">El esfuerzo reproductivo.</mattext></material>
+              </response_label>
+              <response_label ident="A5_c">
+                <material><mattext texttype="text/plain">La probabilidad de supervivencia futura.</mattext></material>
+              </response_label>
+              <response_label ident="A5_d">
+                <material><mattext texttype="text/plain">El fitness absoluto.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response5">A5_c</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A6 -->
+      <item ident="A6" title="A6. Tabla de vida">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">Si l3 = 0,125 y l4 = 0,05, ¿cuánto vale q3 (tasa de mortalidad entre las clases 3 y 4)?</mattext>
+          </material>
+          <response_lid ident="response6" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A6_a">
+                <material><mattext texttype="text/plain">0,075</mattext></material>
+              </response_label>
+              <response_label ident="A6_b">
+                <material><mattext texttype="text/plain">0,40</mattext></material>
+              </response_label>
+              <response_label ident="A6_c">
+                <material><mattext texttype="text/plain">0,60</mattext></material>
+              </response_label>
+              <response_label ident="A6_d">
+                <material><mattext texttype="text/plain">0,125</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response6">A6_c</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A7 -->
+      <item ident="A7" title="A7. Curvas de supervivencia">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">¿Qué tipo de curva de supervivencia es típica de una especie con muchas semillas y poco cuidado parental?</mattext>
+          </material>
+          <response_lid ident="response7" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A7_a">
+                <material><mattext texttype="text/plain">Tipo I.</mattext></material>
+              </response_label>
+              <response_label ident="A7_b">
+                <material><mattext texttype="text/plain">Tipo II.</mattext></material>
+              </response_label>
+              <response_label ident="A7_c">
+                <material><mattext texttype="text/plain">Tipo III.</mattext></material>
+              </response_label>
+              <response_label ident="A7_d">
+                <material><mattext texttype="text/plain">No se puede saber sin datos de fecundidad.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response7">A7_c</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A8 -->
+      <item ident="A8" title="A8. Crecimiento poblacional">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">Si una población tiene R0 = 0,8 y T = 5 años, ¿qué se puede concluir?</mattext>
+          </material>
+          <response_lid ident="response8" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A8_a">
+                <material><mattext texttype="text/plain">La población crece a una tasa de 0,8 por año.</mattext></material>
+              </response_label>
+              <response_label ident="A8_b">
+                <material><mattext texttype="text/plain">La población decrece, porque R0 &lt; 1.</mattext></material>
+              </response_label>
+              <response_label ident="A8_c">
+                <material><mattext texttype="text/plain">La población se mantiene estable.</mattext></material>
+              </response_label>
+              <response_label ident="A8_d">
+                <material><mattext texttype="text/plain">No se puede concluir nada sin conocer r.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response8">A8_b</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A9 -->
+      <item ident="A9" title="A9. Tablas de vida">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">¿Cuál es la principal ventaja de una tabla de vida de tiempo específico sobre una de cohorte?</mattext>
+          </material>
+          <response_lid ident="response9" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A9_a">
+                <material><mattext texttype="text/plain">Refleja mejor la experiencia real de una generación.</mattext></material>
+              </response_label>
+              <response_label ident="A9_b">
+                <material><mattext texttype="text/plain">Se puede construir en un solo muestreo.</mattext></material>
+              </response_label>
+              <response_label ident="A9_c">
+                <material><mattext texttype="text/plain">No requiere supuestos sobre la estabilidad de las tasas.</mattext></material>
+              </response_label>
+              <response_label ident="A9_d">
+                <material><mattext texttype="text/plain">Es más precisa para especies de vida corta.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response9">A9_b</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+      <!-- Pregunta A10 -->
+      <item ident="A10" title="A10. Demografía y conservación">
+        <itemmetadata>
+          <qtimetadata>
+            <qtimetadatafield>
+              <fieldlabel>question_type</fieldlabel>
+              <fieldentry>multiple_choice_question</fieldentry>
+            </qtimetadatafield>
+            <qtimetadatafield>
+              <fieldlabel>points_possible</fieldlabel>
+              <fieldentry>1</fieldentry>
+            </qtimetadatafield>
+          </qtimetadata>
+        </itemmetadata>
+        <presentation>
+          <material>
+            <mattext texttype="text/html">¿Por qué el valor reproductivo es importante para la conservación?</mattext>
+          </material>
+          <response_lid ident="response10" rcardinality="Single">
+            <render_choice>
+              <response_label ident="A10_a">
+                <material><mattext texttype="text/plain">Porque todos los individuos contribuyen igual a la siguiente generación.</mattext></material>
+              </response_label>
+              <response_label ident="A10_b">
+                <material><mattext texttype="text/plain">Porque los individuos jóvenes con alta probabilidad de supervivencia futura contribuyen más a la siguiente generación.</mattext></material>
+              </response_label>
+              <response_label ident="A10_c">
+                <material><mattext texttype="text/plain">Porque los individuos viejos siempre tienen mayor valor reproductivo.</mattext></material>
+              </response_label>
+              <response_label ident="A10_d">
+                <material><mattext texttype="text/plain">Porque el valor reproductivo no cambia con la edad.</mattext></material>
+              </response_label>
+            </render_choice>
+          </response_lid>
+        </presentation>
+        <resprocessing>
+          <outcomes>
+            <decvar maxvalue="1" minvalue="0" varname="SCORE" vartype="Decimal"/>
+          </outcomes>
+          <respcondition continue="No">
+            <conditionvar>
+              <varequal respident="response10">A10_b</varequal>
+            </conditionvar>
+            <setvar action="Set" varname="SCORE">1</setvar>
+          </respcondition>
+        </resprocessing>
+      </item>
+
+    </section>
+  </assessment>
+</quiz>

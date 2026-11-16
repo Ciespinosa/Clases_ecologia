@@ -1,0 +1,589 @@
+---
+title: "Crecimiento exponencial continuo y simulaciones estocásticas"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "MM/YYYY"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    theme: cosmo
+    fig-cap-location: bottom
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## 1. Una pregunta
+
+En un laboratorio de la UTPL, un estudiante pone 1.000 bacterias *E. coli* en una caja de Petri. Al día siguiente, encuentra $10^{10}$ bacterias. La población se multiplicó por 10 millones en 24 horas.
+
+**Pregunta:** ¿cómo describimos este crecimiento? ¿Se reproduce la población en un solo evento al día, o de forma continua?
+
+A primera vista, el modelo geométrico que vimos en la lectura anterior podría servir: $\lambda = 10^7$ por día. Pero hay un problema: las bacterias *no se reproducen todas al mismo tiempo*. Se dividen de forma continua y asíncrona, cada una en su propio momento. El modelo geométrico, que asume eventos reproductivos discretos, no captura esa continuidad.
+
+En esta lectura veremos el **modelo exponencial continuo**, que describe poblaciones con reproducción continua, y las **simulaciones estocásticas**, que incorporan la variación natural en las tasas de crecimiento.
+
+## 2. Del modelo geométrico al exponencial continuo
+
+### 2.1 El problema de la periodicidad
+
+El modelo geométrico asume que la población se reproduce en eventos discretos: una vez al año, una vez por estación, una vez por ciclo. Pero muchas poblaciones no funcionan así.
+
+**Ejemplos locales:** - Bacterias y otros microorganismos, que se dividen continuamente - Insectos con generaciones superpuestas - Poblaciones humanas, que tienen nacimientos y muertes todos los días
+
+::: callout-note
+## La idea clave
+
+El crecimiento geométrico depende de la **periodicidad** que asumimos. Si asumimos un evento reproductivo por año, la tasa es anual. Si asumimos dos eventos por año, la tasa se divide en dos. Si asumimos infinitos eventos, llegamos a una constante: $e$.
+:::
+
+### 2.2 La descomposición de la tasa
+
+Supongamos que una población tiene $\lambda = 1,5$ anual. Eso significa que crece un 50% por año.
+
+¿Qué pasa si la reproducción ocurre en **dos eventos** al año?
+
+$$N_1 = N_0 \left(1 + \frac{0,5}{2}\right)^2 = N_0 (1,25)^2 = N_0 \cdot 1,5625$$
+
+Con dos eventos, la población crece un 56,25% anual, no un 50%. A medida que aumentamos el número de eventos, el crecimiento se acerca a un límite.
+
+### 2.3 La constante $e$
+
+Si el número de eventos reproductivos tiende a infinito:
+
+$$\lim_{n \to \infty} \left(1 + \frac{r}{n}\right)^n = e^r$$
+
+Donde $e \approx 2,718$ es la base de los logaritmos naturales.
+
+**El modelo exponencial continuo** se escribe así:
+
+$$N_t = N_0 \cdot e^{rt}$$
+
+Donde:
+
+- $N_t$ = tamaño de la población en el tiempo $t$
+- $N_0$ = tamaño inicial
+- $r$ = **tasa intrínseca de crecimiento** (per cápita, instantánea)
+- $t$ = tiempo
+- $e$ = constante de Euler ($\approx 2,718$)
+
+**Interpretación de** $r$:
+
+- $r > 0$: la población crece
+
+- $r = 0$: la población se mantiene estable
+
+- $r < 0$: la población decrece
+
+::: callout-note
+## La conexión con el modelo geométrico
+
+En la lectura anterior vimos que $\lambda = e^r$, o equivalentemente $r = \ln(\lambda)$. El modelo geométrico y el exponencial continuo describen el mismo proceso, pero con distinto supuesto sobre la periodicidad de la reproducción.
+:::
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+crecE <- function(N0, r, t) N0 * exp(r * t)
+
+t <- 0:20
+N1 <- crecE(40, 0.06, t)
+N2 <- crecE(40, 0, t)
+N3 <- crecE(40, -0.1, t)
+
+matplot(t, cbind(N1, N2, N3), type = "l", lty = 1, lwd = 2,
+        xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+        main = "Efecto de r en el crecimiento exponencial continuo")
+legend("topleft", legend = c("r > 0 (crece)", "r = 0 (estable)", "r < 0 (decrece)"),
+       col = 1:3, lty = 1, lwd = 2)
+```
+
+## 3. Ajustando el modelo a datos reales
+
+### 3.1 Calcular $r$ a partir de datos
+
+Si tenemos una serie de tamaños poblacionales en el tiempo, podemos calcular $r$ para cada intervalo:
+
+$$r = \ln\left(\frac{N_{t+1}}{N_t}\right)$$
+
+**Ejemplo:** una población de mariposas con estos datos:
+
+| Tiempo | $N_t$ | $\lambda$ | $r$                       |
+|--------|-------|-----------|---------------------------|
+| 0      | 10    | —         | —                         |
+| 1      | 25    | 2,5       | $\ln(2,5) \approx 0,916$  |
+| 2      | 89    | 3,56      | $\ln(3,56) \approx 1,270$ |
+| 3      | 160   | 1,80      | $\ln(1,80) \approx 0,588$ |
+| 4      | 312   | 1,95      | $\ln(1,95) \approx 0,668$ |
+
+::: callout-tip
+## Paso 1 para el estudiante
+
+Con los datos de la tabla, verifiquen el cálculo de $r$ para el intervalo 2 → 3. ¿Coincide con el valor mostrado?
+:::
+
+### 3.2 La media geométrica de $r$
+
+Como $r$ varía entre intervalos, necesitamos un valor promedio. Al igual que con $\lambda$, la **media geométrica** es más adecuada que la aritmética:
+
+$$\bar{r} = \left(\prod r_i\right)^{1/n}$$
+
+**Ejemplo:** con los valores de la tabla: $\bar{r} \approx 0,82$.
+
+::: callout-tip
+## Paso 2 para el estudiante
+
+Calculen la media aritmética de los $r$ de la tabla. Compárenla con la media geométrica. ¿Cuál es mayor? ¿Por qué?
+:::
+
+### 3.3 Proyección con $r$
+
+Con $\bar{r}$, podemos proyectar la población:
+
+$$N_t = N_0 \cdot e^{\bar{r} \cdot t}$$
+
+**Ejemplo:** con $N_0 = 10$ y $\bar{r} = 0,82$:
+
+| Tiempo | $N_t$ proyectado  |
+|--------|-------------------|
+| 5      | 604               |
+| 10     | 36.500            |
+| 20     | $1,3 \times 10^8$ |
+
+::: callout-warning
+## El problema del crecimiento indefinido
+
+Con $r > 0$, la población crece exponencialmente y, en teoría, se vuelve infinita. En la práctica, esto no ocurre: los recursos se agotan, aparecen depredadores o enfermedades, y el crecimiento se frena. Eso lo veremos con el modelo logístico.
+:::
+
+### 3.3 Proyección con $r$
+
+Con $\bar{r}$, podemos proyectar la población:
+
+$$N_t = N_0 \cdot e^{\bar{r} \cdot t}$$
+
+**Ejemplo:** con $N_0 = 10$ y $\bar{r} = 0,82$:
+
+| Tiempo | $N_t$ proyectado  |
+|--------|-------------------|
+| 5      | 604               |
+| 10     | 36.500            |
+| 20     | $1,3 \times 10^8$ |
+
+### 3.4 ¿Cuánto tarda la población en alcanzar un tamaño específico?
+
+A veces no nos interesa el tamaño futuro, sino **cuánto tiempo** tarda la población en alcanzar un tamaño determinado. Por ejemplo: ¿en cuántos años la población de mariposas llegará a 1.000 individuos?
+
+Para responder, despejamos $t$ de la ecuación exponencial:
+
+$$N_t = N_0 \cdot e^{rt}$$
+
+$$\frac{N_t}{N_0} = e^{rt}$$
+
+$$\ln\left(\frac{N_t}{N_0}\right) = rt$$
+
+$$t = \frac{\ln(N_t / N_0)}{r}$$
+
+**Ejemplo:** con $N_0 = 10$ y $r = 0,82$, ¿cuánto tarda la población en llegar a 1.000 individuos?
+
+$$t = \frac{\ln(1000 / 10)}{0,82} = \frac{\ln(100)}{0,82} \approx \frac{4,605}{0,82} \approx 5,62 \text{ años}$$
+
+::: callout-note
+## El tiempo de duplicación
+
+Un caso particular importante es el **tiempo de duplicación**: cuánto tarda la población en duplicar su tamaño.
+
+$$t_{2} = \frac{\ln(2)}{r} \approx \frac{0,693}{r}$$
+
+**Ejemplo:** con $r = 0,82$, el tiempo de duplicación es $0,693 / 0,82 \approx 0,85$ años (unos 10 meses).
+:::
+
+::: callout-tip
+## Paso 3 para el estudiante
+
+Con $N_0 = 50$ y $r = 0,05$, calculen: 1. ¿Cuánto tarda la población en llegar a 500 individuos? 2. ¿Cuál es el tiempo de duplicación?
+
+¿Qué pasa con el tiempo si $r$ se reduce a la mitad?
+:::
+
+## 4. Simulaciones estocásticas: incorporando la variación
+
+### 4.1 ¿Por qué simular?
+
+Hasta ahora hemos usado modelos **deterministas**: un solo valor de $\lambda$ o $r$ produce una única trayectoria. Pero en la realidad, las tasas **varían** entre años, y esa variación tiene consecuencias importantes.
+
+**Pregunta:** si $\lambda$ varía entre 0,5 y 1,5, ¿la población crece o decrece a largo plazo?
+
+::: callout-note
+## La respuesta no es obvia
+
+Si la media aritmética es 1,0, podríamos pensar que la población se mantiene estable. Pero la variación en sí misma puede reducir la tasa de crecimiento a largo plazo. Por eso necesitamos **simular**.
+:::
+
+### 4.2 Simulación con tasas aleatorias
+
+El procedimiento es:
+
+1.  Calcular las tasas observadas ($\lambda$ o $r$) a partir de datos reales.
+2.  Para cada año simulado, elegir al azar una de las tasas observadas.
+3.  Proyectar la población año a año con la tasa elegida.
+4.  Repetir el proceso muchas veces (por ejemplo, 1.000 simulaciones).
+5.  Analizar la distribución de resultados.
+
+```{r, echo=FALSE, fig.align='center', out.width='95%', fig.height=3.5}
+# Datos de ejemplo: población de gorriones
+datos <- data.frame(
+  year = 1964:2003,
+  count = c(13, 15, 12, 18, 25, 30, 35, 45, 55, 50,
+            45, 40, 38, 35, 30, 28, 25, 30, 35, 40,
+            38, 35, 30, 28, 25, 22, 20, 18, 15, 12,
+            10, 8, 6, 5, 4, 3, 2, 2, 1, 1)
+)
+
+par(mfrow = c(1, 2), mar = c(3, 3, 2, 1))
+plot(datos$year, datos$count, type = "b", pch = 19,
+     xlab = "", ylab = "", main = "Población observada")
+
+obs_r <- datos$count[-1] / datos$count[-length(datos$count)]
+plot(datos$year[-1], obs_r, pch = 19,
+     xlab = "", ylab = "", main = "Tasa observada (lambda)")
+abline(h = 1, lty = 3)
+```
+
+::: fragment
+La tasa varía: hay años con $\lambda > 1$ y años con $\lambda < 1$.
+:::
+
+### 4.3 Simulación en R
+
+``` r
+# 1. Calcular tasas observadas
+obs_lambda <- count[-1] / count[-length(count)]
+
+# 2. Simular 1.000 trayectorias de 50 años
+simular_poblacion <- function(lambdas, N0, años = 50, sims = 1000) {
+  resultados <- matrix(NA, años + 1, sims)
+  resultados[1, ] <- N0
+  for (s in 1:sims) {
+    lambdas_sim <- sample(lambdas, años, replace = TRUE)
+    for (t in 1:años) {
+      resultados[t + 1, s] <- resultados[t, s] * lambdas_sim[t]
+    }
+  }
+  return(resultados)
+}
+
+sim <- simular_poblacion(obs_lambda, N0 = 13, años = 50, sims = 1000)
+```
+
+### 4.4 Analizando los resultados
+
+Después de simular, podemos responder:
+
+- ¿Cuál es el tamaño esperado de la población en el año 50?
+- ¿Cuál es el rango de tamaños posibles (intervalo de confianza)?
+- ¿Cuál es la probabilidad de extinción?
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+set.seed(42)
+años <- 50
+N0 <- 13
+sims <- 1000
+
+lambdas <- rnorm(sims * años, mean = 0.98, sd = 0.25)
+lambdas[lambdas < 0] <- 0
+lambdas_mat <- matrix(lambdas, nrow = años, ncol = sims)
+
+resultados <- matrix(NA, años + 1, sims)
+resultados[1, ] <- N0
+for (s in 1:sims) {
+  for (t in 1:años) {
+    resultados[t + 1, s] <- resultados[t, s] * lambdas_mat[t, s]
+  }
+}
+
+par(mfrow = c(2, 1), mar = c(3, 3, 2, 1))
+matplot(0:años, resultados, type = "l", lty = 1, col = rgb(0, 0, 0, 0.05),
+        xlab = "", ylab = "", main = "1.000 simulaciones de crecimiento")
+abline(h = N0, lty = 3, col = "red")
+
+N_final <- resultados[años + 1, ]
+hist(N_final, breaks = 30, main = "Distribución en el año 50",
+     xlab = "Tamaño poblacional")
+abline(v = quantile(N_final, c(0.025, 0.975)), lty = 2, col = "red", lwd = 2)
+```
+
+::: callout-tip
+## Paso 3 para el estudiante
+
+Con la simulación, calculen la **probabilidad de extinción** (proporción de simulaciones en las que $N = 0$). ¿Es alta o baja? ¿Qué nos dice eso sobre el riesgo de la población?
+:::
+
+## 5. Aplicaciones en conservación
+
+Las simulaciones estocásticas y el modelo exponencial no son solo ejercicios académicos: son herramientas clave en biología de la conservación. Veamos cuatro aplicaciones concretas.
+
+### 5.1 Probabilidad de extinción
+
+Una de las preguntas más importantes en conservación es: ¿cuál es la probabilidad de que una población se extinga en un plazo determinado?
+
+Las simulaciones estocásticas permiten estimarla con un procedimiento sencillo:
+
+1.  Se simulan muchas trayectorias (por ejemplo, 1.000), cada una con tasas de crecimiento elegidas al azar de las observadas.
+2.  Se cuenta en cuántas de esas trayectorias la población llega a cero.
+3.  La probabilidad de extinción es la proporción de simulaciones con $N = 0$.
+
+**Ejemplo:** si en 1.000 simulaciones de una población de aves, 230 terminan con $N = 0$ en 50 años, la probabilidad de extinción es del 23%.
+
+::: callout-note
+## ¿Por qué una población con $r$ promedio positivo puede extinguirse?
+
+Porque la variación en las tasas puede llevar a la población a cero en algunos escenarios, aunque el promedio sea positivo. La varianza de las tasas es tan importante como su media. Una población con $r$ promedio positivo pero alta variabilidad puede tener un riesgo de extinción considerable.
+:::
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+set.seed(42)
+sims <- 1000
+años <- 50
+N0 <- 20
+
+resultados <- matrix(NA, años + 1, sims)
+resultados[1, ] <- N0
+
+for (s in 1:sims) {
+  lambdas <- rnorm(años, mean = 0.98, sd = 0.3)
+  lambdas[lambdas < 0] <- 0
+  for (t in 1:años) {
+    resultados[t + 1, s] <- resultados[t, s] * lambdas[t]
+    if (resultados[t + 1, s] < 1) {
+      resultados[(t + 1):(años + 1), s] <- 0
+      break
+    }
+  }
+}
+
+extintas <- sum(resultados[años + 1, ] == 0)
+prob_ext <- extintas / sims
+
+matplot(0:años, resultados, type = "l", lty = 1,
+        col = rgb(0, 0, 0, 0.05),
+        xlab = "Años", ylab = "Tamaño poblacional",
+        main = paste("Probabilidad de extinción =", round(prob_ext * 100, 1), "%"))
+abline(h = 1, lty = 3, col = "red")
+```
+
+::: callout-tip
+## Paso 4 para el estudiante
+
+Con la simulación anterior, respondan:
+
+1.  ¿Cuál es la probabilidad de extinción?
+2.  ¿Qué pasa con esa probabilidad si la media de $\lambda$ aumenta a 1,02?
+3.  ¿Y si la desviación estándar aumenta a 0,5?
+
+Discutan en grupo: ¿qué es más importante para la persistencia, la media o la varianza de las tasas?
+:::
+
+### 5.2 Cuantificar la incertidumbre de las proyecciones
+
+Los modelos deterministas dan una sola trayectoria. Las simulaciones dan muchas, y eso permite cuantificar la incertidumbre de las proyecciones.
+
+**¿Cómo se hace?**
+
+1.  Se simulan muchas trayectorias (por ejemplo, 500).
+2.  Se calculan los percentiles 2,5% y 97,5% del tamaño poblacional en cada año.
+3.  Esos percentiles definen un intervalo de confianza del 95%.
+
+**Ejemplo:** si después de 50 años, el intervalo de confianza del 95% del tamaño poblacional es \[0, 1.200\], eso significa que, en el 95% de las simulaciones, la población terminó entre 0 y 1.200 individuos.
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+set.seed(42)
+sims <- 500
+años <- 50
+N0 <- 50
+
+resultados2 <- matrix(NA, años + 1, sims)
+resultados2[1, ] <- N0
+
+for (s in 1:sims) {
+  lambdas <- rnorm(años, mean = 1.02, sd = 0.2)
+  lambdas[lambdas < 0] <- 0
+  for (t in 1:años) {
+    resultados2[t + 1, s] <- resultados2[t, s] * lambdas[t]
+  }
+}
+
+p_inf <- apply(resultados2, 1, quantile, probs = 0.025)
+p_sup <- apply(resultados2, 1, quantile, probs = 0.975)
+p_med <- apply(resultados2, 1, quantile, probs = 0.5)
+
+plot(0:años, p_med, type = "l", lwd = 2,
+     ylim = range(c(p_inf, p_sup)),
+     xlab = "Años", ylab = "Tamaño poblacional",
+     main = "Intervalo de confianza del 95%")
+polygon(c(0:años, rev(0:años)), c(p_inf, rev(p_sup)),
+        col = rgb(0, 0, 1, 0.2), border = NA)
+lines(0:años, p_med, lwd = 2)
+legend("topleft", legend = c("Mediana", "IC 95%"),
+       lwd = c(2, NA), fill = c(NA, rgb(0, 0, 1, 0.2)),
+       border = c(NA, NA), bty = "n")
+```
+
+::: callout-note
+## ¿Por qué es importante?
+
+Porque una proyección sin incertidumbre es una falsa certeza. En conservación, es tan importante saber cuál es el tamaño esperado como cuál es el rango de tamaños posibles. Los tomadores de decisiones necesitan ambos para evaluar riesgos y priorizar acciones.
+:::
+
+::: callout-tip
+## Paso 5 para el estudiante
+
+Con la simulación anterior, respondan:
+
+1.  ¿Cuál es el tamaño mediano esperado en el año 50?
+2.  ¿Cuál es el rango del intervalo de confianza del 95%?
+3.  ¿La incertidumbre aumenta o disminuye con el tiempo? ¿Por qué?
+:::
+
+### 5.3 Identificar umbrales críticos
+
+En conservación, a menudo necesitamos saber: ¿cuál es el tamaño mínimo de población para que la especie persista?
+
+Este concepto se llama población mínima viable (PMV). Se puede estimar con simulaciones:
+
+1.  Se simulan poblaciones con distintos tamaños iniciales ($N_0 = 10, 20, 50, 100, 200, 500$).
+2.  Se calcula la probabilidad de extinción para cada $N_0$.
+3.  Se identifica el $N_0$ a partir del cual la probabilidad de extinción es aceptablemente baja (por ejemplo, \< 10%).
+
+**Ejemplo:** si la probabilidad de extinción es del 40% con $N_0 = 20$ y del 5% con $N_0 = 100$, la PMV estaría alrededor de 100 individuos.
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+set.seed(42)
+sims <- 500
+años <- 50
+
+N0_vals <- c(10, 20, 50, 100, 200, 500)
+probs <- numeric(length(N0_vals))
+
+for (i in seq_along(N0_vals)) {
+  ext <- 0
+  for (s in 1:sims) {
+    N <- N0_vals[i]
+    for (t in 1:años) {
+      lambda <- rnorm(1, mean = 0.98, sd = 0.25)
+      if (lambda < 0) lambda <- 0
+      N <- N * lambda
+      if (N < 1) { ext <- ext + 1; break }
+    }
+  }
+  probs[i] <- ext / sims
+}
+
+plot(N0_vals, probs * 100, type = "b", pch = 19, lwd = 2,
+     xlab = "Tamaño inicial (N0)", ylab = "Probabilidad de extinción (%)",
+     main = "Umbral crítico de población")
+abline(h = 10, lty = 3, col = "red")
+text(300, 12, "Umbral aceptable (10%)", col = "red")
+```
+
+::: callout-note
+## ¿Qué es un umbral aceptable?
+
+No hay una respuesta única. Depende de la especie, del contexto y de los objetivos de conservación. Para especies en peligro crítico, se aceptan probabilidades de extinción muy bajas (por ejemplo, \< 1% en 100 años). Para especies menos amenazadas, umbrales más altos pueden ser aceptables.
+:::
+
+::: callout-tip
+## Paso 6 para el estudiante
+
+Con la simulación anterior, respondan:
+
+1.  ¿Cuál es el umbral de población a partir del cual la probabilidad de extinción es menor al 10%?
+2.  ¿Qué pasa con el umbral si la media de $\lambda$ disminuye a 0,95?
+3.  ¿Cómo usarían esta información para tomar decisiones de conservación?
+:::
+
+### 5.4 Tiempo para alcanzar un tamaño específico
+
+En algunos casos, la pregunta no es sobre el futuro lejano, sino sobre cuánto tiempo tarda la población en alcanzar un tamaño determinado. Por ejemplo: ¿en cuántos años la población de mariposas llegará a 1.000 individuos? ¿Cuánto tarda en duplicarse?
+
+Para responder, despejamos $t$ de la ecuación exponencial:
+
+$$N_t = N_0 \cdot e^{rt}$$
+
+$$\frac{N_t}{N_0} = e^{rt}$$
+
+$$\ln\left(\frac{N_t}{N_0}\right) = rt$$
+
+$$t = \frac{\ln(N_t / N_0)}{r}$$
+
+**Ejemplo:** con $N_0 = 10$ y $r = 0,82$, ¿cuánto tarda la población en llegar a 1.000 individuos?
+
+$$t = \frac{\ln(1000 / 10)}{0,82} = \frac{\ln(100)}{0,82} \approx \frac{4,605}{0,82} \approx 5,62 \text{ años}$$
+
+::: callout-note
+## El tiempo de duplicación
+
+Un caso particular importante es el tiempo de duplicación: cuánto tarda la población en duplicar su tamaño.
+
+$$t_{2} = \frac{\ln(2)}{r} \approx \frac{0,693}{r}$$
+
+**Ejemplo:** con $r = 0,82$, el tiempo de duplicación es $0,693 / 0,82 \approx 0,85$ años (unos 10 meses).
+:::
+
+::: callout-tip
+## Paso 7 para el estudiante
+
+Con $N_0 = 50$ y $r = 0,05$, calculen:
+
+1.  ¿Cuánto tarda la población en llegar a 500 individuos?
+2.  ¿Cuál es el tiempo de duplicación?
+3.  ¿Qué pasa con el tiempo si $r$ se reduce a la mitad?
+:::
+
+### 5.5 Síntesis de las aplicaciones
+
+| Aplicación | Pregunta que responde | Herramienta |
+|------------------------|------------------------|------------------------|
+| Probabilidad de extinción | ¿Cuál es el riesgo de que la población desaparezca? | Simulaciones estocásticas |
+| Cuantificar incertidumbre | ¿Cuál es el rango de tamaños posibles? | Percentiles de simulaciones |
+| Identificar umbrales críticos | ¿Cuál es el tamaño mínimo viable? | Simulaciones con distintos $N_0$ |
+| Tiempo de alcance | ¿Cuánto tarda la población en llegar a un tamaño? | Despeje de $t$ en el modelo exponencial |
+
+::: callout-note
+## Conexión con la conservación 
+
+Estas herramientas se usan en programas de conservación de especies amenazadas como *Tremarctos ornatus* en el Podocarpus, o para evaluar la viabilidad de poblaciones de *Cedrela montana* en fragmentos de bosque de la hoya de Loja. La simulación permite explorar escenarios (con y sin intervención) y priorizar acciones.
+:::
+
+## 6. Síntesis y puente
+
+El modelo exponencial continuo describe poblaciones con reproducción continua:
+
+$$N_t = N_0 \cdot e^{rt}$$
+
+Con $r > 0$ la población crece; con $r < 0$ decrece. La tasa $r$ se relaciona con $\lambda$ mediante $r = \ln(\lambda)$.
+
+Las simulaciones estocásticas incorporan la variación natural en las tasas y permiten estimar la probabilidad de extinción y la incertidumbre de las proyecciones. Son una herramienta clave en conservación.
+
+En la próxima lectura veremos el modelo logístico, que incorpora la denso-dependencia y describe poblaciones que se estabilizan en una capacidad de carga.
+
+**Pregunta final:** ¿qué especie de Loja le gustaría analizar con una simulación estocástica? ¿Qué preguntas de conservación podría responder?
+
+## 7. Para profundizar
+
+- Gotelli, N. J. (2008). *A Primer of Ecology*. 4th ed. Sinauer. Capítulo 1.
+- Begon, M., Harper, J. L., & Townsend, C. R. (2006). *Ecology: From Individuals to Ecosystems*. Blackwell. Capítulo 6.
+- Morris, W. F., & Doak, D. F. (2002). *Quantitative Conservation Biology*. Sinauer. Capítulo 3.
+
+## 8. Preguntas de comprensión
+
+1.  ¿Por qué el modelo geométrico no es adecuado para poblaciones con reproducción continua? Da un ejemplo local.
+2.  ¿Qué representa la constante $e$ en el modelo exponencial continuo?
+3.  ¿Cómo se relacionan $\lambda$ y $r$? Calcula $r$ para $\lambda = 1,8$.
+4.  Si una población tiene $r = 0,05$ por año, ¿cuánto tarda en duplicarse?
+5.  ¿Por qué la media geométrica es más adecuada que la aritmética para promediar $r$?
+6.  ¿Qué ventaja tienen las simulaciones estocásticas sobre los modelos deterministas?
+7.  ¿Cómo se estima la probabilidad de extinción a partir de una simulación?
+8.  ¿Por qué una población con $r$ promedio positivo puede tener alta probabilidad de extinción?
+9.  ¿Qué aplicaciones tiene la simulación estocástica en conservación?
+10. ¿Cómo se relaciona el modelo exponencial continuo con el modelo geométrico que vimos en la lectura anterior?

@@ -1,0 +1,541 @@
+---
+title: "Demografía"
+subtitle: "Clase 1.3 — Tablas de vida y curvas de supervivencia"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "DD/MM/YYYY"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    incremental: false
+    transition: slide
+    background-transition: fade
+    css: presentacion.css
+---
+
+## Ecología de Poblaciones y Comunidades
+
+**Clase 1.3 — Demografía**
+
+Carlos Iván Espinosa
+Universidad Técnica Particular de Loja
+
+---
+
+## Objetivos de la clase
+
+Al finalizar esta sesión, podrás:
+
+- **Distinguir** los dos tipos de tablas de vida (cohorte vs. tiempo específico)
+- **Construir** una tabla de vida paso a paso
+- **Interpretar** las tres curvas de supervivencia (I, II, III)
+- **Calcular** e interpretar $R_0$, $T$ y $r$
+- **Aplicar** estos conceptos al estudio de *Croton* en Catamayo
+
+---
+
+# Parte 1: ¿Qué es la demografía?
+
+## Una pregunta desde Loja
+
+En la hoya de Loja, 1.000 semillas de *Cedrela montana* germinan. Al año siguiente, solo sobreviven 500 plántulas. Al segundo año, 250. Al tercero, 125.
+
+> **¿Qué le pasa a esta población? ¿Crece, decrece o se mantiene estable?**
+
+::: {.notes}
+Discutir 3 min. Recoger respuestas. No dar la respuesta todavía.
+:::
+
+---
+
+## La respuesta requiere más que contar
+
+Saber cuántos individuos hay (densidad, abundancia) no basta.
+
+Para saber si una población crece o decrece, necesitamos saber:
+
+- **Cuántos mueren** y a qué edad
+- **Cuántos nacen** y a qué edad
+- **Cómo se combinan** ambos procesos
+
+::: {.fragment}
+Eso es la **demografía**.
+:::
+
+---
+
+## Definición
+
+> La **demografía** es el estudio de los cambios en el tamaño y la estructura de las poblaciones a lo largo del tiempo.
+
+Se centra en dos procesos:
+
+- **Mortalidad:** cuántos individuos mueren y a qué edad
+- **Fecundidad:** cuántos descendientes produce cada individuo y a qué edad
+
+::: {.fragment}
+La demografía **cuantifica** lo que el fitness describía conceptualmente.
+:::
+
+---
+
+## Conexión con la clase anterior
+
+| Lectura 1.2 (fitness) | Lectura 1.3 (demografía) |
+|---|---|
+| Supervivencia | Tablas de vida |
+| Fecundidad | $m_x$ por clase |
+| Trade-offs | Esfuerzo reproductivo por clase |
+| Valor reproductivo | $R_0$, $T$, $r$ |
+
+::: {.fragment}
+El fitness es el **concepto**; la demografía es la **herramienta** para medirlo.
+:::
+
+---
+
+# Parte 2: Tablas de vida
+
+## ¿Qué es una tabla de vida?
+
+Una **tabla de vida** resume la supervivencia y la fecundidad de una población a lo largo del tiempo.
+
+Es la herramienta central de la demografía.
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=3.5}
+library(DiagrammeR)
+
+grViz("
+digraph tabla {
+
+  graph [layout = dot, rankdir = LR, bgcolor = 'transparent']
+
+  node [shape = box, style = 'filled,rounded',
+        fontname = 'Helvetica', fontsize = 13,
+        color = '#2e7d32', penwidth = 2]
+
+  A [label = 'Datos de campo\n(seguimiento)', fillcolor = '#c8e6c9']
+  B [label = 'Tabla de vida\n(lx, mx)', fillcolor = '#a5d6a7']
+  C [label = 'Tasas\n(R0, T, r)', fillcolor = '#81c784']
+
+  A -> B [color = '#2e7d32', penwidth = 2]
+  B -> C [color = '#2e7d32', penwidth = 2]
+}
+")
+```
+
+---
+
+## Dos tipos de tablas de vida
+
+### Tabla de cohorte
+
+Se sigue a un grupo de individuos nacidos en el mismo período desde el nacimiento hasta la muerte del último.
+
+**Ventaja:** refleja la experiencia real de una generación.
+
+**Desventaja:** requiere mucho tiempo.
+
+**Ejemplo local:** seguir una cohorte de plántulas de *Cedrela montana* durante años.
+
+---
+
+## Tabla de tiempo específico
+
+Se registra la mortalidad y la fecundidad de individuos de distintas edades en un solo momento.
+
+**Ventaja:** se puede construir en un solo muestreo.
+
+**Desventaja:** asume que las tasas son constantes en el tiempo.
+
+**Ejemplo local:** registrar la edad de todos los individuos de *Tremarctos ornatus* en un solo muestreo.
+
+::: {.fragment}
+Para especies de vida larga (árboles, mamíferos), se prefiere la tabla de tiempo específico.
+:::
+
+---
+
+# Parte 3: Construyendo una tabla de vida paso a paso
+
+## Los datos de partida
+
+Tenemos una cohorte de *Cedrela montana* en la hoya de Loja:
+
+::: {.columns}
+
+::: {.column width="50%"}
+| Edad (años) | Individuos que sobreviven ($n_x$) |
+|---|---|
+| 0 | 1.000 |
+| 1 | 500 |
+| 2 | 250 |
+| 3 | 125 |
+| 4 | 50 |
+| 5 | 10 |
+:::
+
+::: {.column width="5%"}
+
+:::
+
+::: {.column width="45%"}
+
+::: {.fragment}
+
+<br>
+<br>
+<br>
+**Pregunta:** ¿cuántos individuos mueren entre la edad 0 y la edad 1?
+
+:::
+
+:::
+
+:::
+
+::: {.notes}
+Preguntar a los estudiantes. Esperar respuesta: 500.
+:::
+
+---
+
+## Paso 1: Proporción de supervivencia ($l_x$)
+
+::: {.columns}
+
+::: {.column width="50%"}
+| Edad | $n_x$ | $l_x$ |
+|---|---|---|
+| 0 | 1.000 | 1,00 |
+| 1 | 500 | 0,50 |
+| 2 | 250 | 0,25 |
+| 3 | 125 | 0,125 |
+| 4 | 50 | 0,05 |
+| 5 | 10 | 0,01 |
+:::
+
+
+::: {.column width="45%"}
+
+::: {.fragment}
+
+$$l_x = \frac{n_x}{n_0}$$
+
+$l_x$ es la probabilidad de sobrevivir hasta la edad $x$.
+
+:::
+
+:::
+
+:::
+
+---
+
+## Paso 2: Mortalidad ($d_x$) y tasa de mortalidad ($q_x$)
+
+
+::: {.columns}
+
+::: {.column width="50%"}
+| Edad | $n_x$ | $l_x$ | $d_x$ | $q_x$ |
+|---|---|---|---|---|
+| 0 | 1.000 | 1,00 | 500 | 0,50 |
+| 1 | 500 | 0,50 | 250 | 0,50 |
+| 2 | 250 | 0,25 | 125 | 0,50 |
+| 3 | 125 | 0,125 | 75 | 0,60 |
+| 4 | 50 | 0,05 | 40 | 0,80 |
+| 5 | 10 | 0,01 | — | — |
+:::
+
+::: {.column width="50%"}
+::: {.fragment}
+
+$$d_x = n_x - n_{x+1}$$
+$$q_x = \frac{d_x}{n_x}$$
+
+La mortalidad **aumenta con la edad**: 50% en los primeros años, 80% a los 4 años.
+:::
+
+:::
+:::
+
+---
+
+## Paso 3: Fecundidad ($m_x$)
+
+Supongamos que en nuestra población de *Cedrela*:
+
+::: {.columns}
+
+::: {.column width="50%"}
+- Edades 0 y 1: no se reproducen ($m_x = 0$)
+- Edad 2: 5 semillas viables por individuo
+- Edad 3: 20 semillas
+- Edad 4: 30 semillas
+- Edad 5: 40 semillas
+
+:::
+
+::: {.column width="50%"}
+::: {.fragment}
+| Edad | $n_x$ | $l_x$ | $d_x$ | $q_x$ | $m_x$ |
+|---|---|---|---|---|---|
+| 0 | 1.000 | 1,00 | 500 | 0,50 | 0 |
+| 1 | 500 | 0,50 | 250 | 0,50 | 0 |
+| 2 | 250 | 0,25 | 125 | 0,50 | 5 |
+| 3 | 125 | 0,125 | 75 | 0,60 | 20 |
+| 4 | 50 | 0,05 | 40 | 0,80 | 30 |
+| 5 | 10 | 0,01 | — | — | 40 |
+:::
+::: 
+:::
+---
+
+## Paso 4: Tasa reproductiva neta ($R_0$)
+
+$$R_0 = \sum l_x \cdot m_x$$
+
+| Edad | $l_x$ | $m_x$ | $l_x \cdot m_x$ |
+|---|---|---|---|
+| 0 | 1,00 | 0 | 0,00 |
+| 1 | 0,50 | 0 | 0,00 |
+| 2 | 0,25 | 5 | 1,25 |
+| 3 | 0,125 | 20 | 2,50 |
+| 4 | 0,05 | 30 | 1,50 |
+| 5 | 0,01 | 40 | 0,40 |
+| **Total** | | | **$R_0 = 5,65$** |
+
+::: {.fragment}
+$R_0 > 1$ → la población **crece**.
+:::
+
+---
+
+## Paso 5: Tiempo generacional ($T$)
+
+$$T = \frac{\sum x \cdot l_x \cdot m_x}{R_0}$$
+
+| Edad | $x$ | $l_x \cdot m_x$ | $x \cdot l_x \cdot m_x$ |
+|---|---|---|---|
+| 0 | 0 | 0,00 | 0,00 |
+| 1 | 1 | 0,00 | 0,00 |
+| 2 | 2 | 1,25 | 2,50 |
+| 3 | 3 | 2,50 | 7,50 |
+| 4 | 4 | 1,50 | 6,00 |
+| 5 | 5 | 0,40 | 2,00 |
+| **Total** | | | **$T = 3,18$ años** |
+
+::: {.fragment}
+En promedio, una hembra produce sus descendientes a los 3,18 años.
+:::
+
+---
+
+## Paso 6: Tasa intrínseca de crecimiento ($r$)
+
+$$r \approx \frac{\ln(R_0)}{T}$$
+
+$$r \approx \frac{\ln(5,65)}{3,18} \approx 0,54 \text{ por año}$$
+
+**Interpretación:**
+
+- $r > 0$ → la población **crece**
+- Se duplica en $\ln(2)/0,54 \approx 1,3$ años
+
+::: {.fragment}
+$r$ es la misma tasa que veremos en los modelos de crecimiento exponencial.
+:::
+
+---
+
+## Pregunta para discutir
+
+<br>
+<br>
+<br>
+
+> Si la supervivencia de las plántulas se redujera a la mitad (de 0,50 a 0,25), ¿qué pasaría con $R_0$? ¿Y con $r$?
+
+::: {.notes}
+Discutir 5 min. Guiar hacia: $R_0$ disminuye, $r$ disminuye. La población podría dejar de crecer.
+:::
+
+---
+
+# Parte 4: Curvas de supervivencia
+
+## Tres tipos de curvas
+
+Las curvas de supervivencia representan $l_x$ contra la edad $x$.
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4.5}
+library(ggplot2)
+
+edad <- seq(0, 10, by = 0.5)
+
+tipo_I <- 1 - (edad / 10)^8
+tipo_II <- exp(-0.15 * edad)
+tipo_III <- exp(-1.2 * edad)
+
+datos <- data.frame(
+  edad = rep(edad, 3),
+  supervivencia = c(tipo_I, tipo_II, tipo_III),
+  tipo = rep(c("Tipo I", "Tipo II", "Tipo III"), each = length(edad))
+)
+
+ggplot(datos, aes(x = edad, y = supervivencia, color = tipo)) +
+  geom_line(size = 1.5) +
+  scale_color_manual(values = c("Tipo I" = "#1976d2",
+                                 "Tipo II" = "#43a047",
+                                 "Tipo III" = "#e53935")) +
+  labs(x = "Edad relativa", y = "Supervivencia (l_x)",
+       color = "Curva") +
+  ylim(0, 1) +
+  theme_minimal(base_size = 14) +
+  theme(legend.position = "bottom",
+        panel.grid.minor = element_blank())
+```
+
+---
+
+## Tipo I: alta supervivencia juvenil
+
+La mayoría de los individuos sobrevive hasta la edad adulta y muere en edades avanzadas.
+
+**Ejemplo local:** *Tremarctos ornatus*. Pocas crías, pero alta inversión parental.
+
+::: {.fragment}
+**Característica:** pocos descendientes, mucho cuidado parental.
+:::
+
+---
+
+## Tipo II: mortalidad constante
+
+La probabilidad de morir es aproximadamente la misma a cualquier edad.
+
+**Ejemplo local:** algunas aves del bosque seco de Catamayo, donde la depredación afecta por igual a jóvenes y adultos.
+
+::: {.fragment}
+**Característica:** mortalidad independiente de la edad.
+:::
+
+---
+
+## Tipo III: alta mortalidad juvenil
+
+La mayoría de los individuos muere en las primeras etapas de vida, y solo unos pocos llegan a la edad adulta.
+
+**Ejemplo local:** *Cinchona officinalis*. Miles de semillas, pero solo unas pocas germinan y llegan a la adultez.
+
+::: {.fragment}
+**Característica:** mucha descendencia, poco cuidado parental.
+:::
+
+---
+
+## Pregunta para discutir
+
+> Con los datos de la tabla de vida que construimos, ¿a qué tipo de curva se parece la de *Cedrela montana*? ¿Por qué?
+
+::: {.notes}
+Discutir 3 min. La respuesta es Tipo III: alta mortalidad juvenil (l_1 = 0,50; l_2 = 0,25; l_3 = 0,125).
+:::
+
+---
+
+# Parte 5: El caso *Croton* en Catamayo
+
+## El contexto ecológico
+
+**El gradiente altitudinal como modelo de cambio climático:**
+
+- A mayor elevación → menor temperatura, mayor humedad
+- El sitio bajo (1.400 m) representa un escenario futuro más cálido y seco
+- Comparar sitios permite **anticipar** respuestas al cambio climático
+
+::: {.fragment}
+El ejercicio de esta semana usa este marco para interpretar la demografía de *Croton*.
+:::
+
+---
+
+## El sistema de estudio
+
+- ***Croton aff. wagneri***: arbusto monoico dominante del matorral seco interandino
+- **Sitios:** 1.400 m y 1.700 m s.n.m., en la Hacienda Alamala, Catamayo
+- **Período:** 2013–2016 (4 años de monitoreo)
+- **Especie clave:** su copa facilita el establecimiento de otras plantas
+
+::: {.fragment}
+Si *Croton* declina, toda la comunidad del matorral seco se ve afectada.
+:::
+
+---
+
+## Lo que encontrarán en el ejercicio
+
+- Datos de 302 plantas adultas seguidas durante 4 años
+- Datos de 325 plántulas con distancia al adulto más cercano
+- Parámetros de fecundidad que deben buscar en el paper
+
+**Tendrán que:**
+
+- Definir 4 clases de tamaño + plántula
+- Calcular $l_x$ y $m_x$ para cada clase
+- Comparar los sitios alto y bajo
+- Interpretar los resultados en clave ecológica
+
+---
+
+## Pregunta para discutir
+
+> Si el sitio bajo tiene mayor temperatura y menor humedad, ¿esperarían mayor o menor tasa de crecimiento poblacional ($r$) que el sitio alto? ¿Por qué?
+
+::: {.notes}
+Discutir 5 min. No hay una respuesta única; depende de si la especie está adaptada al estrés o no. La discusión es el punto.
+:::
+
+---
+
+# Cierre
+
+## Síntesis
+
+- La **demografía** estudia cómo cambian las poblaciones a través de la mortalidad y la fecundidad
+- Las **tablas de vida** resumen estos procesos y permiten calcular $R_0$, $T$ y $r$
+- Las **curvas de supervivencia** distinguen tres tipos: I, II y III
+- $R_0 > 1$ → población crece; $R_0 < 1$ → decrece
+- $r$ es la tasa de crecimiento per cápita en condiciones ideales
+
+---
+
+## Pregunta final
+
+> Pensando en una especie de Loja que conozcas, ¿qué información necesitarías para construir su tabla de vida? ¿Qué retos anticipas?
+
+::: {.notes}
+Recoger respuestas. Conectar con el Ejercicio 3.
+:::
+
+---
+
+## Puente a la próxima clase
+
+- **Hoy:** tablas de vida y curvas de supervivencia
+- **Próxima semana:** modelos de crecimiento poblacional (geométrico, exponencial, logístico)
+- **Recordatorio:** el Ejercicio 3 está abierto en Canvas
+
+Gracias.
+
+---
+
+# Materiales del curso
+
+- 📖 [Lectura 1.3 — Demografía](https://TU-USUARIO.github.io/curso-ecologia/lecturas/03-demografia.html)
+- 📝 [Ejercicio 3 — Tabla de vida de *Croton*](https://TU-USUARIO.github.io/curso-ecologia/ejercicios/03-demografia.html)
+- 📄 Artículo completo en Canvas
