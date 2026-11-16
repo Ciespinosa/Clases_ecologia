@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlos Iván Espinosa">
+
+<title>Crecimiento exponencial continuo y simulaciones estocásticas</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="continuo_files/libs/clipboard/clipboard.min.js"></script>
+<script src="continuo_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="continuo_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="continuo_files/libs/quarto-html/popper.min.js"></script>
+<script src="continuo_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="continuo_files/libs/quarto-html/anchor.min.js"></script>
+<link href="continuo_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="continuo_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="continuo_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="continuo_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="continuo_files/libs/bootstrap/bootstrap-62e2d20df198e8a01bb734742f2e28cf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#una-pregunta" id="toc-una-pregunta" class="nav-link active" data-scroll-target="#una-pregunta">1. Una pregunta</a></li>
+  <li><a href="#del-modelo-geométrico-al-exponencial-continuo" id="toc-del-modelo-geométrico-al-exponencial-continuo" class="nav-link" data-scroll-target="#del-modelo-geométrico-al-exponencial-continuo">2. Del modelo geométrico al exponencial continuo</a></li>
+  <li><a href="#ajustando-el-modelo-a-datos-reales" id="toc-ajustando-el-modelo-a-datos-reales" class="nav-link" data-scroll-target="#ajustando-el-modelo-a-datos-reales">3. Ajustando el modelo a datos reales</a></li>
+  <li><a href="#simulaciones-estocásticas-incorporando-la-variación" id="toc-simulaciones-estocásticas-incorporando-la-variación" class="nav-link" data-scroll-target="#simulaciones-estocásticas-incorporando-la-variación">4. Simulaciones estocásticas: incorporando la variación</a></li>
+  <li><a href="#aplicaciones-en-conservación" id="toc-aplicaciones-en-conservación" class="nav-link" data-scroll-target="#aplicaciones-en-conservación">5. Aplicaciones en conservación</a></li>
+  <li><a href="#síntesis-y-puente" id="toc-síntesis-y-puente" class="nav-link" data-scroll-target="#síntesis-y-puente">6. Síntesis y puente</a></li>
+  <li><a href="#para-profundizar" id="toc-para-profundizar" class="nav-link" data-scroll-target="#para-profundizar">7. Para profundizar</a></li>
+  <li><a href="#preguntas-de-comprensión" id="toc-preguntas-de-comprensión" class="nav-link" data-scroll-target="#preguntas-de-comprensión">8. Preguntas de comprensión</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Crecimiento exponencial continuo y simulaciones estocásticas</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carlos Iván Espinosa </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">11/2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="una-pregunta" class="level2">
+<h2 class="anchored" data-anchor-id="una-pregunta">1. Una pregunta</h2>
+<p>En un laboratorio de la UTPL, un estudiante pone 1.000 bacterias <em>E. coli</em> en una caja de Petri. Al día siguiente, encuentra <span class="math inline">\(10^{10}\)</span> bacterias. La población se multiplicó por 10 millones en 24 horas.</p>
+<p><strong>Pregunta:</strong> ¿cómo describimos este crecimiento? ¿Se reproduce la población en un solo evento al día, o de forma continua?</p>
+<p>A primera vista, el modelo geométrico que vimos en la lectura anterior podría servir: <span class="math inline">\(\lambda = 10^7\)</span> por día. Pero hay un problema: las bacterias <em>no se reproducen todas al mismo tiempo</em>. Se dividen de forma continua y asíncrona, cada una en su propio momento. El modelo geométrico, que asume eventos reproductivos discretos, no captura esa continuidad.</p>
+<p>En esta lectura veremos el <strong>modelo exponencial continuo</strong>, que describe poblaciones con reproducción continua, y las <strong>simulaciones estocásticas</strong>, que incorporan la variación natural en las tasas de crecimiento.</p>
+</section>
+<section id="del-modelo-geométrico-al-exponencial-continuo" class="level2">
+<h2 class="anchored" data-anchor-id="del-modelo-geométrico-al-exponencial-continuo">2. Del modelo geométrico al exponencial continuo</h2>
+<section id="el-problema-de-la-periodicidad" class="level3">
+<h3 class="anchored" data-anchor-id="el-problema-de-la-periodicidad">2.1 El problema de la periodicidad</h3>
+<p>El modelo geométrico asume que la población se reproduce en eventos discretos: una vez al año, una vez por estación, una vez por ciclo. Pero muchas poblaciones no funcionan así.</p>
+<p><strong>Ejemplos locales:</strong> - Bacterias y otros microorganismos, que se dividen continuamente - Insectos con generaciones superpuestas - Poblaciones humanas, que tienen nacimientos y muertes todos los días</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>La idea clave
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El crecimiento geométrico depende de la <strong>periodicidad</strong> que asumimos. Si asumimos un evento reproductivo por año, la tasa es anual. Si asumimos dos eventos por año, la tasa se divide en dos. Si asumimos infinitos eventos, llegamos a una constante: <span class="math inline">\(e\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="la-descomposición-de-la-tasa" class="level3">
+<h3 class="anchored" data-anchor-id="la-descomposición-de-la-tasa">2.2 La descomposición de la tasa</h3>
+<p>Supongamos que una población tiene <span class="math inline">\(\lambda = 1,5\)</span> anual. Eso significa que crece un 50% por año.</p>
+<p>¿Qué pasa si la reproducción ocurre en <strong>dos eventos</strong> al año?</p>
+<p><span class="math display">\[N_1 = N_0 \left(1 + \frac{0,5}{2}\right)^2 = N_0 (1,25)^2 = N_0 \cdot 1,5625\]</span></p>
+<p>Con dos eventos, la población crece un 56,25% anual, no un 50%. A medida que aumentamos el número de eventos, el crecimiento se acerca a un límite.</p>
+</section>
+<section id="la-constante-e" class="level3">
+<h3 class="anchored" data-anchor-id="la-constante-e">2.3 La constante <span class="math inline">\(e\)</span></h3>
+<p>Si el número de eventos reproductivos tiende a infinito:</p>
+<p><span class="math display">\[\lim_{n \to \infty} \left(1 + \frac{r}{n}\right)^n = e^r\]</span></p>
+<p>Donde <span class="math inline">\(e \approx 2,718\)</span> es la base de los logaritmos naturales.</p>
+<p><strong>El modelo exponencial continuo</strong> se escribe así:</p>
+<p><span class="math display">\[N_t = N_0 \cdot e^{rt}\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(N_t\)</span> = tamaño de la población en el tiempo <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(N_0\)</span> = tamaño inicial</li>
+<li><span class="math inline">\(r\)</span> = <strong>tasa intrínseca de crecimiento</strong> (per cápita, instantánea)</li>
+<li><span class="math inline">\(t\)</span> = tiempo</li>
+<li><span class="math inline">\(e\)</span> = constante de Euler (<span class="math inline">\(\approx 2,718\)</span>)</li>
+</ul>
+<p><strong>Interpretación de</strong> <span class="math inline">\(r\)</span>:</p>
+<ul>
+<li><p><span class="math inline">\(r &gt; 0\)</span>: la población crece</p></li>
+<li><p><span class="math inline">\(r = 0\)</span>: la población se mantiene estable</p></li>
+<li><p><span class="math inline">\(r &lt; 0\)</span>: la población decrece</p></li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>La conexión con el modelo geométrico
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En la lectura anterior vimos que <span class="math inline">\(\lambda = e^r\)</span>, o equivalentemente <span class="math inline">\(r = \ln(\lambda)\)</span>. El modelo geométrico y el exponencial continuo describen el mismo proceso, pero con distinto supuesto sobre la periodicidad de la reproducción.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="continuo_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ajustando-el-modelo-a-datos-reales" class="level2">
+<h2 class="anchored" data-anchor-id="ajustando-el-modelo-a-datos-reales">3. Ajustando el modelo a datos reales</h2>
+<section id="calcular-r-a-partir-de-datos" class="level3">
+<h3 class="anchored" data-anchor-id="calcular-r-a-partir-de-datos">3.1 Calcular <span class="math inline">\(r\)</span> a partir de datos</h3>
+<p>Si tenemos una serie de tamaños poblacionales en el tiempo, podemos calcular <span class="math inline">\(r\)</span> para cada intervalo:</p>
+<p><span class="math display">\[r = \ln\left(\frac{N_{t+1}}{N_t}\right)\]</span></p>
+<p><strong>Ejemplo:</strong> una población de mariposas con estos datos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tiempo</th>
+<th><span class="math inline">\(N_t\)</span></th>
+<th><span class="math inline">\(\lambda\)</span></th>
+<th><span class="math inline">\(r\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>10</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>25</td>
+<td>2,5</td>
+<td><span class="math inline">\(\ln(2,5) \approx 0,916\)</span></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>89</td>
+<td>3,56</td>
+<td><span class="math inline">\(\ln(3,56) \approx 1,270\)</span></td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>160</td>
+<td>1,80</td>
+<td><span class="math inline">\(\ln(1,80) \approx 0,588\)</span></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>312</td>
+<td>1,95</td>
+<td><span class="math inline">\(\ln(1,95) \approx 0,668\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 1 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con los datos de la tabla, verifiquen el cálculo de <span class="math inline">\(r\)</span> para el intervalo 2 → 3. ¿Coincide con el valor mostrado?</p>
+</div>
+</div>
+</section>
+<section id="la-media-geométrica-de-r" class="level3">
+<h3 class="anchored" data-anchor-id="la-media-geométrica-de-r">3.2 La media geométrica de <span class="math inline">\(r\)</span></h3>
+<p>Como <span class="math inline">\(r\)</span> varía entre intervalos, necesitamos un valor promedio. Al igual que con <span class="math inline">\(\lambda\)</span>, la <strong>media geométrica</strong> es más adecuada que la aritmética:</p>
+<p><span class="math display">\[\bar{r} = \left(\prod r_i\right)^{1/n}\]</span></p>
+<p><strong>Ejemplo:</strong> con los valores de la tabla: <span class="math inline">\(\bar{r} \approx 0,82\)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 2 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Calculen la media aritmética de los <span class="math inline">\(r\)</span> de la tabla. Compárenla con la media geométrica. ¿Cuál es mayor? ¿Por qué?</p>
+</div>
+</div>
+</section>
+<section id="proyección-con-r" class="level3">
+<h3 class="anchored" data-anchor-id="proyección-con-r">3.3 Proyección con <span class="math inline">\(r\)</span></h3>
+<p>Con <span class="math inline">\(\bar{r}\)</span>, podemos proyectar la población:</p>
+<p><span class="math display">\[N_t = N_0 \cdot e^{\bar{r} \cdot t}\]</span></p>
+<p><strong>Ejemplo:</strong> con <span class="math inline">\(N_0 = 10\)</span> y <span class="math inline">\(\bar{r} = 0,82\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tiempo</th>
+<th><span class="math inline">\(N_t\)</span> proyectado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5</td>
+<td>604</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>36.500</td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td><span class="math inline">\(1,3 \times 10^8\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>El problema del crecimiento indefinido
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con <span class="math inline">\(r &gt; 0\)</span>, la población crece exponencialmente y, en teoría, se vuelve infinita. En la práctica, esto no ocurre: los recursos se agotan, aparecen depredadores o enfermedades, y el crecimiento se frena. Eso lo veremos con el modelo logístico.</p>
+</div>
+</div>
+</section>
+<section id="proyección-con-r-1" class="level3">
+<h3 class="anchored" data-anchor-id="proyección-con-r-1">3.3 Proyección con <span class="math inline">\(r\)</span></h3>
+<p>Con <span class="math inline">\(\bar{r}\)</span>, podemos proyectar la población:</p>
+<p><span class="math display">\[N_t = N_0 \cdot e^{\bar{r} \cdot t}\]</span></p>
+<p><strong>Ejemplo:</strong> con <span class="math inline">\(N_0 = 10\)</span> y <span class="math inline">\(\bar{r} = 0,82\)</span>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tiempo</th>
+<th><span class="math inline">\(N_t\)</span> proyectado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5</td>
+<td>604</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>36.500</td>
+</tr>
+<tr class="odd">
+<td>20</td>
+<td><span class="math inline">\(1,3 \times 10^8\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cuánto-tarda-la-población-en-alcanzar-un-tamaño-específico" class="level3">
+<h3 class="anchored" data-anchor-id="cuánto-tarda-la-población-en-alcanzar-un-tamaño-específico">3.4 ¿Cuánto tarda la población en alcanzar un tamaño específico?</h3>
+<p>A veces no nos interesa el tamaño futuro, sino <strong>cuánto tiempo</strong> tarda la población en alcanzar un tamaño determinado. Por ejemplo: ¿en cuántos años la población de mariposas llegará a 1.000 individuos?</p>
+<p>Para responder, despejamos <span class="math inline">\(t\)</span> de la ecuación exponencial:</p>
+<p><span class="math display">\[N_t = N_0 \cdot e^{rt}\]</span></p>
+<p><span class="math display">\[\frac{N_t}{N_0} = e^{rt}\]</span></p>
+<p><span class="math display">\[\ln\left(\frac{N_t}{N_0}\right) = rt\]</span></p>
+<p><span class="math display">\[t = \frac{\ln(N_t / N_0)}{r}\]</span></p>
+<p><strong>Ejemplo:</strong> con <span class="math inline">\(N_0 = 10\)</span> y <span class="math inline">\(r = 0,82\)</span>, ¿cuánto tarda la población en llegar a 1.000 individuos?</p>
+<p><span class="math display">\[t = \frac{\ln(1000 / 10)}{0,82} = \frac{\ln(100)}{0,82} \approx \frac{4,605}{0,82} \approx 5,62 \text{ años}\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>El tiempo de duplicación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un caso particular importante es el <strong>tiempo de duplicación</strong>: cuánto tarda la población en duplicar su tamaño.</p>
+<p><span class="math display">\[t_{2} = \frac{\ln(2)}{r} \approx \frac{0,693}{r}\]</span></p>
+<p><strong>Ejemplo:</strong> con <span class="math inline">\(r = 0,82\)</span>, el tiempo de duplicación es <span class="math inline">\(0,693 / 0,82 \approx 0,85\)</span> años (unos 10 meses).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 3 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con <span class="math inline">\(N_0 = 50\)</span> y <span class="math inline">\(r = 0,05\)</span>, calculen: 1. ¿Cuánto tarda la población en llegar a 500 individuos? 2. ¿Cuál es el tiempo de duplicación?</p>
+<p>¿Qué pasa con el tiempo si <span class="math inline">\(r\)</span> se reduce a la mitad?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="simulaciones-estocásticas-incorporando-la-variación" class="level2">
+<h2 class="anchored" data-anchor-id="simulaciones-estocásticas-incorporando-la-variación">4. Simulaciones estocásticas: incorporando la variación</h2>
+<section id="por-qué-simular" class="level3">
+<h3 class="anchored" data-anchor-id="por-qué-simular">4.1 ¿Por qué simular?</h3>
+<p>Hasta ahora hemos usado modelos <strong>deterministas</strong>: un solo valor de <span class="math inline">\(\lambda\)</span> o <span class="math inline">\(r\)</span> produce una única trayectoria. Pero en la realidad, las tasas <strong>varían</strong> entre años, y esa variación tiene consecuencias importantes.</p>
+<p><strong>Pregunta:</strong> si <span class="math inline">\(\lambda\)</span> varía entre 0,5 y 1,5, ¿la población crece o decrece a largo plazo?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>La respuesta no es obvia
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si la media aritmética es 1,0, podríamos pensar que la población se mantiene estable. Pero la variación en sí misma puede reducir la tasa de crecimiento a largo plazo. Por eso necesitamos <strong>simular</strong>.</p>
+</div>
+</div>
+</section>
+<section id="simulación-con-tasas-aleatorias" class="level3">
+<h3 class="anchored" data-anchor-id="simulación-con-tasas-aleatorias">4.2 Simulación con tasas aleatorias</h3>
+<p>El procedimiento es:</p>
+<ol type="1">
+<li>Calcular las tasas observadas (<span class="math inline">\(\lambda\)</span> o <span class="math inline">\(r\)</span>) a partir de datos reales.</li>
+<li>Para cada año simulado, elegir al azar una de las tasas observadas.</li>
+<li>Proyectar la población año a año con la tasa elegida.</li>
+<li>Repetir el proceso muchas veces (por ejemplo, 1.000 simulaciones).</li>
+<li>Analizar la distribución de resultados.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="continuo_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>La tasa varía: hay años con <span class="math inline">\(\lambda &gt; 1\)</span> y años con <span class="math inline">\(\lambda &lt; 1\)</span>.</p>
+</div>
+</section>
+<section id="simulación-en-r" class="level3">
+<h3 class="anchored" data-anchor-id="simulación-en-r">4.3 Simulación en R</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Calcular tasas observadas</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>obs_lambda <span class="ot">&lt;-</span> count[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">/</span> count[<span class="sc">-</span><span class="fu">length</span>(count)]</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Simular 1.000 trayectorias de 50 años</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>simular_poblacion <span class="ot">&lt;-</span> <span class="cf">function</span>(lambdas, N0, años <span class="ot">=</span> <span class="dv">50</span>, <span class="at">sims =</span> <span class="dv">1000</span>) {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  resultados <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, años <span class="sc">+</span> <span class="dv">1</span>, sims)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  resultados[<span class="dv">1</span>, ] <span class="ot">&lt;-</span> N0</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>sims) {</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    lambdas_sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(lambdas, años, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>años) {</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>      resultados[t <span class="sc">+</span> <span class="dv">1</span>, s] <span class="ot">&lt;-</span> resultados[t, s] <span class="sc">*</span> lambdas_sim[t]</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(resultados)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">simular_poblacion</span>(obs_lambda, <span class="at">N0 =</span> <span class="dv">13</span>, años <span class="ot">=</span> <span class="dv">50</span>, <span class="at">sims =</span> <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="analizando-los-resultados" class="level3">
+<h3 class="anchored" data-anchor-id="analizando-los-resultados">4.4 Analizando los resultados</h3>
+<p>Después de simular, podemos responder:</p>
+<ul>
+<li>¿Cuál es el tamaño esperado de la población en el año 50?</li>
+<li>¿Cuál es el rango de tamaños posibles (intervalo de confianza)?</li>
+<li>¿Cuál es la probabilidad de extinción?</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="continuo_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 3 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con la simulación, calculen la <strong>probabilidad de extinción</strong> (proporción de simulaciones en las que <span class="math inline">\(N = 0\)</span>). ¿Es alta o baja? ¿Qué nos dice eso sobre el riesgo de la población?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="aplicaciones-en-conservación" class="level2">
+<h2 class="anchored" data-anchor-id="aplicaciones-en-conservación">5. Aplicaciones en conservación</h2>
+<p>Las simulaciones estocásticas y el modelo exponencial no son solo ejercicios académicos: son herramientas clave en biología de la conservación. Veamos cuatro aplicaciones concretas.</p>
+<section id="probabilidad-de-extinción" class="level3">
+<h3 class="anchored" data-anchor-id="probabilidad-de-extinción">5.1 Probabilidad de extinción</h3>
+<p>Una de las preguntas más importantes en conservación es: ¿cuál es la probabilidad de que una población se extinga en un plazo determinado?</p>
+<p>Las simulaciones estocásticas permiten estimarla con un procedimiento sencillo:</p>
+<ol type="1">
+<li>Se simulan muchas trayectorias (por ejemplo, 1.000), cada una con tasas de crecimiento elegidas al azar de las observadas.</li>
+<li>Se cuenta en cuántas de esas trayectorias la población llega a cero.</li>
+<li>La probabilidad de extinción es la proporción de simulaciones con <span class="math inline">\(N = 0\)</span>.</li>
+</ol>
+<p><strong>Ejemplo:</strong> si en 1.000 simulaciones de una población de aves, 230 terminan con <span class="math inline">\(N = 0\)</span> en 50 años, la probabilidad de extinción es del 23%.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>¿Por qué una población con <span class="math inline">\(r\)</span> promedio positivo puede extinguirse?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Porque la variación en las tasas puede llevar a la población a cero en algunos escenarios, aunque el promedio sea positivo. La varianza de las tasas es tan importante como su media. Una población con <span class="math inline">\(r\)</span> promedio positivo pero alta variabilidad puede tener un riesgo de extinción considerable.</p>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="continuo_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 4 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con la simulación anterior, respondan:</p>
+<ol type="1">
+<li>¿Cuál es la probabilidad de extinción?</li>
+<li>¿Qué pasa con esa probabilidad si la media de <span class="math inline">\(\lambda\)</span> aumenta a 1,02?</li>
+<li>¿Y si la desviación estándar aumenta a 0,5?</li>
+</ol>
+<p>Discutan en grupo: ¿qué es más importante para la persistencia, la media o la varianza de las tasas?</p>
+</div>
+</div>
+</section>
+<section id="cuantificar-la-incertidumbre-de-las-proyecciones" class="level3">
+<h3 class="anchored" data-anchor-id="cuantificar-la-incertidumbre-de-las-proyecciones">5.2 Cuantificar la incertidumbre de las proyecciones</h3>
+<p>Los modelos deterministas dan una sola trayectoria. Las simulaciones dan muchas, y eso permite cuantificar la incertidumbre de las proyecciones.</p>
+<p><strong>¿Cómo se hace?</strong></p>
+<ol type="1">
+<li>Se simulan muchas trayectorias (por ejemplo, 500).</li>
+<li>Se calculan los percentiles 2,5% y 97,5% del tamaño poblacional en cada año.</li>
+<li>Esos percentiles definen un intervalo de confianza del 95%.</li>
+</ol>
+<p><strong>Ejemplo:</strong> si después de 50 años, el intervalo de confianza del 95% del tamaño poblacional es [0, 1.200], eso significa que, en el 95% de las simulaciones, la población terminó entre 0 y 1.200 individuos.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="continuo_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>¿Por qué es importante?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Porque una proyección sin incertidumbre es una falsa certeza. En conservación, es tan importante saber cuál es el tamaño esperado como cuál es el rango de tamaños posibles. Los tomadores de decisiones necesitan ambos para evaluar riesgos y priorizar acciones.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 5 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con la simulación anterior, respondan:</p>
+<ol type="1">
+<li>¿Cuál es el tamaño mediano esperado en el año 50?</li>
+<li>¿Cuál es el rango del intervalo de confianza del 95%?</li>
+<li>¿La incertidumbre aumenta o disminuye con el tiempo? ¿Por qué?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="identificar-umbrales-críticos" class="level3">
+<h3 class="anchored" data-anchor-id="identificar-umbrales-críticos">5.3 Identificar umbrales críticos</h3>
+<p>En conservación, a menudo necesitamos saber: ¿cuál es el tamaño mínimo de población para que la especie persista?</p>
+<p>Este concepto se llama población mínima viable (PMV). Se puede estimar con simulaciones:</p>
+<ol type="1">
+<li>Se simulan poblaciones con distintos tamaños iniciales (<span class="math inline">\(N_0 = 10, 20, 50, 100, 200, 500\)</span>).</li>
+<li>Se calcula la probabilidad de extinción para cada <span class="math inline">\(N_0\)</span>.</li>
+<li>Se identifica el <span class="math inline">\(N_0\)</span> a partir del cual la probabilidad de extinción es aceptablemente baja (por ejemplo, &lt; 10%).</li>
+</ol>
+<p><strong>Ejemplo:</strong> si la probabilidad de extinción es del 40% con <span class="math inline">\(N_0 = 20\)</span> y del 5% con <span class="math inline">\(N_0 = 100\)</span>, la PMV estaría alrededor de 100 individuos.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="continuo_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>¿Qué es un umbral aceptable?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>No hay una respuesta única. Depende de la especie, del contexto y de los objetivos de conservación. Para especies en peligro crítico, se aceptan probabilidades de extinción muy bajas (por ejemplo, &lt; 1% en 100 años). Para especies menos amenazadas, umbrales más altos pueden ser aceptables.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 6 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con la simulación anterior, respondan:</p>
+<ol type="1">
+<li>¿Cuál es el umbral de población a partir del cual la probabilidad de extinción es menor al 10%?</li>
+<li>¿Qué pasa con el umbral si la media de <span class="math inline">\(\lambda\)</span> disminuye a 0,95?</li>
+<li>¿Cómo usarían esta información para tomar decisiones de conservación?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="tiempo-para-alcanzar-un-tamaño-específico" class="level3">
+<h3 class="anchored" data-anchor-id="tiempo-para-alcanzar-un-tamaño-específico">5.4 Tiempo para alcanzar un tamaño específico</h3>
+<p>En algunos casos, la pregunta no es sobre el futuro lejano, sino sobre cuánto tiempo tarda la población en alcanzar un tamaño determinado. Por ejemplo: ¿en cuántos años la población de mariposas llegará a 1.000 individuos? ¿Cuánto tarda en duplicarse?</p>
+<p>Para responder, despejamos <span class="math inline">\(t\)</span> de la ecuación exponencial:</p>
+<p><span class="math display">\[N_t = N_0 \cdot e^{rt}\]</span></p>
+<p><span class="math display">\[\frac{N_t}{N_0} = e^{rt}\]</span></p>
+<p><span class="math display">\[\ln\left(\frac{N_t}{N_0}\right) = rt\]</span></p>
+<p><span class="math display">\[t = \frac{\ln(N_t / N_0)}{r}\]</span></p>
+<p><strong>Ejemplo:</strong> con <span class="math inline">\(N_0 = 10\)</span> y <span class="math inline">\(r = 0,82\)</span>, ¿cuánto tarda la población en llegar a 1.000 individuos?</p>
+<p><span class="math display">\[t = \frac{\ln(1000 / 10)}{0,82} = \frac{\ln(100)}{0,82} \approx \frac{4,605}{0,82} \approx 5,62 \text{ años}\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>El tiempo de duplicación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un caso particular importante es el tiempo de duplicación: cuánto tarda la población en duplicar su tamaño.</p>
+<p><span class="math display">\[t_{2} = \frac{\ln(2)}{r} \approx \frac{0,693}{r}\]</span></p>
+<p><strong>Ejemplo:</strong> con <span class="math inline">\(r = 0,82\)</span>, el tiempo de duplicación es <span class="math inline">\(0,693 / 0,82 \approx 0,85\)</span> años (unos 10 meses).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 7 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con <span class="math inline">\(N_0 = 50\)</span> y <span class="math inline">\(r = 0,05\)</span>, calculen:</p>
+<ol type="1">
+<li>¿Cuánto tarda la población en llegar a 500 individuos?</li>
+<li>¿Cuál es el tiempo de duplicación?</li>
+<li>¿Qué pasa con el tiempo si <span class="math inline">\(r\)</span> se reduce a la mitad?</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="síntesis-de-las-aplicaciones" class="level3">
+<h3 class="anchored" data-anchor-id="síntesis-de-las-aplicaciones">5.5 Síntesis de las aplicaciones</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aplicación</th>
+<th>Pregunta que responde</th>
+<th>Herramienta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Probabilidad de extinción</td>
+<td>¿Cuál es el riesgo de que la población desaparezca?</td>
+<td>Simulaciones estocásticas</td>
+</tr>
+<tr class="even">
+<td>Cuantificar incertidumbre</td>
+<td>¿Cuál es el rango de tamaños posibles?</td>
+<td>Percentiles de simulaciones</td>
+</tr>
+<tr class="odd">
+<td>Identificar umbrales críticos</td>
+<td>¿Cuál es el tamaño mínimo viable?</td>
+<td>Simulaciones con distintos <span class="math inline">\(N_0\)</span></td>
+</tr>
+<tr class="even">
+<td>Tiempo de alcance</td>
+<td>¿Cuánto tarda la población en llegar a un tamaño?</td>
+<td>Despeje de <span class="math inline">\(t\)</span> en el modelo exponencial</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Conexión con la conservación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Estas herramientas se usan en programas de conservación de especies amenazadas como <em>Tremarctos ornatus</em> en el Podocarpus, o para evaluar la viabilidad de poblaciones de <em>Cedrela montana</em> en fragmentos de bosque de la hoya de Loja. La simulación permite explorar escenarios (con y sin intervención) y priorizar acciones.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="síntesis-y-puente" class="level2">
+<h2 class="anchored" data-anchor-id="síntesis-y-puente">6. Síntesis y puente</h2>
+<p>El modelo exponencial continuo describe poblaciones con reproducción continua:</p>
+<p><span class="math display">\[N_t = N_0 \cdot e^{rt}\]</span></p>
+<p>Con <span class="math inline">\(r &gt; 0\)</span> la población crece; con <span class="math inline">\(r &lt; 0\)</span> decrece. La tasa <span class="math inline">\(r\)</span> se relaciona con <span class="math inline">\(\lambda\)</span> mediante <span class="math inline">\(r = \ln(\lambda)\)</span>.</p>
+<p>Las simulaciones estocásticas incorporan la variación natural en las tasas y permiten estimar la probabilidad de extinción y la incertidumbre de las proyecciones. Son una herramienta clave en conservación.</p>
+<p>En la próxima lectura veremos el modelo logístico, que incorpora la denso-dependencia y describe poblaciones que se estabilizan en una capacidad de carga.</p>
+<p><strong>Pregunta final:</strong> ¿qué especie de Loja le gustaría analizar con una simulación estocástica? ¿Qué preguntas de conservación podría responder?</p>
+</section>
+<section id="para-profundizar" class="level2">
+<h2 class="anchored" data-anchor-id="para-profundizar">7. Para profundizar</h2>
+<ul>
+<li>Gotelli, N. J. (2008). <em>A Primer of Ecology</em>. 4th ed.&nbsp;Sinauer. Capítulo 1.</li>
+<li>Begon, M., Harper, J. L., &amp; Townsend, C. R. (2006). <em>Ecology: From Individuals to Ecosystems</em>. Blackwell. Capítulo 6.</li>
+<li>Morris, W. F., &amp; Doak, D. F. (2002). <em>Quantitative Conservation Biology</em>. Sinauer. Capítulo 3.</li>
+</ul>
+</section>
+<section id="preguntas-de-comprensión" class="level2">
+<h2 class="anchored" data-anchor-id="preguntas-de-comprensión">8. Preguntas de comprensión</h2>
+<ol type="1">
+<li>¿Por qué el modelo geométrico no es adecuado para poblaciones con reproducción continua? Da un ejemplo local.</li>
+<li>¿Qué representa la constante <span class="math inline">\(e\)</span> en el modelo exponencial continuo?</li>
+<li>¿Cómo se relacionan <span class="math inline">\(\lambda\)</span> y <span class="math inline">\(r\)</span>? Calcula <span class="math inline">\(r\)</span> para <span class="math inline">\(\lambda = 1,8\)</span>.</li>
+<li>Si una población tiene <span class="math inline">\(r = 0,05\)</span> por año, ¿cuánto tarda en duplicarse?</li>
+<li>¿Por qué la media geométrica es más adecuada que la aritmética para promediar <span class="math inline">\(r\)</span>?</li>
+<li>¿Qué ventaja tienen las simulaciones estocásticas sobre los modelos deterministas?</li>
+<li>¿Cómo se estima la probabilidad de extinción a partir de una simulación?</li>
+<li>¿Por qué una población con <span class="math inline">\(r\)</span> promedio positivo puede tener alta probabilidad de extinción?</li>
+<li>¿Qué aplicaciones tiene la simulación estocástica en conservación?</li>
+<li>¿Cómo se relaciona el modelo exponencial continuo con el modelo geométrico que vimos en la lectura anterior?</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
