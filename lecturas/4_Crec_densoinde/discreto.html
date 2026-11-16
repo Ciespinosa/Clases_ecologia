@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlos Iván Espinosa">
+<meta name="dcterms.date" content="2026-11-11">
+
+<title>Modelos de crecimiento: por qué modelar y cómo crece una población estacional</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="discreto_files/libs/clipboard/clipboard.min.js"></script>
+<script src="discreto_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="discreto_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="discreto_files/libs/quarto-html/popper.min.js"></script>
+<script src="discreto_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="discreto_files/libs/quarto-html/anchor.min.js"></script>
+<link href="discreto_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="discreto_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="discreto_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="discreto_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="discreto_files/libs/bootstrap/bootstrap-62e2d20df198e8a01bb734742f2e28cf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#una-pregunta-desde-loja" id="toc-una-pregunta-desde-loja" class="nav-link active" data-scroll-target="#una-pregunta-desde-loja">1. Una pregunta desde Loja</a></li>
+  <li><a href="#por-qué-modelar" id="toc-por-qué-modelar" class="nav-link" data-scroll-target="#por-qué-modelar">2. ¿Por qué modelar?</a></li>
+  <li><a href="#el-problema-de-la-detección-estadística" id="toc-el-problema-de-la-detección-estadística" class="nav-link" data-scroll-target="#el-problema-de-la-detección-estadística">3. El problema de la detección estadística</a></li>
+  <li><a href="#supuestos-y-limitaciones" id="toc-supuestos-y-limitaciones" class="nav-link" data-scroll-target="#supuestos-y-limitaciones">4. Supuestos y limitaciones</a></li>
+  <li><a href="#denso-independiente-vs.-denso-dependiente" id="toc-denso-independiente-vs.-denso-dependiente" class="nav-link" data-scroll-target="#denso-independiente-vs.-denso-dependiente">5. Denso-independiente vs.&nbsp;denso-dependiente</a></li>
+  <li><a href="#crecimiento-geométrico" id="toc-crecimiento-geométrico" class="nav-link" data-scroll-target="#crecimiento-geométrico">6. Crecimiento geométrico</a></li>
+  <li><a href="#limitaciones-del-modelo-geométrico" id="toc-limitaciones-del-modelo-geométrico" class="nav-link" data-scroll-target="#limitaciones-del-modelo-geométrico">7. Limitaciones del modelo geométrico</a></li>
+  <li><a href="#aplicación-local-insectos-anuales-del-bosque-seco-de-catamayo" id="toc-aplicación-local-insectos-anuales-del-bosque-seco-de-catamayo" class="nav-link" data-scroll-target="#aplicación-local-insectos-anuales-del-bosque-seco-de-catamayo">8. Aplicación local: insectos anuales del bosque seco de Catamayo</a></li>
+  <li><a href="#síntesis-y-puente" id="toc-síntesis-y-puente" class="nav-link" data-scroll-target="#síntesis-y-puente">9. Síntesis y puente</a></li>
+  <li><a href="#para-profundizar" id="toc-para-profundizar" class="nav-link" data-scroll-target="#para-profundizar">10. Para profundizar</a></li>
+  <li><a href="#preguntas-de-comprensión" id="toc-preguntas-de-comprensión" class="nav-link" data-scroll-target="#preguntas-de-comprensión">11. Preguntas de comprensión</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Modelos de crecimiento: por qué modelar y cómo crece una población estacional</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carlos Iván Espinosa </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">11/11/2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="una-pregunta-desde-loja" class="level2">
+<h2 class="anchored" data-anchor-id="una-pregunta-desde-loja">1. Una pregunta desde Loja</h2>
+<p>Imaginen que en el bosque seco de Catamayo han monitoreado una población de insectos anuales durante cinco años. Los datos son estos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Año</th>
+<th>Individuos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>200</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>230</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>198</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>235</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>220</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pregunta:</strong> ¿la población está creciendo, decreciendo o se mantiene estable?</p>
+<p>A primera vista, los números fluctúan: suben, bajan, vuelven a subir. No es obvio si hay una tendencia. Para responder, necesitamos <strong>modelar</strong>. En esta lectura veremos por qué los ecólogos usan modelos, qué supuestos tienen, y cómo se construye el primer modelo de crecimiento: el <strong>geométrico</strong>.</p>
+</section>
+<section id="por-qué-modelar" class="level2">
+<h2 class="anchored" data-anchor-id="por-qué-modelar">2. ¿Por qué modelar?</h2>
+<p>Un modelo es una <strong>representación simplificada</strong> de la realidad. No pretende capturar todos los detalles de un sistema, sino capturar los procesos que consideramos importantes para responder una pregunta.</p>
+<p>En ecología de poblaciones, los modelos sirven para:</p>
+<ul>
+<li><strong>Predecir</strong> el tamaño futuro de una población.</li>
+<li><strong>Entender</strong> qué procesos generan los patrones observados.</li>
+<li><strong>Comparar</strong> escenarios (por ejemplo, con y sin intervención).</li>
+<li><strong>Guiar</strong> decisiones de manejo y conservación.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Modelar no es “adivinar el futuro”
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Un modelo no predice con certeza lo que pasará. Es una herramienta para explorar posibilidades y entender mecanismos. La frase del estadístico George Box lo resume: <em>“Todos los modelos son incorrectos, pero algunos son útiles”</em>.</p>
+</div>
+</div>
+</section>
+<section id="el-problema-de-la-detección-estadística" class="level2">
+<h2 class="anchored" data-anchor-id="el-problema-de-la-detección-estadística">3. El problema de la detección estadística</h2>
+<p>Antes de modelar, hay un problema práctico: <strong>¿cómo sabemos si una población realmente está creciendo?</strong> Detectar una tendencia estadística depende de dos cosas:</p>
+<ol type="1">
+<li><strong>El número de observaciones.</strong> Con pocos datos, es difícil distinguir una tendencia real del ruido.</li>
+<li><strong>El rango de la variable predictora.</strong> Si los valores de la variable predictora están muy agrupados, es difícil detectar una relación.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="discreto_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="discreto_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Conclusión:</strong> para detectar si una población crece, no basta con tener datos; hay que tener <strong>suficientes datos</strong> y <strong>suficiente variación</strong> en la variable predictora. Los modelos ayudan a superar esta limitación al imponer una estructura teórica a los datos.</p>
+</section>
+<section id="supuestos-y-limitaciones" class="level2">
+<h2 class="anchored" data-anchor-id="supuestos-y-limitaciones">4. Supuestos y limitaciones</h2>
+<p>Todo modelo tiene <strong>supuestos</strong>: condiciones que se asumen verdaderas para que el modelo funcione. Los supuestos son necesarios, pero también son la principal fuente de error cuando el modelo se aplica a la realidad.</p>
+<p>Por ejemplo, un modelo simple de crecimiento puede asumir que:</p>
+<ul>
+<li>Todos los individuos son idénticos.</li>
+<li>No hay inmigración ni emigración.</li>
+<li>Los recursos son ilimitados.</li>
+<li>Las tasas de natalidad y mortalidad son constantes.</li>
+</ul>
+<p>Ninguno de estos supuestos se cumple exactamente en la naturaleza. Pero eso no invalida el modelo: lo vuelve una <strong>aproximación</strong> que es útil en ciertos contextos y no en otros.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pregunta para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Piensen en un modelo que hayan usado fuera de la ecología (por ejemplo, un mapa, una receta de cocina, un presupuesto). ¿Qué supuestos tiene? ¿En qué casos falla?</p>
+</div>
+</div>
+</section>
+<section id="denso-independiente-vs.-denso-dependiente" class="level2">
+<h2 class="anchored" data-anchor-id="denso-independiente-vs.-denso-dependiente">5. Denso-independiente vs.&nbsp;denso-dependiente</h2>
+<p>Los modelos de crecimiento se dividen en dos grandes familias según cómo tratan el efecto de la densidad.</p>
+<section id="crecimiento-denso-independiente" class="level3">
+<h3 class="anchored" data-anchor-id="crecimiento-denso-independiente">5.1 Crecimiento denso-independiente</h3>
+<p>La tasa de crecimiento <strong>no depende</strong> del tamaño de la población. La población crece (o decrece) a la misma tasa sin importar cuántos individuos haya.</p>
+<p><strong>Ejemplo:</strong> una población de insectos que coloniza un ambiente nuevo y temporal, sin competencia ni depredadores.</p>
+<p><strong>Consecuencia:</strong> la población crece indefinidamente. En la práctica, esto solo puede ocurrir por un tiempo limitado, hasta que algún factor (recursos, espacio, depredadores) empiece a limitar el crecimiento.</p>
+</section>
+<section id="crecimiento-denso-dependiente" class="level3">
+<h3 class="anchored" data-anchor-id="crecimiento-denso-dependiente">5.2 Crecimiento denso-dependiente</h3>
+<p>La tasa de crecimiento <strong>sí depende</strong> del tamaño de la población. A medida que la población crece, los recursos se vuelven limitantes y la tasa de crecimiento disminuye.</p>
+<p><strong>Ejemplo:</strong> una población de árboles en un bosque, donde la competencia por luz y nutrientes reduce el crecimiento cuando hay muchos individuos.</p>
+<p><strong>Consecuencia:</strong> la población se estabiliza en un tamaño máximo, llamado <strong>capacidad de carga</strong> (<span class="math inline">\(K\)</span>).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Las dos familias de modelos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Denso-independiente:</strong> geométrico (discreto) y exponencial (continuo).</li>
+<li><strong>Denso-dependiente:</strong> logístico (continuo) y modelos discretos con denso-dependencia.</li>
+</ul>
+</div>
+</div>
+<p>En esta lectura veremos el primero de los modelos denso-independientes: el <strong>geométrico</strong>.</p>
+</section>
+</section>
+<section id="crecimiento-geométrico" class="level2">
+<h2 class="anchored" data-anchor-id="crecimiento-geométrico">6. Crecimiento geométrico</h2>
+<section id="cuándo-se-usa" class="level3">
+<h3 class="anchored" data-anchor-id="cuándo-se-usa">6.1 ¿Cuándo se usa?</h3>
+<p>El modelo geométrico describe poblaciones con <strong>reproducción estacional</strong>: los individuos se reproducen una vez al año (o en una estación), y luego mueren o permanecen sin reproducirse hasta la siguiente estación.</p>
+<p><strong>Ejemplos locales:</strong> - Insectos anuales del bosque seco de Catamayo. - Plantas anuales que germinan con las lluvias y mueren al final de la estación. - Aves que se reproducen una vez al año.</p>
+</section>
+<section id="la-tasa-de-incremento-per-cápita" class="level3">
+<h3 class="anchored" data-anchor-id="la-tasa-de-incremento-per-cápita">6.2 La tasa de incremento per cápita</h3>
+<p>Antes de escribir la ecuación, entendamos qué es la <strong>tasa de incremento per cápita</strong>. Es una medida de la velocidad con la que cambia el tamaño de la población, <strong>por individuo</strong>.</p>
+<p><span class="math display">\[\text{Tasa de incremento} = \frac{N_{t+1}}{N_t}\]</span></p>
+<p><strong>Ejemplo:</strong> si una población pasa de 2 a 4 individuos en un año, la tasa es <span class="math inline">\(4/2 = 2\)</span>. Si pasa de 4 a 8, la tasa es <span class="math inline">\(8/4 = 2\)</span>. Si la tasa es constante, la población se duplica cada año.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>La tasa de crecimiento vs.&nbsp;la tasa per cápita
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>La <strong>tasa de crecimiento</strong> es el cambio absoluto en el número de individuos por unidad de tiempo: <span class="math inline">\(N_{t+1} - N_t\)</span>.</li>
+<li>La <strong>tasa per cápita</strong> es el cambio relativo: <span class="math inline">\((N_{t+1} - N_t) / N_t\)</span>, que es equivalente a <span class="math inline">\(N_{t+1}/N_t - 1\)</span>.</li>
+</ul>
+<p>En el modelo geométrico usamos <span class="math inline">\(\lambda = N_{t+1}/N_t\)</span>, que incluye la renovación (1) más el crecimiento (<span class="math inline">\(\lambda - 1\)</span>).</p>
+</div>
+</div>
+</section>
+<section id="la-ecuación" class="level3">
+<h3 class="anchored" data-anchor-id="la-ecuación">6.3 La ecuación</h3>
+<p>El modelo geométrico se escribe así:</p>
+<p><span class="math display">\[N_{t+1} = \lambda \cdot N_t\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(N_t\)</span> = tamaño de la población en el tiempo <span class="math inline">\(t\)</span> (en número de individuos o de hembras).</li>
+<li><span class="math inline">\(N_{t+1}\)</span> = tamaño de la población en el tiempo <span class="math inline">\(t+1\)</span> (el siguiente año o estación).</li>
+<li><span class="math inline">\(\lambda\)</span> (lambda) = <strong>tasa finita de crecimiento</strong>, o tasa de multiplicación por generación.</li>
+</ul>
+<p><strong>Interpretación de <span class="math inline">\(\lambda\)</span>:</strong> - <span class="math inline">\(\lambda &gt; 1\)</span>: la población crece. - <span class="math inline">\(\lambda = 1\)</span>: la población se mantiene estable. - <span class="math inline">\(\lambda &lt; 1\)</span>: la población decrece.</p>
+</section>
+<section id="ejemplo-paso-a-paso-las-mariposas" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-paso-a-paso-las-mariposas">6.4 Ejemplo paso a paso: las mariposas</h3>
+<p>En tu presentación usaste el ejemplo de una población de mariposas que se duplica cada tres meses:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Mes</th>
+<th><span class="math inline">\(N_t\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Enero</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Abril</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Julio</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>Octubre</td>
+<td>16</td>
+</tr>
+<tr class="odd">
+<td>Enero (siguiente)</td>
+<td>32</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 1:</strong> calcular <span class="math inline">\(\lambda\)</span> para cada intervalo.</p>
+<p><span class="math display">\[\lambda = \frac{N_{t+1}}{N_t}\]</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Intervalo</th>
+<th><span class="math inline">\(\lambda\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Enero → Abril</td>
+<td>4/2 = 2</td>
+</tr>
+<tr class="even">
+<td>Abril → Julio</td>
+<td>8/4 = 2</td>
+</tr>
+<tr class="odd">
+<td>Julio → Octubre</td>
+<td>16/8 = 2</td>
+</tr>
+<tr class="even">
+<td>Octubre → Enero</td>
+<td>32/16 = 2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paso 2:</strong> concluir. <span class="math inline">\(\lambda = 2\)</span> constante significa que la población se duplica cada tres meses. Con <span class="math inline">\(\lambda &gt; 1\)</span>, la población crece.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 1 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con los datos de la tabla, calculen <span class="math inline">\(\lambda\)</span> para el intervalo 1 → 2 si <span class="math inline">\(N_0 = 100\)</span> y <span class="math inline">\(N_1 = 150\)</span>. ¿Se mantiene el valor de <span class="math inline">\(\lambda\)</span>?</p>
+</div>
+</div>
+</section>
+<section id="proyección-a-futuro" class="level3">
+<h3 class="anchored" data-anchor-id="proyección-a-futuro">6.5 Proyección a futuro</h3>
+<p>Si <span class="math inline">\(\lambda\)</span> es constante, podemos proyectar la población a cualquier período:</p>
+<p><span class="math display">\[N_t = N_0 \cdot \lambda^t\]</span></p>
+<p><strong>Ejemplo:</strong> con <span class="math inline">\(N_0 = 2\)</span> y <span class="math inline">\(\lambda = 2\)</span> (mariposas cada 3 meses):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Período (3 meses)</th>
+<th><span class="math inline">\(N_t\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>16</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>32</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>512</td>
+</tr>
+<tr class="odd">
+<td>12 (3 años)</td>
+<td>8.192</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 2 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con <span class="math inline">\(N_0 = 100\)</span> y <span class="math inline">\(\lambda = 1,5\)</span>, calculen <span class="math inline">\(N_{15}\)</span>. ¿Cuántos individuos habría en el año 15? ¿Es realista?</p>
+</div>
+</div>
+</section>
+<section id="efecto-del-tamaño-inicial" class="level3">
+<h3 class="anchored" data-anchor-id="efecto-del-tamaño-inicial">6.6 Efecto del tamaño inicial</h3>
+<p>Si dos poblaciones crecen con la misma <span class="math inline">\(\lambda\)</span>, pero parten de tamaños iniciales distintos, ¿crecen a la misma tasa?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="discreto_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Conclusión:</strong> las tres poblaciones crecen a la <strong>misma tasa</strong> (<span class="math inline">\(\lambda = 2\)</span>), pero la magnitud del incremento es mayor en la población más grande. Si graficamos en escala logarítmica, las tres rectas son paralelas.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="discreto_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 3 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si una población con <span class="math inline">\(N_0 = 50\)</span> crece con <span class="math inline">\(\lambda = 1,3\)</span>, ¿cuántos individuos habrá en el año 5? ¿Y si <span class="math inline">\(N_0 = 100\)</span>?</p>
+</div>
+</div>
+</section>
+<section id="efecto-de-lambda" class="level3">
+<h3 class="anchored" data-anchor-id="efecto-de-lambda">6.7 Efecto de <span class="math inline">\(\lambda\)</span></h3>
+<p><span class="math inline">\(\lambda\)</span> tiene un efecto enorme sobre el crecimiento. Pequeñas diferencias en <span class="math inline">\(\lambda\)</span> producen grandes diferencias en el tamaño futuro.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="discreto_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="tasa-promedio-media-aritmética-vs.-media-geométrica" class="level3">
+<h3 class="anchored" data-anchor-id="tasa-promedio-media-aritmética-vs.-media-geométrica">6.8 Tasa promedio: media aritmética vs.&nbsp;media geométrica</h3>
+<p>En la práctica, <span class="math inline">\(\lambda\)</span> no es constante: varía entre años. ¿Qué valor usar para proyectar?</p>
+<p><strong>Ejemplo:</strong> una población de ninfálidos con estos datos: 100, 50, 75.</p>
+<p>Las tasas son: <span class="math inline">\(\lambda_1 = 50/100 = 0,5\)</span> y <span class="math inline">\(\lambda_2 = 75/50 = 1,5\)</span>.</p>
+<ul>
+<li><strong>Media aritmética:</strong> <span class="math inline">\((0,5 + 1,5)/2 = 1,0\)</span>. Proyectar con <span class="math inline">\(\lambda = 1\)</span> daría una población estable.</li>
+<li><strong>Media geométrica:</strong> <span class="math inline">\(\sqrt{0,5 \cdot 1,5} = \sqrt{0,75} \approx 0,866\)</span>. Proyectar con <span class="math inline">\(\lambda = 0,866\)</span> daría una población en decrecimiento.</li>
+</ul>
+<p><strong>¿Cuál es correcta?</strong> La media geométrica es más adecuada para tasas de crecimiento, porque el crecimiento es multiplicativo, no aditivo. La media aritmética sobreestima el crecimiento cuando hay variación.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 4 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con los datos de ninfálidos (100, 50, 75), calculen la media aritmética y la media geométrica. ¿Cuál se acerca más al tamaño real en el año 3 (75)?</p>
+</div>
+</div>
+</section>
+<section id="tasa-finita-lambda-y-tasa-intrínseca-r" class="level3">
+<h3 class="anchored" data-anchor-id="tasa-finita-lambda-y-tasa-intrínseca-r">6.9 Tasa finita (<span class="math inline">\(\lambda\)</span>) y tasa intrínseca (<span class="math inline">\(r\)</span>)</h3>
+<p>En la lectura 1.3 vimos la tasa intrínseca de crecimiento <span class="math inline">\(r\)</span>. La relación con <span class="math inline">\(\lambda\)</span> es:</p>
+<p><span class="math display">\[r = \ln(\lambda)\]</span> <span class="math display">\[\lambda = e^r\]</span></p>
+<p><strong>Interpretación:</strong> - Si <span class="math inline">\(\lambda = 1,5\)</span>, entonces <span class="math inline">\(r = \ln(1,5) \approx 0,405\)</span> por año. - Si <span class="math inline">\(\lambda = 1\)</span>, entonces <span class="math inline">\(r = 0\)</span>. - Si <span class="math inline">\(\lambda &lt; 1\)</span>, entonces <span class="math inline">\(r &lt; 0\)</span>.</p>
+<p><strong>Ejemplo:</strong> si una población de insectos tiene <span class="math inline">\(\lambda = 1,5\)</span>, su <span class="math inline">\(r\)</span> es <span class="math inline">\(\ln(1,5) \approx 0,405\)</span>. Si una población de aves tiene <span class="math inline">\(r = 0,1\)</span>, su <span class="math inline">\(\lambda\)</span> es <span class="math inline">\(e^{0,1} \approx 1,105\)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 5 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si una población tiene <span class="math inline">\(\lambda = 0,8\)</span>, ¿cuál es su <span class="math inline">\(r\)</span>? ¿La población crece o decrece?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="limitaciones-del-modelo-geométrico" class="level2">
+<h2 class="anchored" data-anchor-id="limitaciones-del-modelo-geométrico">7. Limitaciones del modelo geométrico</h2>
+<p>El modelo geométrico es útil para poblaciones estacionales, pero tiene limitaciones:</p>
+<ol type="1">
+<li><strong>Asume que <span class="math inline">\(\lambda\)</span> es constante.</strong> En la realidad, <span class="math inline">\(\lambda\)</span> varía con el clima, los recursos y la densidad.</li>
+<li><strong>Asume que todos los individuos son idénticos.</strong> No distingue entre juveniles y adultos.</li>
+<li><strong>No incluye denso-dependencia.</strong> La población crece indefinidamente.</li>
+<li><strong>No incluye inmigración ni emigración.</strong> Asume una población cerrada.</li>
+</ol>
+<p>A pesar de estas limitaciones, el modelo geométrico es útil como <strong>punto de partida</strong> y como <strong>herramienta de exploración</strong>.</p>
+</section>
+<section id="aplicación-local-insectos-anuales-del-bosque-seco-de-catamayo" class="level2">
+<h2 class="anchored" data-anchor-id="aplicación-local-insectos-anuales-del-bosque-seco-de-catamayo">8. Aplicación local: insectos anuales del bosque seco de Catamayo</h2>
+<p>En el bosque seco de Catamayo, muchas especies de insectos tienen ciclos de vida anuales: emergen con las lluvias, se reproducen y mueren al final de la estación. El modelo geométrico es adecuado para describir estas poblaciones.</p>
+<p><strong>Pregunta ecológica:</strong> ¿cómo cambia el tamaño de una población de insectos anuales de un año a otro? ¿Qué factores hacen que <span class="math inline">\(\lambda\)</span> varíe?</p>
+<p><strong>Ejemplo hipotético:</strong> si una población de escarabajos tiene <span class="math inline">\(\lambda = 1,2\)</span> en años húmedos y <span class="math inline">\(\lambda = 0,8\)</span> en años secos, el tamaño de la población fluctúa enormemente entre años. Esto es típico de ambientes estacionales.</p>
+<p><strong>Conexión con el cambio climático:</strong> si el cambio climático reduce la frecuencia de años húmedos, el <span class="math inline">\(\lambda\)</span> promedio podría caer por debajo de 1, y la población podría decrecer a largo plazo.</p>
+</section>
+<section id="síntesis-y-puente" class="level2">
+<h2 class="anchored" data-anchor-id="síntesis-y-puente">9. Síntesis y puente</h2>
+<p>Los modelos son representaciones simplificadas de la realidad, útiles para predecir, entender y comparar. Se dividen en <strong>denso-independientes</strong> (la tasa de crecimiento no depende de la densidad) y <strong>denso-dependientes</strong> (sí depende).</p>
+<p>El modelo <strong>geométrico</strong> describe poblaciones con reproducción estacional:</p>
+<p><span class="math display">\[N_{t+1} = \lambda \cdot N_t\]</span></p>
+<p>Con <span class="math inline">\(\lambda &gt; 1\)</span> la población crece; con <span class="math inline">\(\lambda &lt; 1\)</span> decrece. La tasa <span class="math inline">\(\lambda\)</span> se relaciona con <span class="math inline">\(r\)</span> mediante <span class="math inline">\(r = \ln(\lambda)\)</span>.</p>
+<p><strong>Importante:</strong> cuando <span class="math inline">\(\lambda\)</span> varía entre años, la <strong>media geométrica</strong> es más adecuada que la media aritmética para proyectar la población.</p>
+<p>En la próxima lectura veremos el modelo <strong>exponencial continuo</strong>, que describe poblaciones con reproducción continua, y luego el modelo <strong>logístico</strong>, que incorpora la denso-dependencia.</p>
+<p><strong>Pregunta final:</strong> ¿qué especie de Loja conoce que tenga reproducción estacional? ¿Cómo estimarían su <span class="math inline">\(\lambda\)</span>?</p>
+</section>
+<section id="para-profundizar" class="level2">
+<h2 class="anchored" data-anchor-id="para-profundizar">10. Para profundizar</h2>
+<ul>
+<li>Gotelli, N. J. (2008). <em>A Primer of Ecology</em>. 4th ed.&nbsp;Sinauer. Capítulo 1.</li>
+<li>Begon, M., Harper, J. L., &amp; Townsend, C. R. (2006). <em>Ecology: From Individuals to Ecosystems</em>. Blackwell. Capítulo 6.</li>
+<li>Vandermeer, J., &amp; Goldberg, D. E. (2013). <em>Population Ecology: First Principles</em>. Princeton University Press. Capítulo 2.</li>
+</ul>
+</section>
+<section id="preguntas-de-comprensión" class="level2">
+<h2 class="anchored" data-anchor-id="preguntas-de-comprensión">11. Preguntas de comprensión</h2>
+<ol type="1">
+<li>¿Por qué los ecólogos usan modelos? Menciona tres razones.</li>
+<li>¿Qué dos factores afectan la detección estadística de una tendencia poblacional?</li>
+<li>¿Cuál es la diferencia entre un modelo denso-independiente y uno denso-dependiente?</li>
+<li>¿En qué tipo de poblaciones se usa el modelo geométrico? Da un ejemplo local.</li>
+<li>Si una población tiene <span class="math inline">\(\lambda = 1,2\)</span>, ¿crece o decrece? ¿Cuánto crece por año?</li>
+<li>¿Cómo se relacionan <span class="math inline">\(\lambda\)</span> y <span class="math inline">\(r\)</span>? Calcula <span class="math inline">\(r\)</span> para <span class="math inline">\(\lambda = 1,5\)</span>.</li>
+<li>Si <span class="math inline">\(\lambda = 0,9\)</span>, ¿cuál es el destino de la población a largo plazo?</li>
+<li>¿Qué limitaciones tiene el modelo geométrico? Menciona al menos tres.</li>
+<li>Con <span class="math inline">\(N_0 = 50\)</span> y <span class="math inline">\(\lambda = 1,3\)</span>, ¿cuántos individuos habrá en el año 5?</li>
+<li>¿Por qué la media geométrica es más adecuada que la media aritmética para promediar <span class="math inline">\(\lambda\)</span>?</li>
+<li>¿Cómo se relaciona el modelo geométrico con el concepto de fitness que vimos en la lectura 1.2?</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
