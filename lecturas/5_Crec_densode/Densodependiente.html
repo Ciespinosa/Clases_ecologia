@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Carlos Iván Espinosa">
+
+<title>Crecimiento logístico: cuando la densidad frena el crecimiento</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="Densodependiente_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Densodependiente_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Densodependiente_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Densodependiente_files/libs/quarto-html/popper.min.js"></script>
+<script src="Densodependiente_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Densodependiente_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Densodependiente_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Densodependiente_files/libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Densodependiente_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Densodependiente_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Densodependiente_files/libs/bootstrap/bootstrap-62e2d20df198e8a01bb734742f2e28cf.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#una-pregunta" id="toc-una-pregunta" class="nav-link active" data-scroll-target="#una-pregunta">1. Una pregunta</a></li>
+  <li><a href="#por-qué-el-modelo-denso-independiente-falla" id="toc-por-qué-el-modelo-denso-independiente-falla" class="nav-link" data-scroll-target="#por-qué-el-modelo-denso-independiente-falla">2. ¿Por qué el modelo denso-independiente falla?</a></li>
+  <li><a href="#qué-es-la-denso-dependencia" id="toc-qué-es-la-denso-dependencia" class="nav-link" data-scroll-target="#qué-es-la-denso-dependencia">3. ¿Qué es la denso-dependencia?</a></li>
+  <li><a href="#derivación-del-modelo-discreto-denso-dependiente" id="toc-derivación-del-modelo-discreto-denso-dependiente" class="nav-link" data-scroll-target="#derivación-del-modelo-discreto-denso-dependiente">4. Derivación del modelo discreto denso-dependiente</a></li>
+  <li><a href="#cómo-estimar-alpha-y-k-a-partir-de-datos" id="toc-cómo-estimar-alpha-y-k-a-partir-de-datos" class="nav-link" data-scroll-target="#cómo-estimar-alpha-y-k-a-partir-de-datos">5. ¿Cómo estimar <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(K\)</span> a partir de datos?</a></li>
+  <li><a href="#el-modelo-logístico-continuo" id="toc-el-modelo-logístico-continuo" class="nav-link" data-scroll-target="#el-modelo-logístico-continuo">6. El modelo logístico continuo</a></li>
+  <li><a href="#efecto-del-tamaño-inicial-de-alpha-y-de-r_d" id="toc-efecto-del-tamaño-inicial-de-alpha-y-de-r_d" class="nav-link" data-scroll-target="#efecto-del-tamaño-inicial-de-alpha-y-de-r_d">7. Efecto del tamaño inicial, de <span class="math inline">\(\alpha\)</span> y de <span class="math inline">\(r_d\)</span></a></li>
+  <li><a href="#dinámicas-complejas-ciclos-y-caos" id="toc-dinámicas-complejas-ciclos-y-caos" class="nav-link" data-scroll-target="#dinámicas-complejas-ciclos-y-caos">8. Dinámicas complejas: ciclos y caos</a></li>
+  <li><a href="#cómo-decidir-entre-un-modelo-denso-independiente-y-uno-denso-dependiente" id="toc-cómo-decidir-entre-un-modelo-denso-independiente-y-uno-denso-dependiente" class="nav-link" data-scroll-target="#cómo-decidir-entre-un-modelo-denso-independiente-y-uno-denso-dependiente">9. ¿Cómo decidir entre un modelo denso-independiente y uno denso-dependiente?</a></li>
+  <li><a href="#es-factible-simular-con-el-modelo-logístico" id="toc-es-factible-simular-con-el-modelo-logístico" class="nav-link" data-scroll-target="#es-factible-simular-con-el-modelo-logístico">10. ¿Es factible simular con el modelo logístico?</a></li>
+  <li><a href="#aplicación-local-cedrela-montana-en-la-hoya-de-loja" id="toc-aplicación-local-cedrela-montana-en-la-hoya-de-loja" class="nav-link" data-scroll-target="#aplicación-local-cedrela-montana-en-la-hoya-de-loja">11. Aplicación local: <em>Cedrela montana</em> en la hoya de Loja</a></li>
+  <li><a href="#síntesis-y-puente" id="toc-síntesis-y-puente" class="nav-link" data-scroll-target="#síntesis-y-puente">12. Síntesis y puente</a></li>
+  <li><a href="#para-profundizar" id="toc-para-profundizar" class="nav-link" data-scroll-target="#para-profundizar">13. Para profundizar</a></li>
+  <li><a href="#preguntas-de-comprensión" id="toc-preguntas-de-comprensión" class="nav-link" data-scroll-target="#preguntas-de-comprensión">14. Preguntas de comprensión</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Crecimiento logístico: cuando la densidad frena el crecimiento</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Carlos Iván Espinosa </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">24/11/2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="una-pregunta" class="level2">
+<h2 class="anchored" data-anchor-id="una-pregunta">1. Una pregunta</h2>
+<p>En la hoya de Loja, una población de <em>Cedrela montana</em> ha sido monitoreada durante 20 años. Al principio, la población crecía rápidamente: de 10 árboles a 100 en pocos años. Pero luego el crecimiento se desaceleró. Después de 15 años, la población se estabilizó en alrededor de 200 árboles, y ya no creció más.</p>
+<p><strong>Pregunta:</strong> ¿por qué la población dejó de crecer? ¿Qué la está limitando?</p>
+<p>A primera vista, el modelo geométrico o exponencial predecirían que la población seguiría creciendo indefinidamente. Pero en la realidad, algo la frena. En esta lectura veremos por qué el modelo denso-independiente no siempre funciona, y cómo el <strong>modelo logístico</strong> describe el crecimiento cuando la densidad importa.</p>
+</section>
+<section id="por-qué-el-modelo-denso-independiente-falla" class="level2">
+<h2 class="anchored" data-anchor-id="por-qué-el-modelo-denso-independiente-falla">2. ¿Por qué el modelo denso-independiente falla?</h2>
+<p>Para entender por qué necesitamos un modelo denso-dependiente, veamos un caso real. En un estudio clásico de gorriones (<em>Passer domesticus</em>) en Estados Unidos, se monitoreó una población durante 36 años. Los datos muestran que la población no crece indefinidamente: crece hasta cierto nivel, luego decrece, y forma ciclos.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Pregunta:</strong> ¿qué pasaría si ajustáramos un modelo geométrico a los primeros 7 años de datos y proyectáramos?</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Conclusión:</strong> el modelo geométrico se aleja de lo que sucede en realidad. La población no crece indefinidamente: hay factores que la regulan. Esos factores son denso-dependientes.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>La lección
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Antes de modelar, siempre hay que mirar los datos. Si la población se estabiliza, fluctúa alrededor de un valor, o forma ciclos, el modelo denso-independiente no es adecuado. Necesitamos un modelo que incluya la denso-dependencia.</p>
+</div>
+</div>
+</section>
+<section id="qué-es-la-denso-dependencia" class="level2">
+<h2 class="anchored" data-anchor-id="qué-es-la-denso-dependencia">3. ¿Qué es la denso-dependencia?</h2>
+<p>La <strong>denso-dependencia</strong> es el efecto que tiene el tamaño de la población sobre su propia tasa de crecimiento. A medida que la población crece:</p>
+<ul>
+<li>Los recursos (alimento, espacio, luz) se vuelven limitantes.</li>
+<li>La competencia intraespecífica aumenta.</li>
+<li>La acumulación de desechos o parásitos puede reducir la supervivencia.</li>
+<li>La depredación puede aumentar.</li>
+</ul>
+<p><strong>Consecuencia:</strong> la tasa de crecimiento disminuye a medida que la población se acerca a su límite.</p>
+<p>Los ecólogos consideran que la denso-dependencia negativa es una característica de una población bajo competencia intraespecífica: los individuos de la misma especie compiten por recursos escasos compartidos.</p>
+</section>
+<section id="derivación-del-modelo-discreto-denso-dependiente" class="level2">
+<h2 class="anchored" data-anchor-id="derivación-del-modelo-discreto-denso-dependiente">4. Derivación del modelo discreto denso-dependiente</h2>
+<p>El modelo geométrico que vimos en la lectura 2.1–2.2 asume que la población crece indefinidamente. Ahora vamos a modificarlo para incorporar la denso-dependencia. Lo hacemos en versión discreta porque es la que se usa para poblaciones con reproducción estacional (como muchas especies de Loja).</p>
+<section id="del-modelo-geométrico-al-denso-dependiente" class="level3">
+<h3 class="anchored" data-anchor-id="del-modelo-geométrico-al-denso-dependiente">4.1 Del modelo geométrico al denso-dependiente</h3>
+<p>Partamos del modelo geométrico:</p>
+<p><span class="math display">\[N_{t+1} = \lambda N_t\]</span></p>
+<p>Podemos descomponer <span class="math inline">\(\lambda\)</span> en dos partes: <span class="math inline">\(\lambda = 1 + R_d\)</span>, donde <span class="math inline">\(R_d\)</span> es el <strong>factor de crecimiento discreto</strong>. Entonces:</p>
+<p><span class="math display">\[N_{t+1} = \lambda N_t = N_t(1 + R_d) = N_t + R_d N_t\]</span></p>
+<p>La tasa de incremento es igual a <span class="math inline">\(N_t\)</span> (el tamaño previo) más el cambio proporcional <span class="math inline">\(R_d N_t\)</span>.</p>
+</section>
+<section id="el-efecto-de-la-densidad" class="level3">
+<h3 class="anchored" data-anchor-id="el-efecto-de-la-densidad">4.2 El efecto de la densidad</h3>
+<p>La denso-dependencia plantea que cada individuo ejerce un pequeño efecto negativo sobre la tasa de crecimiento. Ese efecto es siempre el mismo, independiente del tamaño poblacional, y lo representamos con una constante <span class="math inline">\(\alpha\)</span>.</p>
+<p>Si multiplicamos <span class="math inline">\(\alpha\)</span> por el tamaño poblacional <span class="math inline">\(N_t\)</span> (<span class="math inline">\(\alpha N_t\)</span>), obtenemos el efecto negativo total de los individuos sobre el crecimiento.</p>
+<p>Una forma conveniente de implementar este efecto es multiplicar <span class="math inline">\(R_d\)</span> por un factor de escalamiento. Ese factor debe cumplir dos requisitos:</p>
+<ol type="1">
+<li>Ser igual a 1 cuando <span class="math inline">\(N = 0\)</span> (para que <span class="math inline">\(R_d \times 1 = R_d\)</span>).</li>
+<li>Ser igual a 0 cuando la población es tan grande que el incremento per cápita es cero.</li>
+</ol>
+<p>El factor que cumple estos requisitos es:</p>
+<p><span class="math display">\[\text{Incremento per cápita} = r_d(1 - \alpha N_t)\]</span></p>
+<p>Donde <span class="math inline">\(\alpha\)</span> es el efecto negativo per cápita de un individuo en el incremento per cápita de la población.</p>
+</section>
+<section id="dónde-se-detiene-el-crecimiento" class="level3">
+<h3 class="anchored" data-anchor-id="dónde-se-detiene-el-crecimiento">4.3 ¿Dónde se detiene el crecimiento?</h3>
+<p>Para conocer el valor de <span class="math inline">\(N\)</span> donde el crecimiento per cápita es cero, resolvemos:</p>
+<p><span class="math display">\[0 = r_d(1 - \alpha N_t)\]</span> <span class="math display">\[0 = r_d - r_d \alpha N_t\]</span> <span class="math display">\[N_t = \frac{1}{\alpha}\]</span></p>
+<p>Cuando la población alcanza <span class="math inline">\(N = 1/\alpha\)</span>, el incremento es cero y la población deja de crecer. Ese valor es la capacidad de carga <span class="math inline">\(K\)</span>:</p>
+<p><span class="math display">\[K = \frac{1}{\alpha}\]</span></p>
+</section>
+<section id="la-ecuación-discreta" class="level3">
+<h3 class="anchored" data-anchor-id="la-ecuación-discreta">4.4 La ecuación discreta</h3>
+<p>Sustituyendo <span class="math inline">\(1/\alpha\)</span> por <span class="math inline">\(K\)</span>, la ecuación de crecimiento queda:</p>
+<p><span class="math display">\[N_{t+1} = N_t + r_d \left(1 - \frac{N_t}{K}\right) N_t\]</span></p>
+<p>Esta es la versión discreta del modelo logístico. Es equivalente al modelo continuo (que veremos después), pero para poblaciones con reproducción estacional.</p>
+</section>
+<section id="simulación-del-modelo-discreto" class="level3">
+<h3 class="anchored" data-anchor-id="simulación-del-modelo-discreto">4.5 Simulación del modelo discreto</h3>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>También podemos ver cómo cambia el incremento total y el incremento per cápita con el tamaño poblacional:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>El <strong>incremento total</strong> es máximo en <span class="math inline">\(N = K/2\)</span> (punto de inflexión).</li>
+<li>El <strong>incremento per cápita</strong> disminuye linealmente con <span class="math inline">\(N\)</span>: a mayor densidad, menor crecimiento por individuo.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="cómo-estimar-alpha-y-k-a-partir-de-datos" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-estimar-alpha-y-k-a-partir-de-datos">5. ¿Cómo estimar <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(K\)</span> a partir de datos?</h2>
+<p>Ahora que tenemos el modelo, la pregunta es: ¿cómo obtenemos <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(K\)</span> de datos reales? Hay dos formas: gráfica y analítica.</p>
+<section id="estimación-gráfica" class="level3">
+<h3 class="anchored" data-anchor-id="estimación-gráfica">5.1 Estimación gráfica</h3>
+<p>La forma más sencilla es graficar el incremento per cápita (<span class="math inline">\(\lambda_t = N_{t+1}/N_t\)</span>) contra la densidad (<span class="math inline">\(N_t\)</span>). Si la relación es lineal y negativa, podemos ajustar una regresión:</p>
+<p><span class="math display">\[\lambda_t = 1 + r_d - r_d \alpha N_t\]</span></p>
+<p>O, equivalentemente:</p>
+<p><span class="math display">\[\lambda_t = a + b N_t\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(a = 1 + r_d\)</span> (intercepto)</li>
+<li><span class="math inline">\(b = -r_d \alpha\)</span> (pendiente)</li>
+</ul>
+<p>A partir de la regresión, podemos obtener:</p>
+<ul>
+<li><span class="math inline">\(r_d = a - 1\)</span></li>
+<li><span class="math inline">\(\alpha = -b / r_d = -b / (a - 1)\)</span></li>
+<li><span class="math inline">\(K = 1/\alpha\)</span></li>
+</ul>
+<p><strong>Ejemplo numérico:</strong> supongamos que tenemos estos datos de una población de <em>Cedrela montana</em>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Año</th>
+<th><span class="math inline">\(N_t\)</span></th>
+<th><span class="math inline">\(N_{t+1}\)</span></th>
+<th><span class="math inline">\(\lambda_t = N_{t+1}/N_t\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>10</td>
+<td>20</td>
+<td>2,00</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>20</td>
+<td>36</td>
+<td>1,80</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>36</td>
+<td>61</td>
+<td>1,69</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>61</td>
+<td>95</td>
+<td>1,56</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>95</td>
+<td>133</td>
+<td>1,40</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>133</td>
+<td>166</td>
+<td>1,25</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>166</td>
+<td>187</td>
+<td>1,13</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>187</td>
+<td>196</td>
+<td>1,05</td>
+</tr>
+</tbody>
+</table>
+<p>Si graficamos <span class="math inline">\(\lambda_t\)</span> contra <span class="math inline">\(N_t\)</span>, vemos una relación lineal negativa:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Interpretación:</strong></p>
+<ul>
+<li>El intercepto (<span class="math inline">\(a\)</span>) es aproximadamente 2,1, así que <span class="math inline">\(r_d \approx 1,1\)</span>.</li>
+<li>La pendiente (<span class="math inline">\(b\)</span>) es aproximadamente -0,0055, así que <span class="math inline">\(\alpha \approx 0,005\)</span>.</li>
+<li><span class="math inline">\(K = 1/\alpha \approx 200\)</span> árboles.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 1 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con los datos de la tabla, ajusten una regresión lineal de <span class="math inline">\(\lambda_t\)</span> contra <span class="math inline">\(N_t\)</span>.</p>
+<p>Reporten:</p>
+<p>1. El intercepto y la pendiente.</p>
+<p>2. El valor de <span class="math inline">\(r_d\)</span>.</p>
+<p>3. El valor de <span class="math inline">\(\alpha\)</span>. 4. El valor de <span class="math inline">\(K\)</span>.</p>
+</div>
+</div>
+</section>
+<section id="estimación-analítica" class="level3">
+<h3 class="anchored" data-anchor-id="estimación-analítica">5.2 Estimación analítica</h3>
+<p>También se puede estimar <span class="math inline">\(\alpha\)</span> y <span class="math inline">\(K\)</span> directamente de la ecuación logística, si se conocen dos puntos de la curva. Pero el método gráfico es más intuitivo y más usado en la práctica.</p>
+</section>
+<section id="qué-pasa-si-los-datos-no-son-lineales" class="level3">
+<h3 class="anchored" data-anchor-id="qué-pasa-si-los-datos-no-son-lineales">5.3 ¿Qué pasa si los datos no son lineales?</h3>
+<p>Si la relación entre <span class="math inline">\(\lambda_t\)</span> y <span class="math inline">\(N_t\)</span> no es lineal, el modelo logístico simple no es adecuado. En ese caso, pueden usarse modelos más complejos (por ejemplo, con denso-dependencia no lineal o con efecto Allee).</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Limitación importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El método gráfico asume que la relación es lineal y que no hay retrasos temporales. En la realidad, la denso-dependencia puede ser no lineal, y los efectos pueden tardar en manifestarse. Por eso, siempre hay que evaluar el ajuste del modelo a los datos.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="el-modelo-logístico-continuo" class="level2">
+<h2 class="anchored" data-anchor-id="el-modelo-logístico-continuo">6. El modelo logístico continuo</h2>
+<p>Ahora que entendemos la versión discreta, veamos la versión continua, que es más conocida en la literatura.</p>
+<section id="la-ecuación" class="level3">
+<h3 class="anchored" data-anchor-id="la-ecuación">6.1 La ecuación</h3>
+<p>El modelo logístico continuo se escribe así:</p>
+<p><span class="math display">\[\frac{dN}{dt} = r \cdot N \cdot \left(1 - \frac{N}{K}\right)\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(N\)</span> = tamaño de la población</li>
+<li><span class="math inline">\(r\)</span> = tasa intrínseca de crecimiento (equivalente a <span class="math inline">\(r_d\)</span> en el modelo discreto)</li>
+<li><span class="math inline">\(K\)</span> = capacidad de carga (equivalente a <span class="math inline">\(1/\alpha\)</span>)</li>
+<li><span class="math inline">\(\frac{dN}{dt}\)</span> = tasa de cambio de la población en el tiempo</li>
+</ul>
+<p><strong>Interpretación:</strong></p>
+<ul>
+<li>Cuando <span class="math inline">\(N\)</span> es pequeño, <span class="math inline">\(\left(1 - \frac{N}{K}\right) \approx 1\)</span>, y el crecimiento es casi exponencial.</li>
+<li>Cuando <span class="math inline">\(N\)</span> se acerca a <span class="math inline">\(K\)</span>, <span class="math inline">\(\left(1 - \frac{N}{K}\right) \approx 0\)</span>, y el crecimiento se frena.</li>
+<li>Cuando <span class="math inline">\(N = K\)</span>, el crecimiento es cero: la población se estabiliza.</li>
+</ul>
+</section>
+<section id="la-curva-sigmoidea" class="level3">
+<h3 class="anchored" data-anchor-id="la-curva-sigmoidea">6.2 La curva sigmoidea</h3>
+<p>La solución de la ecuación logística es una curva sigmoidea (forma de S):</p>
+<p><span class="math display">\[N_t = \frac{K}{1 + \left(\frac{K - N_0}{N_0}\right) \cdot e^{-rt}}\]</span></p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La curva tiene tres fases:</p>
+<ol type="1">
+<li><strong>Fase de crecimiento exponencial:</strong> al principio, cuando <span class="math inline">\(N\)</span> es pequeño, la población crece rápidamente.</li>
+<li><strong>Punto de inflexión:</strong> en <span class="math inline">\(N = K/2\)</span>, la tasa de crecimiento es máxima. Después de este punto, el crecimiento se desacelera.</li>
+<li><strong>Fase de estabilización:</strong> cuando <span class="math inline">\(N\)</span> se acerca a <span class="math inline">\(K\)</span>, el crecimiento se detiene.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>El punto de inflexión
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El punto de inflexión ocurre cuando <span class="math inline">\(N = K/2\)</span>. En ese punto, la tasa de crecimiento (<span class="math inline">\(\frac{dN}{dt}\)</span>) es máxima. Antes de ese punto, el crecimiento se acelera; después, se desacelera.</p>
+</div>
+</div>
+</section>
+<section id="efecto-de-r-y-k" class="level3">
+<h3 class="anchored" data-anchor-id="efecto-de-r-y-k">6.3 Efecto de <span class="math inline">\(r\)</span> y <span class="math inline">\(K\)</span></h3>
+<ul>
+<li><span class="math inline">\(r\)</span> controla la velocidad con la que la población se acerca a <span class="math inline">\(K\)</span>.</li>
+<li><span class="math inline">\(K\)</span> controla el tamaño máximo que la población puede alcanzar.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="efecto-del-tamaño-inicial-de-alpha-y-de-r_d" class="level2">
+<h2 class="anchored" data-anchor-id="efecto-del-tamaño-inicial-de-alpha-y-de-r_d">7. Efecto del tamaño inicial, de <span class="math inline">\(\alpha\)</span> y de <span class="math inline">\(r_d\)</span></h2>
+<section id="efecto-del-tamaño-inicial" class="level3">
+<h3 class="anchored" data-anchor-id="efecto-del-tamaño-inicial">7.1 Efecto del tamaño inicial</h3>
+<p>El tamaño inicial afecta la velocidad con la que la población se acerca a <span class="math inline">\(K\)</span>, pero no el valor final. <span class="math inline">\(K\)</span> funciona como un atractor: tanto si la población empieza por debajo como por encima de <span class="math inline">\(K\)</span>, tiende a <span class="math inline">\(K\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 2 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con <span class="math inline">\(K = 100\)</span>, si la población empieza en <span class="math inline">\(N_0 = 5\)</span> o en <span class="math inline">\(N_0 = 150\)</span>, ¿llega al mismo valor final? ¿Por qué?</p>
+</div>
+</div>
+</section>
+<section id="efecto-de-alpha" class="level3">
+<h3 class="anchored" data-anchor-id="efecto-de-alpha">7.2 Efecto de <span class="math inline">\(\alpha\)</span></h3>
+<p><span class="math inline">\(\alpha\)</span> determina el tamaño final de la población: a menor <span class="math inline">\(\alpha\)</span> (menor efecto negativo por individuo), mayor <span class="math inline">\(K\)</span>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="efecto-de-r_d" class="level3">
+<h3 class="anchored" data-anchor-id="efecto-de-r_d">7.3 Efecto de <span class="math inline">\(r_d\)</span></h3>
+<p><span class="math inline">\(r_d\)</span> controla la velocidad con la que la población se acerca a <span class="math inline">\(K\)</span>, pero no el valor final. Sin embargo, cuando <span class="math inline">\(r_d\)</span> es muy alto, aparecen dinámicas complejas: ciclos y caos.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:95.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="dinámicas-complejas-ciclos-y-caos" class="level2">
+<h2 class="anchored" data-anchor-id="dinámicas-complejas-ciclos-y-caos">8. Dinámicas complejas: ciclos y caos</h2>
+<p>Cuando <span class="math inline">\(r_d\)</span> es bajo, la población se aproxima suavemente a <span class="math inline">\(K\)</span>. Pero cuando <span class="math inline">\(r_d\)</span> aumenta, aparecen dinámicas sorprendentes:</p>
+<ul>
+<li><span class="math inline">\(r_d\)</span> bajo (1,3): la población crece gradualmente hacia <span class="math inline">\(K\)</span> y se queda allí.</li>
+<li><span class="math inline">\(r_d\)</span> intermedio (1,6–1,9): la población sobrepasa <span class="math inline">\(K\)</span> un poco, creando oscilaciones amortiguadas.</li>
+<li><span class="math inline">\(r_d = 2,0\)</span>–<span class="math inline">\(2,449\)</span>: la población forma ciclos límite de dos puntos. Estos dos puntos son atractores estables: independientemente de donde empiece la población, termina oscilando entre los mismos dos valores.</li>
+<li><span class="math inline">\(r_d = 2,5\)</span>: el ciclo se duplica a cuatro puntos.</li>
+<li><span class="math inline">\(r_d &gt; 2,57\)</span>: aparece el caos. La trayectoria es fluctuante, no periódica, pero acotada, y sensible a las condiciones iniciales.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>¿Qué es el caos?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El caos es una trayectoria fluctuante no determinista, que está acotada y es sensible a las condiciones iniciales. Dos poblaciones que empiezan con tamaños ligeramente distintos pueden divergir completamente con el tiempo, aunque el modelo sea determinista.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>La contribución de Robert May
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Robert May demostró por primera vez ciclos límite estables y caos utilizando este modelo, en la década de 1970. Su trabajo pionero, realizado con una calculadora de mano, mostró cómo dinámicas aparentemente aleatorias surgen de reglas deterministas muy simples. Hizo que los biólogos de población se preguntaran si la predicción era posible.</p>
+</div>
+</div>
+<p><strong>¿Existe una interpretación biológica de estas fluctuaciones?</strong></p>
+<p>Considera un ambiente sencillo donde pequeños animales herbívoros con altas tasas reproductivas comen casi toda la vegetación en un año. Al año siguiente, la vegetación no se ha recuperado, pero la población animal sigue siendo alta. Así, la alta tasa de crecimiento provoca una desconexión entre el tamaño actual de la población y los efectos negativos de esos individuos: los efectos negativos (consumo de recursos) los sienten los descendientes, no los individuos que los causaron. Es un retraso temporal incorporado en el modelo discreto.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 3 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Con <span class="math inline">\(r_d = 2,5\)</span>, ¿qué tipo de dinámica observas? ¿Y con <span class="math inline">\(r_d = 2,8\)</span>? ¿Qué implicaciones tiene esto para la predicción de poblaciones?</p>
+</div>
+</div>
+</section>
+<section id="cómo-decidir-entre-un-modelo-denso-independiente-y-uno-denso-dependiente" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-decidir-entre-un-modelo-denso-independiente-y-uno-denso-dependiente">9. ¿Cómo decidir entre un modelo denso-independiente y uno denso-dependiente?</h2>
+<p>Antes de ajustar un modelo, hay que decidir cuál usar. Aquí hay una guía práctica:</p>
+<section id="mira-los-datos-primero" class="level3">
+<h3 class="anchored" data-anchor-id="mira-los-datos-primero">9.1 Mira los datos primero</h3>
+<ul>
+<li>Si la población crece indefinidamente (o decrece) sin estabilizarse: el modelo denso-independiente puede ser adecuado, al menos a corto plazo.</li>
+<li>Si la población se estabiliza, fluctúa alrededor de un valor, o forma ciclos: el modelo denso-dependiente es más adecuado.</li>
+</ul>
+</section>
+<section id="prueba-estadística" class="level3">
+<h3 class="anchored" data-anchor-id="prueba-estadística">9.2 Prueba estadística</h3>
+<p>Puedes evaluar si la tasa de crecimiento per cápita (<span class="math inline">\(r_t\)</span> o <span class="math inline">\(\lambda_t\)</span>) depende de la densidad:</p>
+<ol type="1">
+<li>Calcula <span class="math inline">\(\lambda_t\)</span> para cada intervalo.</li>
+<li>Grafica <span class="math inline">\(\lambda_t\)</span> contra <span class="math inline">\(N_t\)</span>.</li>
+<li>Si hay una relación negativa significativa (por ejemplo, con una regresión), hay evidencia de denso-dependencia.</li>
+</ol>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="considera-la-biología-de-la-especie" class="level3">
+<h3 class="anchored" data-anchor-id="considera-la-biología-de-la-especie">9.3 Considera la biología de la especie</h3>
+<ul>
+<li><strong>Especies con competencia intraespecífica fuerte</strong> (árboles, aves territoriales): probablemente denso-dependientes.</li>
+<li><strong>Especies con recursos ilimitados</strong> (colonizadoras tempranas, insectos en ambientes temporales): pueden ser denso-independientes a corto plazo.</li>
+<li><strong>Especies con efecto Allee</strong> (dependen de la cooperación): denso-dependientes con retroalimentación positiva.</li>
+</ul>
+</section>
+<section id="considera-el-objetivo-del-modelo" class="level3">
+<h3 class="anchored" data-anchor-id="considera-el-objetivo-del-modelo">9.4 Considera el objetivo del modelo</h3>
+<ul>
+<li><strong>Si quieres predecir a corto plazo</strong> y la población está lejos de <span class="math inline">\(K\)</span>: el modelo denso-independiente puede ser suficiente.</li>
+<li><strong>Si quieres predecir a largo plazo</strong> o evaluar la sostenibilidad: necesitas un modelo denso-dependiente.</li>
+<li><strong>Si quieres evaluar el riesgo de extinción:</strong> necesitas un modelo con denso-dependencia y estocasticidad.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Regla práctica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si los datos muestran que la población se estabiliza o fluctúa alrededor de un valor, usa un modelo denso-dependiente. Si no tienes suficientes datos para detectar denso-dependencia, usa el denso-independiente como aproximación, pero discute sus limitaciones.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="es-factible-simular-con-el-modelo-logístico" class="level2">
+<h2 class="anchored" data-anchor-id="es-factible-simular-con-el-modelo-logístico">10. ¿Es factible simular con el modelo logístico?</h2>
+<p>Sí, es factible y muy útil. Las simulaciones con el modelo logístico permiten:</p>
+<section id="simulaciones-deterministas" class="level3">
+<h3 class="anchored" data-anchor-id="simulaciones-deterministas">10.1 Simulaciones deterministas</h3>
+<p>Con los parámetros <span class="math inline">\(r\)</span> y <span class="math inline">\(K\)</span> fijos, puedes proyectar la población a futuro. Eso permite:</p>
+<ul>
+<li>Estimar cuánto tiempo tarda una población en recuperarse después de una perturbación.</li>
+<li>Comparar escenarios con distintos valores de <span class="math inline">\(r\)</span> o <span class="math inline">\(K\)</span>.</li>
+<li>Identificar el punto de inflexión y la tasa máxima de crecimiento.</li>
+</ul>
+</section>
+<section id="simulaciones-estocásticas" class="level3">
+<h3 class="anchored" data-anchor-id="simulaciones-estocásticas">10.2 Simulaciones estocásticas</h3>
+<p>Puedes incorporar variación en <span class="math inline">\(r\)</span> o en <span class="math inline">\(K\)</span>:</p>
+<ul>
+<li><strong>Variación en</strong> <span class="math inline">\(r\)</span>: simula años buenos y malos, y evalúa cómo varía la trayectoria.</li>
+<li><strong>Variación en</strong> <span class="math inline">\(K\)</span>: simula cambios en la capacidad de carga (por ejemplo, por cambio climático o pérdida de hábitat).</li>
+<li><strong>Catástrofes:</strong> simula eventos extremos (incendios, sequías) que reducen la población abruptamente.</li>
+</ul>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Densodependiente_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Aplicación en conservación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Las simulaciones del modelo logístico son muy útiles para:</p>
+<p>- Estimar la población mínima viable (PMV) con denso-dependencia.</p>
+<p>- Evaluar el efecto de la pérdida de hábitat (que reduce <span class="math inline">\(K\)</span>).</p>
+<p>- Comparar estrategias de manejo (por ejemplo, reducir la mortalidad vs.&nbsp;aumentar <span class="math inline">\(K\)</span>).</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Paso 4 para el estudiante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Simula una población con <span class="math inline">\(K = 200\)</span> y <span class="math inline">\(r = 0,3\)</span>, pero con un evento catastrófico en el año 20 que reduce la población a la mitad. ¿Cuánto tarda en recuperarse? ¿Qué pasa si <span class="math inline">\(K\)</span> se reduce a 100 después de la catástrofe?</p>
+</div>
+</div>
+</section>
+</section>
+<section id="aplicación-local-cedrela-montana-en-la-hoya-de-loja" class="level2">
+<h2 class="anchored" data-anchor-id="aplicación-local-cedrela-montana-en-la-hoya-de-loja">11. Aplicación local: <em>Cedrela montana</em> en la hoya de Loja</h2>
+<p><em>Cedrela montana</em> es un árbol maderable que crece en los bosques montanos de la hoya de Loja. Su población está limitada por:</p>
+<ul>
+<li><strong>Competencia por luz:</strong> los árboles jóvenes necesitan luz para crecer, pero los adultos les hacen sombra.</li>
+<li><strong>Competencia por nutrientes:</strong> el suelo tiene una capacidad limitada de nutrientes.</li>
+<li><strong>Tala selectiva:</strong> reduce la población y puede alterar la capacidad de carga.</li>
+</ul>
+<p><strong>Pregunta ecológica:</strong> ¿cuál es la capacidad de carga de <em>Cedrela montana</em> en un fragmento de bosque de la hoya de Loja? ¿Cómo cambia con la tala?</p>
+<p><strong>Ejemplo hipotético:</strong> si un fragmento de bosque puede sostener 200 árboles de <em>Cedrela</em> (K = 200), pero la tala reduce la población a 50, la población podría recuperarse si se detiene la tala. Pero si la tala reduce K a 100, la población se estabilizará en 100, no en 200.</p>
+<p><strong>Conexión con la conservación:</strong> el modelo logístico permite estimar cuánto tiempo tarda una población en recuperarse después de una perturbación, y qué nivel de tala es sostenible.</p>
+</section>
+<section id="síntesis-y-puente" class="level2">
+<h2 class="anchored" data-anchor-id="síntesis-y-puente">12. Síntesis y puente</h2>
+<p>El <strong>modelo logístico</strong> describe el crecimiento denso-dependiente:</p>
+<p><span class="math display">\[\frac{dN}{dt} = r \cdot N \cdot \left(1 - \frac{N}{K}\right)\]</span></p>
+<p>La población sigue una <strong>curva sigmoidea</strong>: crece rápidamente al principio, se desacelera en el <strong>punto de inflexión</strong> (<span class="math inline">\(N = K/2\)</span>), y se estabiliza en la <strong>capacidad de carga</strong> (<span class="math inline">\(K\)</span>).</p>
+<p>En su versión discreta, el modelo se escribe:</p>
+<p><span class="math display">\[N_{t+1} = N_t + r_d \left(1 - \frac{N_t}{K}\right) N_t\]</span></p>
+<p>Donde <span class="math inline">\(K = 1/\alpha\)</span> y <span class="math inline">\(\alpha\)</span> es el efecto negativo per cápita de un individuo.</p>
+<p>Cuando <span class="math inline">\(r_d\)</span> es muy alto, aparecen <strong>ciclos límite</strong> y <strong>caos</strong>, lo que hace que la predicción a largo plazo sea imposible.</p>
+<p><strong>¿Cómo decidir entre denso-independiente y denso-dependiente?</strong> Mira los datos: si la población se estabiliza o fluctúa alrededor de un valor, usa el denso-dependiente. Si no tienes suficientes datos, usa el denso-independiente como aproximación, pero discute sus limitaciones.</p>
+<p><strong>¿Es factible simular?</strong> Sí, tanto con modelos deterministas como estocásticos. Las simulaciones permiten evaluar escenarios, estimar la PMV y comparar estrategias de manejo.</p>
+<p><strong>Pregunta final:</strong> ¿qué especie de Loja conoce que esté limitada por la densidad? ¿Cómo estimarían su capacidad de carga?</p>
+</section>
+<section id="para-profundizar" class="level2">
+<h2 class="anchored" data-anchor-id="para-profundizar">13. Para profundizar</h2>
+<ul>
+<li>Gotelli, N. J. (2008). <em>A Primer of Ecology</em>. 4th ed.&nbsp;Sinauer. Capítulo 2.</li>
+<li>Begon, M., Harper, J. L., &amp; Townsend, C. R. (2006). <em>Ecology: From Individuals to Ecosystems</em>. Blackwell. Capítulo 6.</li>
+<li>May, R. M. (1976). Simple mathematical models with very complicated dynamics. <em>Nature</em>, 261, 459–467.</li>
+</ul>
+</section>
+<section id="preguntas-de-comprensión" class="level2">
+<h2 class="anchored" data-anchor-id="preguntas-de-comprensión">14. Preguntas de comprensión</h2>
+<ol type="1">
+<li>¿Por qué el modelo geométrico falla cuando la población se estabiliza?</li>
+<li>¿Qué es la denso-dependencia? Da un ejemplo local.</li>
+<li>¿Qué representa <span class="math inline">\(K\)</span> en el modelo logístico?</li>
+<li>¿Qué es el punto de inflexión y por qué es importante?</li>
+<li>¿Cómo cambia la curva si <span class="math inline">\(r\)</span> aumenta? ¿Y si <span class="math inline">\(K\)</span> aumenta?</li>
+<li>Deriva la ecuación discreta del modelo logístico a partir del modelo geométrico.</li>
+<li>¿Qué es el efecto Allee? Da un ejemplo.</li>
+<li>¿Qué son los ciclos límite y el caos? ¿Cuándo aparecen?</li>
+<li>¿Cómo decidirías entre un modelo denso-independiente y uno denso-dependiente?</li>
+<li>¿Es factible simular con el modelo logístico? ¿Qué aplicaciones tiene?</li>
+<li>¿Qué limitaciones tiene el modelo logístico? Menciona al menos tres.</li>
+<li>¿Cómo se relaciona el modelo logístico con la conservación de <em>Cedrela montana</em> en la hoya de Loja?</li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

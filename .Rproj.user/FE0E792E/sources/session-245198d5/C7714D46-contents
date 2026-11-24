@@ -1,0 +1,18 @@
+library(tidyverse)
+spp <- unique(aves_sinteticas$especie)
+lambda <- function(x){
+            x1 <- x[-length(x)]
+            x2 <- x[-1]
+            xl <- x2/x1
+            return(xl)
+}
+aves_sinteticas |> 
+  dplyr::filter(especie == spp[2]) |> 
+  tidyr::pivot_wider(id_cols = anio, names_from = sitio, 
+                     values_from = registros, 
+                     values_fill = 0) |> 
+  dplyr::mutate(pop= rowSums(across(Cantera:BPCC)),
+                lambda = c(lambda(Colibri_5),NA),
+                lambda = ifelse(is.infinite(lambda), NA, lambda)) |> 
+  ggplot(aes(Colibri_5, lambda)) +
+    geom_point()

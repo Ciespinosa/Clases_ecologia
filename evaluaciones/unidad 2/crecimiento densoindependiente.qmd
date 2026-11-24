@@ -1,0 +1,431 @@
+---
+title: "Prueba — Crecimiento denso-independiente"
+subtitle: "Modelos geométrico y exponencial continuo"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "DD/MM/YYYY"
+format:
+  html:
+    toc: false
+    theme: cosmo
+    embed-resources: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+## Instrucciones
+
+- **Modalidad:** individual
+- **Duración:** 90 minutos
+- **Puntaje total:** 20 puntos (10 de opción múltiple + 10 de desarrollo)
+- **Formato de entrega:** PDF, subido a Canvas
+- **Material permitido:** apuntes de clase, lecturas 2.1–2.2 y 2.3, calculadora
+- **No permitido:** copiar de compañeros, buscar respuestas en internet, usar IA generativa
+
+::: {.callout-warning}
+## Sobre la originalidad
+Las respuestas de desarrollo deben estar escritas con sus propias palabras. Se calificará con **0** cualquier respuesta copiada literalmente de las lecturas, de internet o de otro compañero.
+:::
+
+---
+
+# Sección A — Opción múltiple (10 puntos)
+
+**Responda todas las preguntas. Cada una vale 0,67 puntos. Marque una sola opción.**
+
+## A1. ¿Por qué modelar?
+
+¿Cuál de las siguientes es una razón principal para usar modelos en ecología de poblaciones?
+
+- (a) Para predecir con certeza absoluta el tamaño futuro de una población.
+- (b) Para simplificar la realidad y explorar mecanismos y escenarios.
+- (c) Para reemplazar los muestreos de campo.
+- (d) Para demostrar que las poblaciones siempre crecen.
+
+## A2. Supuestos
+
+¿Qué es un supuesto en un modelo de crecimiento?
+
+- (a) Una condición que se asume verdadera para que el modelo funcione.
+- (b) Una variable que se mide en el campo.
+- (c) Un resultado que se obtiene al final del modelo.
+- (d) Un parámetro que siempre es constante en la naturaleza.
+
+## A3. Denso-independiente vs. denso-dependiente
+
+¿Cuál es la diferencia clave entre un modelo denso-independiente y uno denso-dependiente?
+
+- (a) El denso-independiente incluye inmigración; el denso-dependiente no.
+- (b) El denso-independiente asume que la tasa de crecimiento no depende del tamaño poblacional; el denso-dependiente asume que sí.
+- (c) El denso-independiente se usa solo para plantas; el denso-dependiente solo para animales.
+- (d) No hay diferencia; son sinónimos.
+
+## A4. Modelo geométrico
+
+¿En qué tipo de poblaciones se usa el modelo geométrico?
+
+- (a) Poblaciones con reproducción continua a lo largo del año.
+- (b) Poblaciones con reproducción estacional, en eventos discretos.
+- (c) Poblaciones que siempre están en capacidad de carga.
+- (d) Poblaciones con inmigración y emigración constantes.
+
+## A5. Interpretación de λ
+
+Si una población tiene $\lambda = 0,9$, ¿qué se puede concluir?
+
+- (a) La población crece un 90% cada año.
+- (b) La población decrece un 10% cada año.
+- (c) La población se mantiene estable.
+- (d) La población crece un 10% cada año.
+
+## A6. Cálculo de λ
+
+Una población pasa de 200 a 250 individuos en un año. ¿Cuál es su $\lambda$?
+
+- (a) 0,8
+- (b) 1,25
+- (c) 50
+- (d) 1,5
+
+## A7. Proyección
+
+Con $N_0 = 100$ y $\lambda = 1,2$, ¿cuántos individuos habrá en el año 3?
+
+- (a) 120
+- (b) 144
+- (c) 172,8
+- (d) 360
+
+## A8. Efecto del tamaño inicial
+
+Dos poblaciones crecen con la misma $\lambda = 2$, pero una parte de $N_0 = 10$ y la otra de $N_0 = 100$. ¿Qué se puede afirmar?
+
+- (a) La población que parte de 10 crece más rápido en términos relativos.
+- (b) Las dos crecen a la misma tasa relativa, pero la de 100 incrementa más individuos en términos absolutos.
+- (c) La población que parte de 100 tiene mayor $\lambda$.
+- (d) Las dos llegan al mismo tamaño en el mismo tiempo.
+
+## A9. Media aritmética vs. geométrica
+
+¿Por qué la media geométrica es más adecuada que la aritmética para promediar $\lambda$?
+
+- (a) Porque siempre es mayor que la aritmética.
+- (b) Porque el crecimiento es multiplicativo, no aditivo.
+- (c) Porque la media aritmética no se puede calcular con $\lambda$.
+- (d) Porque la media geométrica ignora la variación.
+
+## A10. Relación entre λ y r
+
+Si $\lambda = 2$, ¿cuál es el valor de $r$?
+
+- (a) 2
+- (b) 0,693
+- (c) 1
+- (d) 0,5
+
+## A11. Modelo exponencial continuo
+
+¿Cuál es la ecuación del modelo exponencial continuo?
+
+- (a) $N_{t+1} = \lambda \cdot N_t$
+- (b) $N_t = N_0 \cdot e^{rt}$
+- (c) $N_t = N_0 + rt$
+- (d) $N_t = \lambda^t / N_0$
+
+## A12. Tiempo de duplicación
+
+Si una población tiene $r = 0,1$ por año, ¿cuánto tarda en duplicarse?
+
+- (a) 0,1 años
+- (b) 6,93 años
+- (c) 10 años
+- (d) 100 años
+
+## A13. Simulaciones estocásticas
+
+¿Qué ventaja tienen las simulaciones estocásticas sobre los modelos deterministas?
+
+- (a) Son más fáciles de calcular.
+- (b) Incorporan la variación natural en las tasas y permiten estimar la incertidumbre.
+- (c) Predicen con certeza el futuro.
+- (d) No requieren datos de campo.
+
+## A14. Probabilidad de extinción
+
+Una población con $r$ promedio positivo puede tener alta probabilidad de extinción si:
+
+- (a) La variación en las tasas es alta.
+- (b) El tamaño inicial es grande.
+- (c) El tiempo de simulación es corto.
+- (d) La media geométrica es mayor que la aritmética.
+
+## A15. Conservación
+
+¿Cuál de las siguientes aplicaciones NO se puede hacer con los modelos de crecimiento denso-independiente?
+
+- (a) Estimar la probabilidad de extinción.
+- (b) Calcular el tiempo de duplicación.
+- (c) Proyectar el tamaño poblacional a futuro.
+- (d) Estimar la capacidad de carga de un ambiente.
+
+---
+
+# Sección B — Ejercicios de desarrollo (10 puntos)
+
+**Responda los 6 ejercicios. Cada uno vale según se indica. Muestre todos los cálculos.**
+
+## B1. Cálculo de λ y r (1,5 puntos)
+
+Una población de insectos anuales del bosque seco de Catamayo tiene los siguientes tamaños poblacionales:
+
+| Año | Individuos |
+|---|---|
+| 0 | 150 |
+| 1 | 210 |
+| 2 | 280 |
+| 3 | 350 |
+
+**a)** Calcula $\lambda$ para cada intervalo.
+**b)** ¿Es constante $\lambda$? ¿Qué implica eso?
+**c)** Calcula $r$ para cada intervalo y su media geométrica.
+**d)** ¿La población crece o decrece? Justifica.
+
+## B2. Proyección y tiempo de duplicación (1,5 puntos)
+
+Una población de mariposas tiene $N_0 = 20$ y $r = 0,15$ por año.
+
+**a)** Proyecta la población para los años 1, 5, 10 y 20 usando el modelo exponencial continuo.
+**b)** Calcula el tiempo de duplicación.
+**c)** ¿En cuántos años la población llegará a 500 individuos?
+**d)** ¿Qué supuestos estás haciendo al usar este modelo? Menciona al menos dos.
+
+## B3. Media aritmética vs. geométrica (1,5 puntos)
+
+Una población de aves tiene las siguientes tasas anuales: $\lambda_1 = 0,5$, $\lambda_2 = 1,5$, $\lambda_3 = 1,0$.
+
+**a)** Calcula la media aritmética de $\lambda$.
+**b)** Calcula la media geométrica de $\lambda$.
+**c)** Si la población inicial era de 100 individuos, ¿cuál sería el tamaño después de 3 años usando cada media?
+**d)** ¿Cuál de las dos medias predice mejor el tamaño real? Justifica.
+
+## B4. Simulación estocástica (2 puntos)
+
+Una población de aves tiene las siguientes tasas observadas en 10 años: $\lambda = [1,2; 0,8; 1,1; 1,3; 0,9; 1,0; 1,4; 0,7; 1,2; 1,1]$.
+
+**a)** Calcula la media aritmética y la media geométrica de $\lambda$.
+**b)** Si la población inicial es de 50 individuos, simula 5 trayectorias de 10 años eligiendo al azar una de las $\lambda$ observadas para cada año.
+**c)** ¿Las 5 trayectorias terminan en tamaños similares o distintos? ¿Por qué?
+**d)** ¿Qué nos dice esto sobre la importancia de la variación en las tasas?
+
+## B5. Probabilidad de extinción (2 puntos)
+
+En una simulación de 1.000 trayectorias de 50 años para una población de aves, 180 terminaron con $N = 0$.
+
+**a)** ¿Cuál es la probabilidad de extinción estimada?
+**b)** Si la media de $\lambda$ aumentara de 0,98 a 1,02, ¿qué esperarías que pasara con la probabilidad de extinción? ¿Por qué?
+**c)** Si la desviación estándar de $\lambda$ aumentara de 0,2 a 0,5, ¿qué esperarías que pasara con la probabilidad de extinción? ¿Por qué?
+**d)** ¿Qué es más importante para la persistencia: la media o la varianza de las tasas? Justifica con un ejemplo.
+
+## B6. Aplicación en conservación (1,5 puntos)
+
+Una población de *Tremarctos ornatus* en el Podocarpus tiene $N_0 = 30$ individuos y $r = 0,02$ por año. Se estima que la población mínima viable es de 50 individuos.
+
+**a)** ¿Cuánto tarda la población en duplicarse?
+**b)** ¿Cuánto tarda en llegar a 50 individuos?
+**c)** Si el cambio climático reduce $r$ a 0,01, ¿cómo cambian los tiempos anteriores?
+**d)** ¿Qué implicaciones tiene esto para la conservación de la especie? Menciona al menos dos acciones concretas.
+
+---
+
+# Rúbrica de evaluación
+
+**Total: 20 puntos.**
+
+## Sección A — Opción múltiple (10 puntos)
+
+Cada pregunta vale **0,67 puntos**. Respuesta correcta = 0,67; incorrecta = 0.
+
+**Clave de respuestas:**
+
+| Pregunta | Respuesta |
+|---|---|
+| A1 | b |
+| A2 | a |
+| A3 | b |
+| A4 | b |
+| A5 | b |
+| A6 | b |
+| A7 | c |
+| A8 | b |
+| A9 | b |
+| A10 | b |
+| A11 | b |
+| A12 | b |
+| A13 | b |
+| A14 | a |
+| A15 | d |
+
+## Sección B — Desarrollo (10 puntos)
+
+### B1. Cálculo de λ y r (1,5 puntos)
+
+| Criterio | 0,5 puntos | 0,25 puntos | 0 puntos |
+|---|---|---|---|
+| **a) Cálculo de λ** | Calcula correctamente los tres valores (1,4; 1,33; 1,25). | Calcula con errores menores. | No calcula o calcula mal. |
+| **b) Interpretación** | Identifica que λ no es constante y explica qué implica. | Menciona la variación sin explicar. | No interpreta. |
+| **c) Cálculo de r** | Calcula correctamente los tres valores y la media geométrica. | Calcula con errores menores. | No calcula. |
+| **d) Conclusión** | Concluye correctamente que la población crece y justifica. | Concluye sin justificar. | No concluye. |
+
+**Respuestas esperadas:**
+- a) $\lambda_1 = 210/150 = 1,4$; $\lambda_2 = 280/210 = 1,33$; $\lambda_3 = 350/280 = 1,25$.
+- b) No es constante; la tasa de crecimiento disminuye con el tiempo (posible denso-dependencia).
+- c) $r_1 = \ln(1,4) = 0,336$; $r_2 = \ln(1,33) = 0,285$; $r_3 = \ln(1,25) = 0,223$; media geométrica $\approx 0,280$.
+- d) La población crece porque todos los $\lambda > 1$.
+
+### B2. Proyección y tiempo de duplicación (1,5 puntos)
+
+| Criterio | 0,5 puntos | 0,25 puntos | 0 puntos |
+|---|---|---|---|
+| **a) Proyección** | Calcula correctamente los cuatro valores (23,2; 42,2; 89,4; 399,6). | Calcula con errores menores. | No calcula. |
+| **b) Tiempo de duplicación** | Calcula correctamente ($t_2 = 0,693/0,15 = 4,62$ años). | Calcula con errores menores. | No calcula. |
+| **c) Tiempo de alcance** | Calcula correctamente ($t = \ln(25)/0,15 = 21,5$ años). | Calcula con errores menores. | No calcula. |
+| **d) Supuestos** | Menciona al menos dos supuestos correctos (r constante, sin denso-dependencia, población cerrada). | Menciona un supuesto. | No menciona. |
+
+**Respuestas esperadas:**
+- a) $N_1 = 20e^{0,15} = 23,2$; $N_5 = 20e^{0,75} = 42,2$; $N_{10} = 20e^{1,5} = 89,4$; $N_{20} = 20e^{3} = 399,6$.
+- b) $t_2 = 0,693/0,15 = 4,62$ años.
+- c) $t = \ln(500/20)/0,15 = \ln(25)/0,15 = 21,5$ años.
+- d) Supuestos: $r$ constante, sin inmigración/emigración, recursos ilimitados.
+
+### B3. Media aritmética vs. geométrica (1,5 puntos)
+
+| Criterio | 0,5 puntos | 0,25 puntos | 0 puntos |
+|---|---|---|---|
+| **a) Media aritmética** | Calcula correctamente ($1,0$). | Calcula con errores menores. | No calcula. |
+| **b) Media geométrica** | Calcula correctamente ($\sqrt[3]{0,75} = 0,909$). | Calcula con errores menores. | No calcula. |
+| **c) Tamaño después de 3 años** | Calcula correctamente con cada media (100 con aritmética, 75 con geométrica). | Calcula con errores menores. | No calcula. |
+| **d) Comparación** | Identifica que la media geométrica predice mejor (75 es el valor real) y explica por qué. | Menciona la media geométrica sin explicar. | No compara. |
+
+**Respuestas esperadas:**
+- a) $(0,5 + 1,5 + 1,0)/3 = 1,0$.
+- b) $(0,5 \times 1,5 \times 1,0)^{1/3} = 0,75^{1/3} = 0,909$.
+- c) Con aritmética: $100 \times 1,0^3 = 100$. Con geométrica: $100 \times 0,909^3 = 75$.
+- d) La geométrica predice mejor porque el crecimiento es multiplicativo.
+
+### B4. Simulación estocástica (2 puntos)
+
+| Criterio | 0,5 puntos | 0,25 puntos | 0 puntos |
+|---|---|---|---|
+| **a) Medias** | Calcula correctamente la aritmética (1,07) y la geométrica (1,05). | Calcula con errores menores. | No calcula. |
+| **b) Simulación** | Simula 5 trayectorias correctamente. | Simula con errores menores. | No simula. |
+| **c) Comparación** | Identifica que las trayectorias terminan en tamaños distintos por la variación. | Menciona la variación sin explicar. | No compara. |
+| **d) Importancia de la variación** | Explica que la variación afecta la tasa de crecimiento a largo plazo. | Menciona la variación sin profundizar. | No explica. |
+
+**Respuestas esperadas:**
+- a) Media aritmética: $(1,2+0,8+1,1+1,3+0,9+1,0+1,4+0,7+1,2+1,1)/10 = 1,07$. Media geométrica: $(1,2 \times 0,8 \times 1,1 \times 1,3 \times 0,9 \times 1,0 \times 1,4 \times 0,7 \times 1,2 \times 1,1)^{1/10} = 1,05$.
+- b) Las 5 trayectorias terminan en tamaños distintos porque cada una elige tasas distintas al azar.
+- c) Las trayectorias difieren por la variación en las tasas.
+- d) La variación reduce la tasa de crecimiento a largo plazo (la media geométrica es menor que la aritmética).
+
+### B5. Probabilidad de extinción (2 puntos)
+
+| Criterio | 0,5 puntos | 0,25 puntos | 0 puntos |
+|---|---|---|---|
+| **a) Probabilidad** | Calcula correctamente (18%). | Calcula con errores menores. | No calcula. |
+| **b) Efecto de la media** | Explica que aumentar la media reduce la probabilidad de extinción. | Menciona el efecto sin explicar. | No explica. |
+| **c) Efecto de la varianza** | Explica que aumentar la varianza aumenta la probabilidad de extinción. | Menciona el efecto sin explicar. | No explica. |
+| **d) Media vs. varianza** | Argumenta que ambas importan, pero la varianza puede ser crítica en poblaciones pequeñas. | Menciona una sin comparar. | No argumenta. |
+
+**Respuestas esperadas:**
+- a) $180/1000 = 18\%$.
+- b) Aumentar la media reduce la probabilidad de extinción porque hay más años con crecimiento.
+- c) Aumentar la varianza aumenta la probabilidad de extinción porque hay más años con $\lambda$ muy bajas.
+- d) Ambas importan; en poblaciones pequeñas, la varianza puede ser más crítica porque un solo año malo puede llevar a la extinción.
+
+### B6. Aplicación en conservación (1,5 puntos)
+
+| Criterio | 0,5 puntos | 0,25 puntos | 0 puntos |
+|---|---|---|---|
+| **a) Tiempo de duplicación** | Calcula correctamente ($t_2 = 34,7$ años). | Calcula con errores menores. | No calcula. |
+| **b) Tiempo de alcance** | Calcula correctamente ($t = \ln(50/30)/0,02 = 25,5$ años). | Calcula con errores menores. | No calcula. |
+| **c) Efecto de reducir r** | Calcula correctamente con $r = 0,01$ ($t_2 = 69,3$ años; $t = 51,1$ años). | Calcula con errores menores. | No calcula. |
+| **d) Implicaciones** | Menciona al menos dos acciones concretas (proteger adultos, reducir mortalidad, crear corredores, monitoreo a largo plazo). | Menciona una acción. | No menciona. |
+
+**Respuestas esperadas:**
+- a) $t_2 = 0,693/0,02 = 34,7$ años.
+- b) $t = \ln(50/30)/0,02 = 25,5$ años.
+- c) Con $r = 0,01$: $t_2 = 69,3$ años; $t = 51,1$ años.
+- d) Acciones: proteger a los adultos reproductivos, reducir la mortalidad (por ejemplo, evitando atropellos), crear corredores entre fragmentos, monitoreo a largo plazo.
+
+---
+
+# Clave de respuestas detallada (solo para el docente)
+
+::: {.callout-note}
+## No publicar esta sección
+Esta clave es solo para el docente. En la versión del estudiante, eliminarla.
+:::
+
+## Sección A
+
+| Pregunta | Respuesta | Justificación |
+|---|---|---|
+| A1 | b | Los modelos simplifican la realidad para explorar mecanismos y escenarios. |
+| A2 | a | Un supuesto es una condición que se asume verdadera. |
+| A3 | b | La diferencia clave es si la tasa depende o no de la densidad. |
+| A4 | b | El modelo geométrico se usa para reproducción estacional. |
+| A5 | b | $\lambda = 0,9$ significa que la población decrece un 10% por año. |
+| A6 | b | $250/200 = 1,25$. |
+| A7 | c | $100 \times 1,2^3 = 172,8$. |
+| A8 | b | Las dos crecen a la misma tasa relativa, pero la de 100 incrementa más en absoluto. |
+| A9 | b | El crecimiento es multiplicativo, no aditivo. |
+| A10 | b | $r = \ln(2) = 0,693$. |
+| A11 | b | La ecuación es $N_t = N_0 \cdot e^{rt}$. |
+| A12 | b | $t_2 = 0,693/0,1 = 6,93$ años. |
+| A13 | b | Incorporan la variación y permiten estimar incertidumbre. |
+| A14 | a | La alta variación en las tasas aumenta el riesgo de extinción. |
+| A15 | d | La capacidad de carga es un concepto del modelo logístico (denso-dependiente), no del denso-independiente. |
+
+## Sección B
+
+Las respuestas esperadas están detalladas en la rúbrica de cada ejercicio.
+
+---
+
+# Instrucciones para el docente
+
+## Antes de la prueba
+
+1. **Publicar en Canvas** la versión del estudiante (sin la clave de respuestas).
+2. **Configurar la Sección A como cuestionario de opción múltiple** (calificación automática).
+3. **Configurar la Sección B como tarea de carga de PDF** (calificación manual con rúbrica).
+4. **Verificar** que los estudiantes tengan acceso a las lecturas 2.1–2.2 y 2.3.
+
+## Durante la prueba
+
+- **Tiempo:** 90 minutos.
+- **Supervisión:** si es presencial, circular por el aula.
+
+## Después de la prueba
+
+1. **Calificar** la Sección A automáticamente (Canvas lo hace).
+2. **Calificar** la Sección B con la rúbrica.
+3. **Devolver** con retroalimentación en un plazo de 7 días.
+4. **Revisar** en clase los ejercicios con mayor tasa de error.
+
+## Sobre el tiempo de calificación
+
+Con esta estructura:
+
+- **Sección A:** 15 preguntas de opción múltiple, calificación automática en Canvas (0 min de tu tiempo) o 1–2 min por estudiante si es a mano.
+- **Sección B:** 6 ejercicios de desarrollo, ~5–7 min por estudiante.
+
+**Total:** ~6–9 min por estudiante.
+
+## Sobre la dificultad
+
+- La Sección A evalúa comprensión conceptual y aplicación básica.
+- La Sección B evalúa cálculo, interpretación y aplicación en conservación.
+- Los ejercicios B3, B4 y B5 son los más exigentes. B6 es el más aplicado.

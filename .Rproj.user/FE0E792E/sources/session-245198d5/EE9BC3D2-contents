@@ -1,0 +1,640 @@
+---
+title: "Crecimiento logístico"
+subtitle: "Clase 2.4 — Denso-dependencia y capacidad de carga"
+author: "Carlos Iván Espinosa"
+date: last-modified
+date-format: "MM/YYYY"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    incremental: false
+    transition: slide
+    background-transition: fade
+---
+
+## Ecología de Poblaciones y Comunidades
+
+**Clase 2.4 — Crecimiento logístico**
+
+Carlos Iván Espinosa
+Universidad Técnica Particular de Loja
+
+---
+
+## Objetivos de la clase
+
+Al finalizar esta sesión, podrás:
+
+- **Explicar** por qué el modelo denso-independiente falla cuando la población se estabiliza
+- **Derivar** el modelo logístico discreto a partir del modelo geométrico
+- **Estimar** los parámetros $r_d$, $\alpha$ y $K$ a partir de datos
+- **Interpretar** la curva sigmoidea y el punto de inflexión
+- **Simular** escenarios y evaluar implicaciones para la conservación
+
+---
+
+# Parte 1: ¿Por qué falla el modelo denso-independiente?
+
+## Una pregunta desde Loja
+
+En la hoya de Loja, una población de *Cedrela montana* ha sido monitoreada durante 20 años:
+
+- Al principio crecía rápidamente: de 10 a 100 árboles.
+- Luego el crecimiento se desaceleró.
+- Después de 15 años, se estabilizó en ~200 árboles.
+
+> **¿Por qué la población dejó de crecer? ¿Qué la está limitando?**
+
+::: {.notes}
+Discutir 3 min. La idea es que vean que el modelo geométrico/exponencial predeciría crecimiento infinito, pero la realidad muestra estabilización.
+:::
+
+---
+
+## Un caso real: los gorriones
+
+En un estudio clásico, se monitoreó una población de gorriones durante 36 años:
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+library(primer)
+data(sparrows)
+plot(sparrows$Year, sparrows$Count, type = "b", pch = 19,
+     ylab = "Número de aves", xlab = "Año",
+     main = "Población de gorriones (36 años)")
+```
+
+La población **no crece indefinidamente**: fluctúa alrededor de un valor.
+
+---
+
+## ¿Qué pasa si ajustamos un modelo geométrico?
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+primeros7 <- sparrows[1:7, ]
+lambda7 <- mean(primeros7$Count[-1] / primeros7$Count[-length(primeros7$Count)])
+proy <- primeros7$Count[7] * lambda7^(0:29)
+
+plot(sparrows$Year, sparrows$Count, type = "b", pch = 19,
+     ylab = "Número de aves", xlab = "Año",
+     main = "Proyección con modelo geométrico")
+lines(sparrows$Year[7:36], proy, col = "red", lwd = 2, lty = 2)
+legend("topleft", legend = c("Datos", "Proyección"),
+       col = c("black", "red"), lty = c(1, 2), pch = c(19, NA),
+       lwd = c(1, 2), cex = 0.7)
+```
+
+::: {.fragment}
+El modelo geométrico **se aleja** de lo que sucede en realidad. Hay factores que regulan la población.
+:::
+
+---
+
+## La lección
+
+::: {.callout-note}
+## Antes de modelar, siempre hay que mirar los datos
+Si la población se estabiliza, fluctúa alrededor de un valor, o forma ciclos, el modelo denso-independiente **no es adecuado**. Necesitamos un modelo que incluya la denso-dependencia.
+:::
+
+---
+
+# Parte 2: ¿Qué es la denso-dependencia?
+
+## Definición
+
+La **denso-dependencia** es el efecto que tiene el tamaño de la población sobre su propia tasa de crecimiento.
+
+A medida que la población crece:
+
+- Los recursos se vuelven limitantes.
+- La competencia intraespecífica aumenta.
+- La acumulación de desechos reduce la supervivencia.
+- La depredación puede aumentar.
+
+::: {.fragment}
+**Consecuencia:** la tasa de crecimiento **disminuye** a medida que la población se acerca a su límite.
+:::
+
+---
+
+## Competencia intraespecífica
+
+Los ecólogos consideran que la denso-dependencia negativa es una característica de una población bajo **competencia intraespecífica**: los individuos de la misma especie compiten por recursos escasos compartidos.
+
+**Ejemplos locales:**
+
+- *Cedrela montana*: competencia por luz y nutrientes.
+- *Tremarctos ornatus*: competencia por alimento y territorio.
+- Insectos del bosque seco: competencia por recursos.
+
+---
+
+# Parte 3: Derivación del modelo discreto
+
+## Del modelo geométrico al denso-dependiente
+
+Partimos del modelo geométrico:
+
+$$N_{t+1} = \lambda N_t$$
+
+Descomponemos $\lambda = 1 + R_d$:
+
+$$N_{t+1} = N_t(1 + R_d) = N_t + R_d N_t$$
+
+::: {.fragment}
+La tasa de incremento es $N_t$ (el tamaño previo) más el cambio proporcional $R_d N_t$.
+:::
+
+---
+
+## El efecto de la densidad
+
+Cada individuo ejerce un **pequeño efecto negativo** sobre la tasa de crecimiento, representado por $\alpha$.
+
+El factor de escalamiento debe cumplir:
+
+1. Ser **1** cuando $N = 0$.
+2. Ser **0** cuando la población es tan grande que el incremento per cápita es cero.
+
+El factor que cumple esto es:
+
+$$\text{Incremento per cápita} = r_d(1 - \alpha N_t)$$
+
+---
+
+## ¿Dónde se detiene el crecimiento?
+
+Resolvemos para $N$ cuando el incremento per cápita es cero:
+
+$$0 = r_d(1 - \alpha N_t)$$
+$$N_t = \frac{1}{\alpha}$$
+
+Ese valor es la **capacidad de carga** $K$:
+
+$$K = \frac{1}{\alpha}$$
+
+---
+
+## La ecuación discreta
+
+Sustituyendo $1/\alpha$ por $K$:
+
+$$N_{t+1} = N_t + r_d \left(1 - \frac{N_t}{K}\right) N_t$$
+
+::: {.fragment}
+Esta es la versión **discreta** del modelo logístico, para poblaciones con reproducción estacional.
+:::
+
+---
+
+## Simulación del modelo discreto
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+dlogistic <- function(alpha = 0.01, rd = 1, N0 = 2, t = 15) {
+  N <- c(N0, numeric(t))
+  for (i in 1:t) {
+    N[i + 1] <- N[i] + rd * N[i] * (1 - alpha * N[i])
+  }
+  return(N)
+}
+
+Nts <- dlogistic()
+t <- 15
+alpha <- 0.01
+
+plot(0:t, Nts, type = "b", pch = 19, ylim = c(0, 115),
+     xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+     main = "Crecimiento logístico discreto")
+abline(h = 1/alpha, lty = 3, col = "red")
+text(10, 108, "K = 1/α = 100", col = "red")
+```
+
+---
+
+## Incremento total y per cápita
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+total.incr <- Nts[1:t + 1] - Nts[1:t]
+per.capita.incr <- total.incr / Nts[1:t]
+
+par(mfrow = c(1, 2), mar = c(3, 3, 2, 1))
+plot(Nts[1:t], total.incr, pch = 19,
+     xlab = "N", ylab = "Incremento total",
+     main = "Incremento total vs. N")
+plot(Nts[1:t], per.capita.incr, pch = 19,
+     xlab = "N", ylab = "Incremento per cápita",
+     main = "Incremento per cápita vs. N")
+abline(h = 0, lty = 2)
+```
+
+::: {.fragment}
+El **incremento total** es máximo en $N = K/2$ (punto de inflexión). El **incremento per cápita** disminuye con $N$.
+:::
+
+---
+
+# Parte 4: ¿Cómo estimar $\alpha$ y $K$ a partir de datos?
+
+## Estimación gráfica
+
+Graficamos el **incremento per cápita** ($\lambda_t = N_{t+1}/N_t$) contra la densidad ($N_t$):
+
+$$\lambda_t = a + b N_t$$
+
+Donde:
+
+- $a = 1 + r_d$ (intercepto)
+- $b = -r_d \alpha$ (pendiente)
+
+A partir de la regresión:
+
+- $r_d = a - 1$
+- $\alpha = -b / r_d$
+- $K = 1/\alpha$
+
+---
+
+## Ejemplo numérico: *Cedrela montana*
+
+Supongamos que tenemos estos datos:
+
+| Año | $N_t$ | $N_{t+1}$ | $\lambda_t$ |
+|---|---|---|---|
+| 1 | 10 | 20 | 2,00 |
+| 2 | 20 | 36 | 1,80 |
+| 3 | 36 | 61 | 1,69 |
+| 4 | 61 | 95 | 1,56 |
+| 5 | 95 | 133 | 1,40 |
+| 6 | 133 | 166 | 1,25 |
+| 7 | 166 | 187 | 1,13 |
+| 8 | 187 | 196 | 1,05 |
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+N_t <- c(10, 20, 36, 61, 95, 133, 166, 187)
+lambda_t <- c(2.00, 1.80, 1.69, 1.56, 1.40, 1.25, 1.13, 1.05)
+
+plot(N_t, lambda_t, pch = 19, cex = 1.5,
+     xlab = "Densidad (N)", ylab = "Tasa de crecimiento (λ)",
+     main = "Estimación de α y K")
+abline(lm(lambda_t ~ N_t), col = "red", lwd = 2)
+
+modelo <- lm(lambda_t ~ N_t)
+a <- coef(modelo)[1]
+b <- coef(modelo)[2]
+rd <- a - 1
+alpha <- -b / rd
+K <- 1 / alpha
+
+text(100, 1.8, paste("λ =", round(a, 2), "+", round(b, 4), "× N"),
+     col = "red", cex = 1)
+text(100, 1.6, paste("r_d =", round(rd, 2)), col = "blue", cex = 1)
+text(100, 1.4, paste("α =", round(alpha, 4)), col = "blue", cex = 1)
+text(100, 1.2, paste("K =", round(K, 1)), col = "blue", cex = 1)
+abline(h = 1, lty = 2, col = "gray")
+```
+
+::: {.fragment}
+$r_d \approx 1,1$; $\alpha \approx 0,005$; $K \approx 200$.
+:::
+
+---
+
+## Pregunta para discutir
+
+> Si la relación entre $\lambda_t$ y $N_t$ **no es lineal**, ¿qué implicaciones tiene para el modelo logístico?
+
+::: {.notes}
+Discutir 5 min. La relación no lineal sugiere denso-dependencia más compleja (efecto Allee, umbrales, retrasos temporales). El modelo logístico simple no sería adecuado.
+:::
+
+---
+
+# Parte 5: El modelo logístico continuo
+
+## La ecuación
+
+El modelo logístico continuo se escribe:
+
+$$\frac{dN}{dt} = r \cdot N \cdot \left(1 - \frac{N}{K}\right)$$
+
+Donde:
+
+- $r$ = tasa intrínseca de crecimiento (equivalente a $r_d$)
+- $K$ = capacidad de carga (equivalente a $1/\alpha$)
+
+::: {.fragment}
+Es la versión continua del modelo discreto que acabamos de derivar.
+:::
+
+---
+
+## La curva sigmoidea
+
+La solución es una **curva sigmoidea** (forma de S):
+
+$$N_t = \frac{K}{1 + \left(\frac{K - N_0}{N_0}\right) \cdot e^{-rt}}$$
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+crec_log <- function(N0, r, K, t) {
+  K / (1 + ((K - N0) / N0) * exp(-r * t))
+}
+
+t <- seq(0, 50, by = 0.5)
+N <- crec_log(N0 = 10, r = 0.3, K = 200, t)
+
+plot(t, N, type = "l", lwd = 2, ylim = c(0, 220),
+     xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+     main = "Curva de crecimiento logístico")
+abline(h = 200, lty = 2, col = "red", lwd = 2)
+text(40, 210, "K = 200", col = "red")
+abline(v = 15, lty = 3, col = "blue")
+text(16, 62, "Punto de inflexión", col = "blue", srt = 90, cex = 0.8)
+```
+
+---
+
+## Las tres fases
+
+1. **Crecimiento exponencial:** al principio, cuando $N$ es pequeño, la población crece rápidamente.
+2. **Punto de inflexión:** en $N = K/2$, la tasa de crecimiento es máxima. Después, se desacelera.
+3. **Estabilización:** cuando $N$ se acerca a $K$, el crecimiento se detiene.
+
+::: {.fragment}
+El **punto de inflexión** es donde la tasa de crecimiento es máxima.
+:::
+
+---
+
+## Efecto de $r$ y $K$
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+t <- seq(0, 50, by = 0.5)
+N1 <- crec_log(10, 0.1, 200, t)
+N2 <- crec_log(10, 0.3, 200, t)
+N3 <- crec_log(10, 0.6, 200, t)
+
+matplot(t, cbind(N1, N2, N3), type = "l", lty = 1, lwd = 2,
+        xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+        main = "Efecto de r (misma K = 200)")
+legend("bottomright", legend = c("r = 0,1", "r = 0,3", "r = 0,6"),
+       col = 1:3, lty = 1, lwd = 2)
+```
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+N1 <- crec_log(10, 0.3, 100, t)
+N2 <- crec_log(10, 0.3, 200, t)
+N3 <- crec_log(10, 0.3, 500, t)
+
+matplot(t, cbind(N1, N2, N3), type = "l", lty = 1, lwd = 2,
+        xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+        main = "Efecto de K (misma r = 0,3)")
+legend("bottomright", legend = c("K = 100", "K = 200", "K = 500"),
+       col = 1:3, lty = 1, lwd = 2)
+```
+
+::: {.fragment}
+$r$ controla la **velocidad**; $K$ controla el **tamaño máximo**.
+:::
+
+---
+
+# Parte 6: Efectos del tamaño inicial, $\alpha$ y $r_d$
+
+## Efecto del tamaño inicial
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+set.seed(42)
+N0s <- c(0.1, runif(10) * 1.1 * 100)
+t_efecto <- 15
+N <- sapply(N0s, function(n) dlogistic(N0 = n, t = t_efecto))
+
+matplot(0:t_efecto, N, type = "l", lty = 1, lwd = 1.2, col = rgb(0, 0, 0, 0.5),
+        xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+        main = "Efecto del tamaño inicial")
+abline(h = 100, lty = 2, col = "red")
+text(10, 105, "K = 100", col = "red")
+```
+
+::: {.fragment}
+$K$ funciona como un **atractor**: tanto si la población empieza por debajo como por encima de $K$, tiende a $K$.
+:::
+
+---
+
+## Efecto de $\alpha$
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+set.seed(42)
+a.s <- 1 / runif(10, min = 50, max = 1000)
+t_efecto <- 15
+N <- sapply(a.s, function(a) dlogistic(alpha = a, t = t_efecto))
+
+matplot(0:t_efecto, N, type = "l", lty = 1, lwd = 1.2, col = rgb(0, 0, 0, 0.5),
+        xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+        main = "Efecto de α")
+```
+
+::: {.fragment}
+$\alpha$ determina el **tamaño final**: a menor $\alpha$, mayor $K$.
+:::
+
+---
+
+## Efecto de $r_d$: ciclos y caos
+
+```{r, echo=FALSE, fig.align='center', out.width='95%', fig.height=5}
+rd.v <- seq(1.3, 2.8, by = 0.3)
+t_efecto <- 30
+Ns <- data.frame(sapply(rd.v, function(r) dlogistic(rd = r, t = t_efecto)))
+
+par(mfrow = c(2, 3), mar = c(3, 3, 2, 1))
+for (i in seq_along(rd.v)) {
+  plot(0:t_efecto, Ns[, i], type = "l", lwd = 1.5,
+       xlab = "", ylab = "", main = paste("r_d =", rd.v[i]),
+       ylim = c(0, max(Ns[, i]) * 1.1))
+  abline(h = 100, lty = 2, col = "red")
+}
+```
+
+---
+
+## Dinámicas complejas
+
+- **$r_d$ bajo (1,3):** aproximación suave a $K$.
+- **$r_d$ intermedio (1,6–1,9):** oscilaciones amortiguadas.
+- **$r_d = 2,0$–$2,449$:** ciclos límite de dos puntos.
+- **$r_d = 2,5$:** ciclo de cuatro puntos.
+- **$r_d > 2,57$:** caos.
+
+::: {.fragment}
+Robert May demostró que dinámicas aparentemente aleatorias pueden surgir de reglas deterministas simples.
+:::
+
+---
+
+## Pregunta para discutir
+
+> Con $r_d = 2,5$, ¿qué tipo de dinámica observas? ¿Y con $r_d = 2,8$?
+>
+> **¿Qué implicaciones tiene esto para la predicción de poblaciones?**
+
+::: {.notes}
+Discutir 5 min. El caos hace que la predicción a largo plazo sea imposible. Esto es importante para la conservación: no siempre podemos predecir con certeza.
+:::
+
+---
+
+# Parte 7: ¿Denso-independiente o denso-dependiente?
+
+## Guía práctica
+
+### 1. Mira los datos primero
+
+- **Crecimiento indefinido:** denso-independiente.
+- **Estabilización o ciclos:** denso-dependiente.
+
+### 2. Prueba estadística
+
+- Grafica $\lambda_t$ contra $N_t$.
+- Si hay relación negativa significativa, hay denso-dependencia.
+
+---
+
+## Guía práctica (continuación)
+
+### 3. Considera la biología
+
+- **Competencia fuerte** (árboles, aves territoriales): denso-dependiente.
+- **Recursos ilimitados** (colonizadoras): denso-independiente a corto plazo.
+- **Efecto Allee:** denso-dependiente con retroalimentación positiva.
+
+### 4. Considera el objetivo
+
+- **Corto plazo:** denso-independiente puede ser suficiente.
+- **Largo plazo o conservación:** denso-dependiente.
+
+::: {.fragment}
+**Regla práctica:** si los datos muestran estabilización, usa denso-dependiente.
+:::
+
+---
+
+# Parte 8: Simulaciones y conservación
+
+## ¿Es factible simular?
+
+**Sí, y es muy útil.**
+
+### Simulaciones deterministas
+
+- Proyectar la población con $r$ y $K$ fijos.
+- Estimar tiempos de recuperación.
+- Comparar escenarios.
+
+### Simulaciones estocásticas
+
+- Incorporar variación en $r$ o $K$.
+- Simular catástrofes.
+- Evaluar riesgo de extinción.
+
+---
+
+## Ejemplo de simulación estocástica
+
+```{r, echo=FALSE, fig.align='center', out.width='90%', fig.height=4}
+set.seed(42)
+sims <- 50
+t_sim <- 50
+N0 <- 10
+K <- 200
+
+resultados <- matrix(NA, t_sim + 1, sims)
+resultados[1, ] <- N0
+
+for (s in 1:sims) {
+  r_sim <- rnorm(t_sim, mean = 0.3, sd = 0.1)
+  for (i in 1:t_sim) {
+    N <- resultados[i, s]
+    resultados[i + 1, s] <- N + r_sim[i] * N * (1 - N / K)
+    if (resultados[i + 1, s] < 0) resultados[i + 1, s] <- 0
+  }
+}
+
+matplot(0:t_sim, resultados, type = "l", lty = 1,
+        col = rgb(0, 0, 0, 0.1),
+        xlab = "Tiempo", ylab = "Tamaño de la población (N)",
+        main = "Simulaciones estocásticas")
+abline(h = K, lty = 2, col = "red")
+```
+
+---
+
+## Aplicaciones en conservación
+
+- Estimar la **población mínima viable** (PMV) con denso-dependencia.
+- Evaluar el efecto de la **pérdida de hábitat** (que reduce $K$).
+- Comparar estrategias de manejo.
+- Identificar **umbrales críticos**.
+
+::: {.callout-note}
+## Conexión con Loja
+Estas herramientas se usan para evaluar la viabilidad de *Cedrela montana* en fragmentos de bosque de la hoya de Loja, o de *Tremarctos ornatus* en el Podocarpus.
+:::
+
+---
+
+## Pregunta para discutir
+
+> Simula una población con $K = 200$ y $r = 0,3$, pero con un evento catastrófico en el año 20 que reduce la población a la mitad.
+>
+> **¿Cuánto tarda en recuperarse? ¿Qué pasa si $K$ se reduce a 100 después de la catástrofe?**
+
+::: {.notes}
+Discutir 5 min. La recuperación depende de r y de la diferencia entre N y K. Si K se reduce, la población se estabiliza en el nuevo K, que puede estar por debajo del umbral crítico.
+:::
+
+---
+
+# Cierre
+
+## Síntesis
+
+- El modelo **logístico** describe el crecimiento denso-dependiente:
+  $$N_{t+1} = N_t + r_d \left(1 - \frac{N_t}{K}\right) N_t$$
+- La población sigue una **curva sigmoidea**: crecimiento rápido, punto de inflexión ($N = K/2$), estabilización en $K$.
+- $K = 1/\alpha$, donde $\alpha$ es el efecto negativo per cápita.
+- Se puede **estimar** $\alpha$ y $K$ ajustando una regresión de $\lambda_t$ contra $N_t$.
+- Cuando $r_d$ es alto, aparecen **ciclos y caos**.
+- Las **simulaciones** permiten evaluar escenarios y estimar riesgos.
+
+---
+
+## Pregunta final
+
+> ¿Qué especie de Loja conoce que esté limitada por la densidad?
+>
+> **¿Cómo estimarían su capacidad de carga?**
+
+::: {.notes}
+Recoger respuestas. Conectar con el ejercicio de la semana.
+:::
+
+---
+
+## Puente a la próxima clase
+
+- **Hoy:** crecimiento logístico y denso-dependencia
+- **Próxima clase:** metapoblaciones (fuente-sumidero, modelo de Levins)
+- **Recordatorio:** el Ejercicio 5 está abierto en Canvas
+
+Gracias.
+
+---
+
+# Materiales del curso
+
+- 📖 [Lectura 2.4 — Crecimiento logístico](https://TU-USUARIO.github.io/curso-ecologia/lecturas/06-crecimiento-logistico.html)
+- 📝 [Ejercicio 5 — Modelo denso-dependiente](https://TU-USUARIO.github.io/curso-ecologia/ejercicios/07-modelo-densodependiente.html)
