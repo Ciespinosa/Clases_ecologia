@@ -1,0 +1,4 @@
+[1,"==> quarto preview evaluaciones/unidad 2/crecimiento densoindependiente.qmd --to html --no-watch-inputs --no-browse\n\n"]
+[1,"pandoc \n  to: html\n  output-file: crecimiento densoindependiente.html\n  standalone: true\n  embed-resources: true\n  section-divs: true\n  html-math-method: mathjax\n  wrap: none\n  default-image-extension: png\n  toc: false\n  \nmetadata\n  document-css: false\n  link-citations: true\n  lang: en\n  title: Prueba — Crecimiento denso-independiente\n  subtitle: Modelos geométrico y exponencial continuo\n  author: Carlos Iván Espinosa\n  date: last-modified\n  date-format: DD/MM/YYYY\n  theme: cosmo\n  \n"]
+[1,"Output created: crecimiento densoindependiente.html\n\nWatching files for changes\n"]
+[1,"Browse at http://localhost:4314/evaluaciones/unidad 2/crecimiento densoindependiente.html\nListening on http://127.0.0.1:4314/\n"]
